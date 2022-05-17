@@ -39,7 +39,7 @@
 			"type": "Array"
 		},
         "BpsVirtualBladeImageName": {
-			"defaultValue": "Ixia_BreakingPoint_Virtual_Blade_9.10.u3",
+			"defaultValue": "Ixia_BreakingPoint_Virtual_Blade_9.20",
 			"type": "String"
 		},
 		"BpsVirtualBladeVmSize": {
