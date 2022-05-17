@@ -9,12 +9,12 @@ variable "AzureSubscriptionId" {
 
 variable "AzureResourceGroupName" {
 	type = string
-	default = "Ixia_VE_Azure_9.10"
+	default = "Ixia_VE_Azure_9.20"
 }
 
 variable "IxiaImagesResourceGroupName" {
 	type = string
-	default = "Ixia_VE_Azure_9.10"
+	default = "Ixia_VE_Azure_9.20"
 }
 
 variable "DiagnosticsStorageAccountName" {
@@ -29,7 +29,7 @@ variable "MgmtSecurityRuleSourceIpPrefix" {
 
 variable "BpsSystemControllerImageName" {
 	type = string
-	default = "Ixia_BreakingPoint_Virtual_Controller_9.10.u3"
+	default = "Ixia_BreakingPoint_Virtual_Controller_9.20"
 }
 
 variable "BpsSystemControllerVmSize" {
@@ -43,7 +43,7 @@ variable "BpsSystemControllerVmSize" {
 
 variable "BpsVirtualBladeImageName" {
 	type = string
-	default = "Ixia_BreakingPoint_Virtual_Blade_9.10.u3"
+	default = "Ixia_BreakingPoint_Virtual_Blade_9.20"
 }
 
 variable "BpsVirtualBladeVmSize" {
