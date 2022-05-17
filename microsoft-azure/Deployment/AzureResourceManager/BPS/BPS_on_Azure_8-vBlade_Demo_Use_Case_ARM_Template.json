@@ -11,7 +11,7 @@
 			"type": "String"
 		},
         "BpsSystemControllerImageName": {
-			"defaultValue": "Ixia_BreakingPoint_Virtual_Controller_9.10.u3",
+			"defaultValue": "Ixia_BreakingPoint_Virtual_Controller_9.20",
 			"type": "String"
 		},
         "BpsSystemControllerVmSize": {
@@ -23,7 +23,7 @@
 			]
 		},
         "BpsVirtualBladeImageName": {
-			"defaultValue": "Ixia_BreakingPoint_Virtual_Blade_9.10.u3",
+			"defaultValue": "Ixia_BreakingPoint_Virtual_Blade_9.20",
 			"type": "String"
 		},
 		"BpsVirtualBladeVmSize": {
