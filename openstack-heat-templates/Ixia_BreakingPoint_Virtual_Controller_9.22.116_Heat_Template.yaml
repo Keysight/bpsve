@@ -1,0 +1,44 @@
+heat_template_version: 2013-05-23
+
+
+description: >
+  Version: 9.22.116 
+    This is the Heat Template used for BPS VE deployment in OpenStack-based environments. It can be used with BPS VE product with version 9.00 or newer.
+    The template will create 1 Virtual Machine  (named "Virtual_Controller").
+    The Ixia_BreakingPoint_Virtual_Controller_9.22.116_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
+
+
+parameters:
+
+    Management_Network:
+      type:        string
+      label:       BPS Management Network - Name
+      description: The name of the MANAGEMENT NETWORK that is already configured in OpenStack
+
+    Virtual_Controller_Name:
+      type:        string
+      label:       BPS Virtual Controller - Instance Name
+      description: The name of the BPS VIRTUAL CONTROLLER to be created
+
+    Virtual_Controller_Image_Name:
+      type:        string
+      label:       BPS Virtual Controller - Image Name
+      description: The QCOW2 image to be used for the BPS VIRTUAL CONTROLLER
+
+    Virtual_Controller_Flavor:
+      type:        string
+      label:       BPS Virtual Controller - Flavor
+      description: The resources required for each BPS VIRTUAL CONTROLLER are 8 vCPU, 8 GB RAM, 30 GB HDD  
+      
+resources:
+       
+  Virtual_Controller:
+    type:                OS::Nova::Server
+    properties:
+      name:              {get_param:    Virtual_Controller_Name}
+      image:             {get_param:    Virtual_Controller_Image_Name}
+      flavor:            {get_param:    Virtual_Controller_Flavor}
+      networks:
+        - network:       {get_param:    Management_Network }
+
+# outputs:

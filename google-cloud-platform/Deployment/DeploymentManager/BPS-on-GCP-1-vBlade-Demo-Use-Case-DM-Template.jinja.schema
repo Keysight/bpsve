@@ -1,0 +1,308 @@
+---
+info:
+  title: BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja.schema
+
+imports:
+- path: BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
+
+properties:
+  GCP_PROJECT_NAME:
+    type: string
+    default: open-ixia
+    
+  GCP_REGION_NAME:
+    type: string
+    default: us-central1
+
+  GCP_ZONE_NAME:
+    type: string
+    default: us-central1-a
+
+  GCP_OWNER_TAG:
+    type: string
+    default: gcp-ixia@google.com
+
+  GCP_LOGIN_ID_TAG:
+    type: string
+    default: gcp-ixia
+
+  GCP_PROJECT_TAG:
+    type: string
+    default: open-ixia-gcp-bps
+
+  GCP_OPTIONS_TAG:
+    type: string
+    default: MANUAL
+    
+  GCP_MGMT_VPC_NETWORK_NAME:
+    type: string
+    default: management-vpc-network
+
+  GCP_MGMT_SUBNET_NAME:
+    type: string
+    default: management-subnet
+
+  GCP_MGMT_SUBNET_IP_RANGE:
+    type: string
+    default: 10.0.10.0/24
+
+  GCP_MGMT_FIREWALL_RULE_NAME:
+    type: string
+    default: management-firewall-rule
+
+  GCP_MGMT_FIREWALL_RULE_DIRECTION:
+    type: string
+    default: INGRESS
+
+  GCP_MGMT_FIREWALL_RULE_PRIORITY:
+    type: integer
+    default: 1000
+
+  GCP_MGMT_FIREWALL_RULE_PORTS:
+    type: array
+    default:
+    - 22
+    - 80
+    - 443
+
+  GCP_MGMT_FIREWALL_RULE_NETWORK_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vcontroller
+    - bps-vblade
+
+  GCP_MGMT_FIREWALL_RULE_SOURCE_IP_RANGES:
+    type: array
+    default:
+    - 1.1.1.1/32
+
+  GCP_CONSOLE_FIREWALL_RULE_NAME:
+    type: string
+    default: gcp-console-firewall-rule
+
+  GCP_CONSOLE_FIREWALL_RULE_DIRECTION:
+    type: string
+    default: INGRESS
+
+  GCP_CONSOLE_FIREWALL_RULE_PRIORITY:
+    type: integer
+    default: 1001
+
+  GCP_CONSOLE_FIREWALL_RULE_PORTS:
+    type: array
+    default:
+    - 22
+
+  GCP_CONSOLE_FIREWALL_RULE_NETWORK_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vcontroller
+    - bps-vblade
+
+  GCP_CONSOLE_FIREWALL_RULE_SOURCE_IP_RANGES:
+    type: array
+    default:
+    - 35.190.247.111/32
+    
+  GCP_CONTROL_FIREWALL_RULE_NAME:
+    type: string
+    default: control-firewall-rule
+
+  GCP_CONTROL_FIREWALL_RULE_DIRECTION:
+    type: string
+    default: INGRESS
+
+  GCP_CONTROL_FIREWALL_RULE_PRIORITY:
+    type: integer
+    default: 1003
+
+  GCP_CONTROL_FIREWALL_RULE_PORTS:
+    type: string
+    default: all
+
+  GCP_CONTROL_FIREWALL_RULE_SOURCE_TAGS:
+    type: array
+    default:
+    - bps-vcontroller
+    - bps-vblade
+
+  GCP_CONTROL_FIREWALL_RULE_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vcontroller
+    - bps-vblade
+    
+  GCP_TEST1_VPC_NETWORK_NAME:
+    type: string
+    default: test-01-vpc-network
+
+  GCP_TEST1_SUBNET_NAME:
+    type: string
+    default: test-01-subnet
+
+  GCP_TEST1_SUBNET_IP_RANGE:
+    type: string
+    default: 10.0.2.0/24
+
+  GCP_TEST1_FIREWALL_RULE_NAME:
+    type: string
+    default: test-01-firewall-rule
+
+  GCP_TEST1_FIREWALL_RULE_DIRECTION:
+    type: string
+    default: INGRESS
+
+  GCP_TEST1_FIREWALL_RULE_PRIORITY:
+    type: integer
+    default: 1000
+
+  GCP_TEST1_FIREWALL_RULE_PORTS:
+    type: string
+    default: all
+
+  GCP_TEST1_FIREWALL_RULE_SOURCE_IP_RANGES:
+    type: array
+    default:
+    - 10.0.2.0/24
+    - 10.0.3.0/24
+
+  GCP_TEST1_FIREWALL_RULE_SOURCE_TAGS:
+    type: array
+    default:
+    - bps-vblade
+
+  GCP_TEST1_FIREWALL_RULE_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vblade
+
+  GCP_TEST2_VPC_NETWORK_NAME:
+    type: string
+    default: test-02-vpc-network
+
+  GCP_TEST2_FIREWALL_RULE_NAME:
+    type: string
+    default: test-02-firewall-rule
+
+  GCP_TEST2_FIREWALL_RULE_DIRECTION:
+    type: string
+    default: INGRESS
+
+  GCP_TEST2_FIREWALL_RULE_PRIORITY:
+    type: integer
+    default: 1000
+
+  GCP_TEST2_FIREWALL_RULE_PORTS:
+    type: string
+    default: all
+
+  GCP_TEST2_FIREWALL_RULE_SOURCE_IP_RANGES:
+    type: array
+    default:
+    - 10.0.2.0/24
+    - 10.0.3.0/24
+
+  GCP_TEST2_FIREWALL_RULE_SOURCE_TAGS:
+    type: array
+    default:
+    - bps-vblade
+
+  GCP_TEST2_FIREWALL_RULE_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vblade
+
+  GCP_TEST2_SUBNET_NAME:
+    type: string
+    default: test-02-subnet
+
+  GCP_TEST2_SUBNET_IP_RANGE:
+    type: string
+    default: 10.0.3.0/24
+
+  GCP_VCONTROLLER_INSTANCE_NAME:
+    type: string
+    default: bps-vcontroller-01
+
+  GCP_VCONTROLLER_SERIAL_PORT_ENABLE:
+    type: string
+    default: "'true'"
+
+  GCP_VCONTROLLER_CAN_IP_FORWARD:
+    type: boolean
+    default: false
+
+  GCP_VCONTROLLER_CUSTOM_IMAGE_PROJECT_NAME:
+    type: string
+    default: open-ixia
+
+  GCP_VCONTROLLER_CUSTOM_IMAGE_FAMILY_NAME:
+    type: string
+    default: ixia-breakingpoint-virtual-controller-9-22-116
+
+  GCP_VCONTROLLER_MACHINE_TYPE:
+    type: string
+    default: n1-standard-4
+
+  GCP_VCONTROLLER_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME:
+    type: string
+    default: bps-vcontroller-01-eth0-ip-addr
+
+  GCP_VCONTROLLER_NETWORK_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vcontroller
+
+  GCP_VBLADE_INSTANCE_NAME:
+    type: string
+    default: bps-vblade-01
+    
+  GCP_VBLADE_SERIAL_PORT_ENABLE:
+    type: string
+    default: "'true'"
+
+  GCP_VBLADE_CAN_IP_FORWARD:
+    type: boolean
+    default: true
+
+  GCP_VBLADE_CUSTOM_IMAGE_PROJECT_NAME:
+    type: string
+    default: open-ixia
+
+  GCP_VBLADE_CUSTOM_IMAGE_FAMILY_NAME:
+    type: string
+    default: ixia-breakingpoint-virtual-blade-9-22-116
+
+  GCP_VBLADE_MACHINE_TYPE:
+    type: string
+    default: c2-standard-8
+
+  GCP_VBLADE_IFACE_ETH0_PRIVATE_IP_ADDRESS:
+    type: string
+    default: 10.0.10.11
+
+  GCP_VBLADE_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME:
+    type: string
+    default: bps-vblade-01-eth0-ip-addr
+
+  GCP_VBLADE_IFACE_ETH1_PRIVATE_IP_ADDRESS:
+    type: string
+    default: 10.0.2.15
+
+  GCP_VBLADE_IFACE_ETH1_PRIVATE_IP_ALIASES:
+    type: string
+    default: /28
+
+  GCP_VBLADE_IFACE_ETH2_PRIVATE_IP_ADDRESS:
+    type: string
+    default: 10.0.3.15
+
+  GCP_VBLADE_IFACE_ETH2_PRIVATE_IP_ALIASES:
+    type: string
+    default: /28
+
+  GCP_VBLADE_NETWORK_TARGET_TAGS:
+    type: array
+    default:
+    - bps-vblade
+#eof

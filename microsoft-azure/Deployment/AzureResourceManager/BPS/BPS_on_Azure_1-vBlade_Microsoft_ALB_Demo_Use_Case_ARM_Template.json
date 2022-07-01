@@ -1,0 +1,1231 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "MgmtSecurityRuleSourceIpPrefix": {
+			"defaultValue": "42.42.42.42/32",
+			"type": "String"
+		},
+        "BpsSystemControllerPageBlobName": {
+			"defaultValue": "bps-system-controller-disk.vhd",
+			"type": "String"
+		},
+        "BpsSystemControllerVmSize": {
+			"defaultValue": "Standard_F4s",
+			"type": "String",
+			"allowedValues": [
+				"Standard_F4s",
+				"Standard_F4s_v2"
+			]
+		},
+        "BpsVirtualBlade1PageBlobName": {
+			"defaultValue": "bps-virtual-blade1-disk.vhd",
+			"type": "String"
+		},
+		"BpsVirtualBladeVmSize": {
+			"defaultValue": "Standard_F16s",
+			"type": "String",
+			"allowedValues": [
+				"Standard_F16s",
+				"Standard_F8s",
+				"Standard_F4s"
+			]
+		},
+		"PageBlobsStorageAccountName": {
+			"defaultValue": "vhds2019",
+			"type": "String"
+		},
+        "DiagnosticsStorageAccountName": {
+			"defaultValue": "ixiadiagnostics",
+			"type": "String"
+		},
+        "OptionalVMPrefix": {
+			"defaultValue": "Ixia",
+			"type": "String"
+		},
+		"UserEmailTag": {
+			"defaultValue": "Optional-Email-Tag",
+			"type": "String"
+		},
+		"UserProjectTag": {
+			"defaultValue": "Optional-Project-Tag",
+			"type": "String"
+		},
+		"UserOptionsTag": {
+			"defaultValue": "Optional-Options-Tag",
+			"type": "String"
+		}
+	},
+    "variables": {
+        "apiVersion": "2018-06-01",
+		"SubscriptionId" : "[subscription().subscriptionId]",
+		"OptionalVMPrefix": "[parameters('OptionalVMPrefix')]",
+		"UserEmailTag": "[parameters('UserEmailTag')]",
+		"UserProjectTag": "[parameters('UserProjectTag')]",
+		"UserOptionsTag": "[parameters('UserOptionsTag')]",
+		"PageBlobsStorageAccountName": "[parameters('PageBlobsStorageAccountName')]",
+		"DiagnosticsStorageAccountName": "[parameters('DiagnosticsStorageAccountName')]",
+        "VnetName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VNET')]",
+        "VnetAddressPrefix": "10.0.0.0/16",
+		"AgwSubnetName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VNET_AGW_SUBNET')]",
+        "AgwSubnetPrefix": "10.0.9.0/24",
+        "MgmtSubnetName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VNET_MGMT_SUBNET')]",
+        "MgmtSubnetPrefix": "10.0.10.0/24",
+        "Test1SubnetName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VNET_TEST1_SUBNET')]",
+        "Test1SubnetPrefix": "10.0.1.0/24",
+        "Test2SubnetName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VNET_TEST2_SUBNET')]",
+        "Test2SubnetPrefix": "10.0.2.0/24",
+        "MgmtNetworkSecurityGroupName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_NETWORK_SECURITY_GROUP')]",  	
+        "Test1NetworkSecurityGroupName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_TEST1_NETWORK_SECURITY_GROUP')]",  	
+        "Test2NetworkSecurityGroupName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_TEST2_NETWORK_SECURITY_GROUP')]",	
+        "MgmtSshSecurityRuleName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_SSH_RULE')]",
+        "MgmtHttpSecurityRuleName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_WEB_RULE')]",
+        "MgmtHttpsSecurityRuleName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_HTTPS_RULE')]",
+        "MgmtSecurityRuleSourceIpPrefix": "[parameters('MgmtSecurityRuleSourceIpPrefix')]",
+        "Test1HttpSecurityRuleName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_TEST1_WEB_RULE')]",
+		"Test2HttpSecurityRuleName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_TEST2_WEB_RULE')]",
+        "BpsSystemControllerEth0Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_SYSTEM_CONTROLLER_ETH0')]",
+        "BpsSystemControllerEth1Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_SYSTEM_CONTROLLER_ETH1')]",
+        "BpsVirtualBlade1Eth0Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH0')]",
+        "BpsVirtualBlade1Eth1Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH1')]",
+        "BpsVirtualBlade1Eth2Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH2')]",
+		"BpsVirtualBlade1Eth3Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH3')]",   
+		"BpsVirtualBlade1Eth4Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH4')]",  
+		"BpsVirtualBlade1Eth5Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH5')]",   
+		"BpsVirtualBlade1Eth6Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH6')]",
+        "BpsVirtualBlade1Eth7Name": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_VIRTUAL_BLADE1_ETH7')]",
+        "BpsSystemControllerEth1IpAddress": "10.0.11.10",
+        "BpsVirtualBlade1Eth0IpAddress": "10.0.11.11",
+        "BpsVirtualBlade1Eth1IpAddresses": ["10.0.1.10"],
+        "BpsVirtualBlade1Eth2IpAddresses": ["10.0.1.11"],
+        "BpsVirtualBlade1Eth3IpAddresses": ["10.0.1.12"],
+        "BpsVirtualBlade1Eth4IpAddresses": ["10.0.1.13"],
+        "BpsVirtualBlade1Eth5IpAddresses": ["10.0.2.10"],
+        "BpsVirtualBlade1Eth6IpAddresses": ["10.0.2.11"],
+        "BpsVirtualBlade1Eth7IpAddresses": ["10.0.2.12"],
+        "BpsSystemControllerName": "[concat(variables('OptionalVMPrefix'), '-', 'BPS-AZURE-SYSTEM-CONTROLLER')]",
+		"BpsSystemControllerDnsLabel": "[concat(toLower(replace(resourceGroup().name, '_', '-')), '-', 'bps-sys-ctrl', '-', substring(uniqueString(resourceGroup().id),0,6))]",
+        "BpsSystemControllerEnableAcceleratedNetworking": false,
+        "BpsSystemControllerEnableIPForwarding": false,
+		"BpsSystemControllerBootDiagnosticsEnabled": true,
+        "BpsSystemControllerVmSize": "[parameters('BpsSystemControllerVmSize')]",
+		"BpsSystemControllerDiskSizeGB": "20",
+        "BpsVirtualBlade1Name": "[concat(variables('OptionalVMPrefix'), '-', 'BPS-AZURE-VIRTUAL-BLADE1')]",
+		"BpsVirtualBlade1DnsLabel": "[concat(toLower(replace(resourceGroup().name, '_', '-')), '-', 'bps-vblade-1', '-', substring(uniqueString(resourceGroup().id),0,6))]",
+        "BpsVirtualBladeEnableAcceleratedNetworking": true,
+        "BpsVirtualBladeEnableIPForwarding": true,
+		"BpsVirtualBladeBootDiagnosticsEnabled": true,
+        "BpsVirtualBladeVmSize": "[parameters('BpsVirtualBladeVmSize')]",
+		"BpsVirtualBladeDiskSizeGB": "14",
+        "MgmtPublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_PUBLIC_IP')]",
+        "BpsVirtualBlade1Eth0PublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_BPS_VIRTUAL_BLADE1_ETH0_PUBLIC_IP')]",
+        "BpsVirtualBlade1Eth5PublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_BPS_VIRTUAL_BLADE1_ETH5_PUBLIC_IP')]",
+        "BpsVirtualBlade1Eth6PublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_BPS_VIRTUAL_BLADE1_ETH6_PUBLIC_IP')]",
+        "BpsVirtualBlade1Eth7PublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_BPS_VIRTUAL_BLADE1_ETH7_PUBLIC_IP')]",
+        "BpsSystemControllerPageBlobName": "[parameters('BpsSystemControllerPageBlobName')]",
+		"BpsSystemControllerPageBlobPath": "[concat('/vhds/', variables('BpsSystemControllerPageBlobName'))]",
+		"BpsSystemControllerCreateOption": "Attach",
+        "BpsVirtualBlade1PageBlobName": "[parameters('BpsVirtualBlade1PageBlobName')]",
+		"BpsVirtualBlade1PageBlobPath": "[concat('/vhds/', variables('BpsVirtualBlade1PageBlobName'))]",
+		"BpsVirtualBladeCreateOption": "Attach",
+        "applicationGateways_AGW_name": "AGW",
+        "publicIPAddresses_AGW_ip_name": "AGW-ip",
+        "applicationGateways_AGW_id": "/subscriptions/a99363fb-4a5d-40a2-9399-26ff8b123caa/resourceGroups/ALB-2018-EAST-US/providers/Microsoft.Network/applicationGateways/AGW/frontendIPConfigurations/appGatewayFrontendIP",
+        "applicationGateways_AGW_id_1": "/subscriptions/a99363fb-4a5d-40a2-9399-26ff8b123caa/resourceGroups/ALB-2018-EAST-US/providers/Microsoft.Network/applicationGateways/AGW/frontendPorts/appGatewayFrontendPort",
+        "applicationGateways_AGW_id_2": "/subscriptions/a99363fb-4a5d-40a2-9399-26ff8b123caa/resourceGroups/ALB-2018-EAST-US/providers/Microsoft.Network/applicationGateways/AGW/httpListeners/appGatewayHttpListener",
+        "applicationGateways_AGW_id_3": "/subscriptions/a99363fb-4a5d-40a2-9399-26ff8b123caa/resourceGroups/ALB-2018-EAST-US/providers/Microsoft.Network/applicationGateways/AGW/backendAddressPools/appGatewayBackendPool",
+        "applicationGateways_AGW_id_4": "/subscriptions/a99363fb-4a5d-40a2-9399-26ff8b123caa/resourceGroups/ALB-2018-EAST-US/providers/Microsoft.Network/applicationGateways/AGW/backendHttpSettingsCollection/appGatewayBackendHttpSettings",
+	},
+    "resources": [
+        {
+            "type": "Microsoft.Network/virtualNetworks",
+            "name": "[variables('VnetName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "[variables('VnetAddressPrefix')]"
+                    ]
+                },
+                "subnets": [
+                    {
+                        "name": "[variables('AgwSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('AgwSubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[variables('MgmtSubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('MgmtSubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[variables('Test1SubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('Test1SubnetPrefix')]"
+                        }
+                    },
+                    {
+                        "name": "[variables('Test2SubnetName')]",
+                        "properties": {
+                            "addressPrefix": "[variables('Test2SubnetPrefix')]"
+                        }
+                    }
+                ],
+                "virtualNetworkPeerings": []
+            },
+            "dependsOn": []
+        },    
+
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(variables('VnetName'), '/', variables('AgwSubnetName'))]",
+            "apiVersion": "[variables('apiVersion')]",
+            "scale": null,
+            "properties": {
+                "addressPrefix": "[variables('AgwSubnetPrefix')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('VnetName'))]"
+            ]
+        },
+	
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(variables('VnetName'), '/', variables('MgmtSubnetName'))]",
+            "apiVersion": "[variables('apiVersion')]",
+            "scale": null,
+            "properties": {
+                "addressPrefix": "[variables('MgmtSubnetPrefix')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('VnetName'))]"
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(variables('VnetName'), '/', variables('Test1SubnetName'))]",
+            "apiVersion": "[variables('apiVersion')]",
+            "scale": null,
+            "properties": {
+                "addressPrefix": "[variables('Test1SubnetPrefix')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('VnetName'))]"
+            ]
+        },
+        
+        {
+            "type": "Microsoft.Network/virtualNetworks/subnets",
+            "name": "[concat(variables('VnetName'), '/', variables('Test2SubnetName'))]",
+            "apiVersion": "[variables('apiVersion')]",
+            "scale": null,
+            "properties": {
+                "addressPrefix": "[variables('Test2SubnetPrefix')]"
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks', variables('VnetName'))]"
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[variables('MgmtNetworkSecurityGroupName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "[variables('MgmtHttpsSecurityRuleName')]",
+                        "properties": {
+                            "description": "Allow HTTPS",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "443",
+                            "sourceAddressPrefix": "[variables('MgmtSecurityRuleSourceIpPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 100,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "[variables('MgmtSshSecurityRuleName')]",
+                        "properties": {
+                            "description": "Allow SSH",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "22",
+                            "sourceAddressPrefix": "[variables('MgmtSecurityRuleSourceIpPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 101,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    },
+                    {
+                        "name": "[variables('MgmtHttpSecurityRuleName')]",
+                        "properties": {
+                            "description": "Allow HTTP",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "[variables('MgmtSecurityRuleSourceIpPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 102,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        }, 
+
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[variables('Test1NetworkSecurityGroupName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "[variables('Test1HttpSecurityRuleName')]",
+                        "properties": {
+                            "description": "Allow HTTP",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "[variables('MgmtSecurityRuleSourceIpPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 102,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        }, 
+
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "name": "[variables('Test2NetworkSecurityGroupName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "securityRules": [
+                    {
+                        "name": "[variables('Test2HttpSecurityRuleName')]",
+                        "properties": {
+                            "description": "Allow HTTP",
+                            "protocol": "Tcp",
+                            "sourcePortRange": "*",
+                            "destinationPortRange": "80",
+                            "sourceAddressPrefix": "[variables('MgmtSecurityRuleSourceIpPrefix')]",
+                            "destinationAddressPrefix": "*",
+                            "access": "Allow",
+                            "priority": 102,
+                            "direction": "Inbound",
+                            "sourceAddressPrefixes": [],
+                            "destinationAddressPrefixes": []
+                        }
+                    }
+                ]
+            },
+            "dependsOn": []
+        }, 
+        
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsSystemControllerEth0Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('MgmtPublicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('MgmtSubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsSystemControllerEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsSystemControllerEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('MgmtNetworkSecurityGroupName'))]"
+                },
+                "primary": true,
+                "virtualMachine": {
+                    "id": "[resourceId('Microsoft.Compute/virtualMachines', variables('BpsSystemControllerName'))]"
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('MgmtSubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('MgmtNetworkSecurityGroupName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('MgmtPublicIpAddressName'))]"
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth0Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth0IpAddress')]",
+                            "privateIPAllocationMethod": "Static",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('BpsVirtualBlade1Eth0PublicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('MgmtSubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('MgmtNetworkSecurityGroupName'))]"
+                },
+                "primary": true
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('MgmtSubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('MgmtNetworkSecurityGroupName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('BpsVirtualBlade1Eth0PublicIpAddressName'))]"
+            ]
+        },      
+ 
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth1Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth1IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+				"[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]",
+				"[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"
+            ]
+        },
+ 
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth2Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth2IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                 ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"				
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth3Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth3IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                 ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"		
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth4Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]"
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth4IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                 ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test1SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test1NetworkSecurityGroupName'))]"             		
+            ]
+        },
+
+       {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth5Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth5IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+							"publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('BpsVirtualBlade1Eth5PublicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"
+            ]
+        },
+ 
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth6Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth6IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+							"publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('BpsVirtualBlade1Eth6PublicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                 ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"             
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "name": "[variables('BpsVirtualBlade1Eth7Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "ipConfigurations": [
+                    {
+                        "name": "ipconfig1",
+                        "properties": {
+                            "privateIPAddress": "[variables('BpsVirtualBlade1Eth7IpAddresses')[0]]",
+                            "privateIPAllocationMethod": "Static",
+							"publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('BpsVirtualBlade1Eth7PublicIpAddressName'))]"
+                            },
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]"
+                            },
+                            "primary": true,
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                 ],
+                "dnsSettings": {
+                    "dnsServers": [],
+                    "appliedDnsServers": []
+                },
+                "enableAcceleratedNetworking": "[variables('BpsVirtualBladeEnableAcceleratedNetworking')]",
+                "enableIPForwarding": "[variables('BpsVirtualBladeEnableIPForwarding')]",
+                "networkSecurityGroup": {
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"
+                },
+                "primary": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('Test2SubnetName'))]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', variables('Test2NetworkSecurityGroupName'))]"
+            ]
+        },
+
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('MgmtPublicIpAddressName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "[variables('BpsSystemControllerDnsLabel')]",
+                    "fqdn": "[concat(variables('BpsSystemControllerDnsLabel'),'.', resourceGroup().location,'.cloudapp.azure.com')]"
+                }
+            },
+            "dependsOn": []
+        },
+
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('BpsVirtualBlade1Eth0PublicIpAddressName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "[variables('BpsVirtualBlade1DnsLabel')]",
+                    "fqdn": "[concat(variables('BpsVirtualBlade1DnsLabel'),'.', resourceGroup().location,'.cloudapp.azure.com')]"
+                }
+            },
+            "dependsOn": []
+        },
+
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('BpsVirtualBlade1Eth5PublicIpAddressName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('BpsVirtualBlade1Eth6PublicIpAddressName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "name": "[variables('BpsVirtualBlade1Eth7PublicIpAddressName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4
+            },
+            "dependsOn": []
+        },
+		
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "sku": {
+                "name": "Basic",
+                "tier": "Regional"
+            },
+            "name": "[variables('publicIPAddresses_AGW_ip_name')]",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "ipTags": []
+            },
+            "dependsOn": []
+        },		
+	
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[variables('BpsSystemControllerName')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+			    "Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[variables('BpsSystemControllerVmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat('disk_', variables('BpsSystemControllerName'))]",
+                        "createOption": "[variables('BpsSystemControllerCreateOption')]",
+                        "vhd": {
+                            "uri": "[concat('https', '://', variables('PageBlobsStorageAccountName'), '.blob.core.windows.net', variables('BpsSystemControllerPageBlobPath'))]"
+                        },
+                        "caching": "ReadWrite",
+                        "diskSizeGB": "[variables('BpsSystemControllerDiskSizeGB')]"
+                    },
+                    "dataDisks": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsSystemControllerEth0Name'))]",
+                            "properties": {
+                                "primary": true
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsSystemControllerEth1Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": "[variables('BpsSystemControllerBootDiagnosticsEnabled')]",
+                        "storageUri": "[concat('https', '://', variables('DiagnosticsStorageAccountName'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsSystemControllerEth0Name'))]"
+            ]
+        },
+
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "name": "[variables('BpsVirtualBlade1Name')]",
+            "apiVersion": "[variables('apiVersion')]",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]",
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "[variables('BpsVirtualBladeVmSize')]"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat('disk_', variables('BpsVirtualBlade1Name'))]",
+                        "createOption": "[variables('BpsVirtualBladeCreateOption')]",
+                        "vhd": {
+                            "uri": "[concat('https', '://', variables('PageBlobsStorageAccountName'), '.blob.core.windows.net', variables('BpsVirtualBlade1PageBlobPath'))]"
+                        },
+                        "caching": "ReadWrite",
+                        "diskSizeGB": "[variables('BpsVirtualBladeDiskSizeGB')]"
+                    },
+                    "dataDisks": []
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth0Name'))]",
+                            "properties": {
+                                "primary": true
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth1Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth2Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth3Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth4Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth5Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth6Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        },
+                        {
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth7Name'))]",
+                            "properties": {
+                                "primary": false
+                            }
+                        }			
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": "[variables('BpsVirtualBladeBootDiagnosticsEnabled')]",
+                        "storageUri": "[concat('https', '://', variables('DiagnosticsStorageAccountName'), '.blob.core.windows.net', '/')]"
+                    }
+                }
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth0Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth1Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth2Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth3Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth4Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth5Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth6Name'))]",
+                "[resourceId('Microsoft.Network/networkInterfaces', variables('BpsVirtualBlade1Eth7Name'))]"
+            ]
+        },
+		
+        {
+            "type": "Microsoft.Network/applicationGateways",
+            "name": "[variables('applicationGateways_AGW_name')]",
+            "apiVersion": "2018-02-01",
+            "location": "[resourceGroup().location]",
+            "scale": null,
+			"tags": {
+				"Owner": "[variables('UserEmailTag')]",
+				"Project": "[variables('UserProjectTag')]"
+			    "Options": "[variables('UserOptionsTag')]",
+				"ResourceGroup": "[resourceGroup().name]",
+				"Location": "[resourceGroup().location]"
+			},
+            "properties": {
+                "sku": {
+                    "name": "Standard_Medium",
+                    "tier": "Standard",
+                    "capacity": 2
+                },
+                "gatewayIPConfigurations": [
+                    {
+                        "name": "appGatewayIpConfig",
+                        "properties": {
+                            "subnet": {
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('AgwSubnetName'))]"
+                            }
+                        }
+                    }
+                ],
+                "sslCertificates": [],
+                "authenticationCertificates": [],
+                "frontendIPConfigurations": [
+                    {
+                        "name": "appGatewayFrontendIP",
+                        "properties": {
+                            "privateIPAllocationMethod": "Static",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_AGW_ip_name'))]"
+                            }
+                        }
+                    }
+                ],
+                "frontendPorts": [
+                    {
+                        "name": "appGatewayFrontendPort",
+                        "properties": {
+                            "port": 80
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "appGatewayBackendPool",
+                        "properties": {
+                            "backendAddresses": [
+                                {
+                                    "ipAddress": "10.0.1.10"
+                                },
+                                {
+                                    "ipAddress": "10.0.1.11"
+                                },
+                                {
+                                    "ipAddress": "10.0.1.12"
+                                },
+                                {
+                                    "ipAddress": "10.0.1.13"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "backendHttpSettingsCollection": [
+                    {
+                        "name": "appGatewayBackendHttpSettings",
+                        "properties": {
+                            "port": 80,
+                            "protocol": "Http",
+                            "cookieBasedAffinity": "Disabled",
+                            "pickHostNameFromBackendAddress": false,
+                            "path": null,
+                            "requestTimeout": 30
+                        }
+                    }
+                ],
+                "httpListeners": [
+                    {
+                        "name": "appGatewayHttpListener",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[variables('applicationGateways_AGW_id')]"
+                            },
+                            "frontendPort": {
+                                "id": "[variables('applicationGateways_AGW_id_1')]"
+                            },
+                            "protocol": "Http",
+                            "requireServerNameIndication": false
+                        }
+                    }
+                ],
+                "urlPathMaps": [],
+                "requestRoutingRules": [
+                    {
+                        "name": "rule1",
+                        "properties": {
+                            "ruleType": "Basic",
+                            "httpListener": {
+                                "id": "[variables('applicationGateways_AGW_id_2')]"
+                            },
+                            "backendAddressPool": {
+                                "id": "[variables('applicationGateways_AGW_id_3')]"
+                            },
+                            "backendHttpSettings": {
+                                "id": "[variables('applicationGateways_AGW_id_4')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [],
+                "redirectConfigurations": [],
+                "enableHttp2": false
+            },
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('VnetName'), variables('AgwSubnetName'))]",
+                "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIPAddresses_AGW_ip_name'))]"
+            ]
+        }
+    ]
+}

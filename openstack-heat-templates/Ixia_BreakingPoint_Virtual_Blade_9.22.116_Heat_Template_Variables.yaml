@@ -1,0 +1,10 @@
+parameters:
+
+    Management_Network:                 BPS Management Network
+
+    Test_Network:                       BPS Test Network
+    Test_Sub_Network:                   192.168.2.0/24
+
+    Virtual_Blade_Name:                 Virtual_Blade
+    Virtual_Blade_Image_Name:           BPS Virtual Blade 9.22.116 
+    Virtual_Blade_Flavor:               m1.large

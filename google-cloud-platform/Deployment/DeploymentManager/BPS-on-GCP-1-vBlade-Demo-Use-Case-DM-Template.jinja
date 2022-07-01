@@ -1,0 +1,307 @@
+---
+resources:
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: false
+    routingConfig:
+      routingMode: REGIONAL
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_SUBNET_NAME"] }}
+  type: compute.v1.subnetwork
+  properties:
+    enableFlowLogs: false
+    ipCidrRange: {{ properties["GCP_MGMT_SUBNET_IP_RANGE"] }}
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+    region: {{ properties["GCP_REGION_NAME"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#  
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_VPC_NETWORK_NAME"] }}
+  type: compute.v1.network
+  properties:
+    autoCreateSubnetworks: false
+    routingConfig:
+      routingMode: REGIONAL
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_SUBNET_NAME"] }}
+  type: compute.v1.subnetwork
+  properties:
+    enableFlowLogs: false
+    ipCidrRange: {{ properties["GCP_TEST1_SUBNET_IP_RANGE"] }}
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_VPC_NETWORK_NAME"] }}.selfLink)
+    region: {{ properties["GCP_REGION_NAME"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_VPC_NETWORK_NAME"] }}
+  type: compute.v1.network
+  properties:  
+    autoCreateSubnetworks: false
+    routingConfig:
+      routingMode: REGIONAL
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_SUBNET_NAME"] }}
+  type: compute.v1.subnetwork
+  properties:
+    enableFlowLogs: false
+    ipCidrRange: {{ properties["GCP_TEST2_SUBNET_IP_RANGE"] }}
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_VPC_NETWORK_NAME"] }}.selfLink)
+    region: {{ properties["GCP_REGION_NAME"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_FIREWALL_RULE_NAME"] }}
+  type: compute.v1.firewall
+  properties:
+    allowed: 
+    - IPProtocol: tcp
+      ports: {{ properties["GCP_MGMT_FIREWALL_RULE_PORTS"] }}
+    direction: {{ properties["GCP_MGMT_FIREWALL_RULE_DIRECTION"] }}
+    disabled: false
+    enableLogging: false
+    logConfig:
+      enable: false
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+    priority: {{ properties["GCP_MGMT_FIREWALL_RULE_PRIORITY"] }}
+    sourceRanges: {{ properties["GCP_MGMT_FIREWALL_RULE_SOURCE_IP_RANGES"] }}
+    targetTags: {{ properties["GCP_MGMT_FIREWALL_RULE_NETWORK_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_CONSOLE_FIREWALL_RULE_NAME"] }}
+  type: compute.v1.firewall
+  properties:
+    allowed:
+    - IPProtocol: tcp
+      ports: {{ properties["GCP_CONSOLE_FIREWALL_RULE_PORTS"] }}
+    direction: {{ properties["GCP_CONSOLE_FIREWALL_RULE_DIRECTION"] }}
+    disabled: false
+    enableLogging: false
+    logConfig:
+      enable: false
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+    priority: {{ properties["GCP_CONSOLE_FIREWALL_RULE_PRIORITY"] }}
+    sourceRanges: {{ properties["GCP_CONSOLE_FIREWALL_RULE_SOURCE_IP_RANGES"] }}
+    targetTags: {{ properties["GCP_CONSOLE_FIREWALL_RULE_NETWORK_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_CONTROL_FIREWALL_RULE_NAME"] }}
+  type: compute.v1.firewall
+  properties:
+    allowed:
+    - IPProtocol: {{ properties["GCP_CONTROL_FIREWALL_RULE_PORTS"] }}
+    direction: {{ properties["GCP_CONTROL_FIREWALL_RULE_DIRECTION"] }}
+    disabled: false
+    enableLogging: false
+    logConfig:
+      enable: false
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+    priority: {{ properties["GCP_CONTROL_FIREWALL_RULE_PRIORITY"] }}
+    sourceTags: {{ properties["GCP_CONTROL_FIREWALL_RULE_SOURCE_TAGS"] }}
+    targetTags: {{ properties["GCP_CONTROL_FIREWALL_RULE_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_FIREWALL_RULE_NAME"] }}
+  type: compute.v1.firewall
+  properties:
+    allowed:
+    - IPProtocol: {{ properties["GCP_TEST1_FIREWALL_RULE_PORTS"] }}
+    direction: {{ properties["GCP_TEST1_FIREWALL_RULE_DIRECTION"] }}
+    disabled: false
+    enableLogging: false
+    logConfig:
+      enable: false
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_VPC_NETWORK_NAME"] }}.selfLink)
+    priority: {{ properties["GCP_TEST1_FIREWALL_RULE_PRIORITY"] }}
+    sourceRanges: {{ properties["GCP_TEST1_FIREWALL_RULE_SOURCE_IP_RANGES"] }}
+    sourceTags: {{ properties["GCP_TEST1_FIREWALL_RULE_SOURCE_TAGS"] }}
+    targetTags: {{ properties["GCP_TEST1_FIREWALL_RULE_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_FIREWALL_RULE_NAME"] }}
+  type: compute.v1.firewall
+  properties:
+    allowed:
+    - IPProtocol: {{ properties["GCP_TEST2_FIREWALL_RULE_PORTS"] }}
+    direction: {{ properties["GCP_TEST2_FIREWALL_RULE_DIRECTION"] }}
+    disabled: false
+    enableLogging: false
+    logConfig:
+      enable: false
+    network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_VPC_NETWORK_NAME"] }}.selfLink)
+    priority: {{ properties["GCP_TEST2_FIREWALL_RULE_PRIORITY"] }}
+    sourceRanges: {{ properties["GCP_TEST2_FIREWALL_RULE_SOURCE_IP_RANGES"] }}
+    sourceTags: {{ properties["GCP_TEST2_FIREWALL_RULE_SOURCE_TAGS"] }}
+    targetTags: {{ properties["GCP_TEST2_FIREWALL_RULE_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VCONTROLLER_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME"] }}
+  type: compute.v1.address
+  properties:
+    region: {{ properties["GCP_REGION_NAME"] }}
+    networkTier: PREMIUM
+    addressType: EXTERNAL
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VCONTROLLER_INSTANCE_NAME"] }}
+  type: compute.v1.instance
+  properties:
+    canIpForward: {{ properties["GCP_VCONTROLLER_CAN_IP_FORWARD"] }}
+    zone: {{ properties["GCP_ZONE_NAME"] }}
+    machineType: zones/{{ properties["GCP_ZONE_NAME"] }}/machineTypes/{{ properties["GCP_VCONTROLLER_MACHINE_TYPE"] }}
+    disks:
+    - deviceName: persistent-disk-0
+      autoDelete: true
+      boot: true
+      type: PERSISTENT      
+      initializeParams:
+        sourceImage: projects/{{ properties["GCP_VCONTROLLER_CUSTOM_IMAGE_PROJECT_NAME"] }}/global/images/family/{{ properties["GCP_VCONTROLLER_CUSTOM_IMAGE_FAMILY_NAME"] }}
+    networkInterfaces:
+    - name: nic0
+      network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+      subnetwork: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_SUBNET_NAME"] }}.selfLink)
+      accessConfigs:
+      - name: external-nat
+        natIP: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VCONTROLLER_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME"] }}.address)
+        networkTier: PREMIUM
+        type: ONE_TO_ONE_NAT
+    metadata:
+      items:
+      - key: Owner
+        value: {{ properties["GCP_OWNER_TAG"] }}
+      - key: Project
+        value: {{ properties["GCP_PROJECT_TAG"] }}
+      - key: Options
+        value: {{ properties["GCP_OPTIONS_TAG"] }}
+      - key: serial-port-enable
+        value: {{ properties["GCP_VCONTROLLER_SERIAL_PORT_ENABLE"] }}
+    tags:
+      items: {{ properties["GCP_VCONTROLLER_NETWORK_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VBLADE_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME"] }}
+  type: compute.v1.address
+  properties:
+    region: {{ properties["GCP_REGION_NAME"] }}
+    networkTier: PREMIUM
+    addressType: EXTERNAL
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#
+#
+- name: {{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VBLADE_INSTANCE_NAME"] }}
+  type: compute.v1.instance
+  properties:
+    canIpForward: {{ properties["GCP_VBLADE_CAN_IP_FORWARD"] }}
+    zone: {{ properties["GCP_ZONE_NAME"] }}
+    machineType: zones/{{ properties["GCP_ZONE_NAME"] }}/machineTypes/{{ properties["GCP_VBLADE_MACHINE_TYPE"] }}
+    disks:
+    - deviceName: persistent-disk-0
+      autoDelete: true
+      boot: true
+      type: PERSISTENT
+      initializeParams:
+        sourceImage: projects/{{ properties["GCP_VBLADE_CUSTOM_IMAGE_PROJECT_NAME"] }}/global/images/family/{{ properties["GCP_VBLADE_CUSTOM_IMAGE_FAMILY_NAME"] }}
+    networkInterfaces:
+    - name: nic0
+      network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}.selfLink)
+      networkIP: {{ properties["GCP_VBLADE_IFACE_ETH0_PRIVATE_IP_ADDRESS"] }}
+      subnetwork: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_MGMT_SUBNET_NAME"] }}.selfLink)
+      accessConfigs:
+      - name: external-nat
+        natIP: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_VBLADE_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME"] }}.address)
+        networkTier: PREMIUM
+        type: ONE_TO_ONE_NAT
+    - name: nic1
+      network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_VPC_NETWORK_NAME"] }}.selfLink)
+      networkIP: {{ properties["GCP_VBLADE_IFACE_ETH1_PRIVATE_IP_ADDRESS"] }}
+      subnetwork: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST1_SUBNET_NAME"] }}.selfLink)
+      accessConfigs:
+      - name: external-nat
+        networkTier: PREMIUM
+        type: ONE_TO_ONE_NAT
+      aliasIpRanges:
+      - ipCidrRange: {{ properties["GCP_VBLADE_IFACE_ETH1_PRIVATE_IP_ALIASES"] }}
+    - name: nic2
+      network: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_VPC_NETWORK_NAME"] }}.selfLink)
+      networkIP: {{ properties["GCP_VBLADE_IFACE_ETH2_PRIVATE_IP_ADDRESS"] }}
+      subnetwork: $(ref.{{ properties["GCP_LOGIN_ID_TAG"] }}-{{ properties["GCP_PROJECT_TAG"] }}-{{ properties["GCP_TEST2_SUBNET_NAME"] }}.selfLink)
+      accessConfigs:
+      - name: external-nat
+        networkTier: PREMIUM
+        type: ONE_TO_ONE_NAT
+      aliasIpRanges:
+      - ipCidrRange: {{ properties["GCP_VBLADE_IFACE_ETH2_PRIVATE_IP_ALIASES"] }}
+    metadata:
+      items:
+      - key: Owner
+        value: {{ properties["GCP_OWNER_TAG"] }}
+      - key: Project
+        value: {{ properties["GCP_PROJECT_TAG"] }}
+      - key: Options
+        value: {{ properties["GCP_OPTIONS_TAG"] }}
+      - key: serial-port-enable
+        value: {{ properties["GCP_VBLADE_SERIAL_PORT_ENABLE"] }}
+    tags:
+      items: {{ properties["GCP_VBLADE_NETWORK_TARGET_TAGS"] }}
+    labels:
+      owner: {{ properties["GCP_OWNER_TAG"].replace('.', '-').replace('@', '-') }}
+      project: {{ properties["GCP_PROJECT_TAG"].lower() }}
+      options: {{ properties["GCP_OPTIONS_TAG"].lower() }}
+#eof

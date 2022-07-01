@@ -1,0 +1,86 @@
+heat_template_version: 2013-05-23
+
+
+description: >
+  Version: 9.22.116 
+    This is the Heat Template used for BPS VE deployment in OpenStack-based environments. It can be used with BPS VE product with version 9.00 or newer.
+    The template will create 1 Virtual Networks (named "Test Network") and for Management it will be using an existing user given network name.
+    The template will create 1 Virtual Machine  (named "Virtual-Blade-1").
+    The Ixia_BreakingPoint_Virtual_Blade_9.22.116_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
+
+
+parameters:
+   
+    Management_Network:
+      type:        string
+      label:       BPS Management Network - Name
+      description: The name of the MANAGEMENT NETWORK that is already configured in OpenStack
+
+    Test_Network:
+      type:        string
+      label:       BPS Test Network - Name
+      description: The name of the TEST NETWORK to be created
+
+    Test_Sub_Network:
+      type:        string
+      label:       BPS Test Network - CIDR
+      description: The IP Address / Subnet Mask of the TEST NETWORK to be created
+
+    Virtual_Blade_Name:
+      type:        string
+      label:       BPS Virtual Blade - Instance Name
+      description: The name of the BPS Virtual Blade to be created
+
+    Virtual_Blade_Image_Name:
+      type:        string
+      label:       BPS Virtual Blade - Image Name
+      description: The QCOW2 image to be used for the BPS Virtual Blade
+      
+    Virtual_Blade_Flavor:
+      type:        string
+      label:       BPS Virtual Blade - Flavor
+      description: The resources required for each BPS VIRTUAL BLADE are 4 vCPU, 8 GB RAM, 14 GB HDD      
+
+resources:
+
+  BPS-Test-Network:
+    type:                OS::Neutron::Net
+    properties:
+      name:              {get_param:    Test_Network}
+
+  BPS-Test-Subnet:
+     type:               OS::Neutron::Subnet
+     properties:
+       network_id:       {get_resource: BPS-Test-Network}
+       cidr:             {get_param:    Test_Sub_Network}
+       gateway_ip:       null
+       ip_version:       4
+       enable_dhcp:      false
+
+  Test-Port-1:
+       type:             OS::Neutron::Port
+       properties:
+         network_id:     {get_resource: BPS-Test-Network}
+         fixed_ips:
+           - subnet_id:  {get_resource: BPS-Test-Subnet}
+           
+  Test-Port-2:
+       type:             OS::Neutron::Port
+       properties:
+         network_id:     {get_resource: BPS-Test-Network}
+         fixed_ips:
+           - subnet_id:  {get_resource: BPS-Test-Subnet}
+           
+  Virtual-Blade-1:
+    type:                OS::Nova::Server
+    properties:
+      name:              {list_join:    ['-', [{get_param: Virtual_Blade_Name}, '1']]}
+      image:             {get_param:    Virtual_Blade_Image_Name}
+      flavor:            {get_param:    Virtual_Blade_Flavor}
+      networks:
+        - network:       {get_param:    Management_Network }
+        - port:          {get_resource: Test-Port-1}
+        - port:          {get_resource: Test-Port-2}
+      
+
+# outputs:
