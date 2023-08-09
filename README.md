@@ -29,3 +29,11 @@ The following command should be executed to run a deployment:
   ```
 
 The status of the deployment will be displayed when the deployment will finish. 
+
+### Cloud Shell
+Contains two bash scripts that can help you create or delete network peering between two VPCs. 
+You will need to provide the following parameters:
+    - Region name
+    - Login ID Tag
+    - Project Tag
+    - Verbose Output
