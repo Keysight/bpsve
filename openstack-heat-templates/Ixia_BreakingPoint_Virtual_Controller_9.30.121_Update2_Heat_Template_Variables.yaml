@@ -1,0 +1,7 @@
+parameters:
+
+    Management_Network:                     BPS Management Network
+
+    Virtual_Controller_Name:                Virtual_Controller
+    Virtual_Controller_Image_Name:          BPS Virtual Controller 9.30.121 Update 2
+    Virtual_Controller_Flavor:              m1.xlarge
