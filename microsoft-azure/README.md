@@ -29,9 +29,9 @@ Following is an explanation of the configuration templates that we provide:
 
 This folder contains several BPS-VE .bpt configurations that can be used on their respective instance sizes. 
 We have 4 different folders: 
-- Standard_F4s / 
-- Standard_F8s
-- Standard_F16s
+- Standard_F4s / Standard_F4s_v2
+- Standard_F8s / Standard_F8s_v2
+- Standard_F16s / Standard_F16s_v2
 
 ## Deployment
 ### Azure CLI
