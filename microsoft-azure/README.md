@@ -22,7 +22,8 @@ Before you deploy this Custom ARM template, we recommend that you become familia
 The supported instance types are:
 - For BreakingPoint VE Virtual Controller, supported instance type Standard_F8s / Standard_F8s_v2.
 - For BreakingPoint VE Virtual Blade, supported instance types Standard_F4s / Standard_F4s_v2, Standard_F8s / Standard_F8s_v2 and Standard_F16s / Standard_F16s_v2.
-- 
+
+  
 Following is an explanation of the configuration templates that we provide: 
 
 ## Configurations
