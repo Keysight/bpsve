@@ -1,4 +1,4 @@
-# About CyPerf Deployment Manager Templates 
+# About BreakingPoint VE Deployment Manager Templates 
 
 ## Introduction 
 
