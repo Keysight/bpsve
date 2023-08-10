@@ -1,5 +1,7 @@
-# bpsve
-BreakingPoint Virtual Edition
+# BreakingPoint VE
+Welcome to the GitHub repository for Keysight BreakingPoint VE Deployment Templates.
+
+A licensed BreakingPoint VE product from Keysight is compatible with multiple environments.
 
 # Microsoft Azure
 ## Configurations
