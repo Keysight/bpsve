@@ -1,0 +1,89 @@
+{
+  "ROSTemplateFormatVersion" : "2015-09-01",
+  "Description": "This is the ECS instance template used for BPS VE deployment in Alibaba-based environments. It can be used with BPS VE product with version 9.00 or newer. The template will create 1 vSwitch and for Management it will be using an existing user given network name. The template will create 1 instance  (named Virtual-Blade) with one ENI for management. Test ENI needs to be added post-deployment.",
+  "Parameters" : {
+    "InstanceName": {
+      "Type" : "String",
+      "Default": "Virtual_Blade",
+      "Description": "The name of the BPS VE Virtual Blade to be created"
+    },
+    "ImageId": {
+      "Type" : "String",
+      "Default": "BPS VE Virtual Blade Image ID",
+      "Description": "The QCOW2 image Image Id to be used for the BPS VE Virtual Blade"
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Description": "The resources required for each BPS VE Virtual Blade are 4 vCPU, 8 GB RAM, 14 GB HDD",
+      "Default": "ecs.sn1ne.2xlarge",
+      "AllowedValues": [
+        "ecs.sn1ne.xlarge",
+        "ecs.sn1ne.2xlarge",
+        "ecs.sn1ne.3xlarge",
+        "ecs.sn1ne.4xlarge"
+      ]
+    },    
+    "vpc": {
+      "Type": "String",
+      "Description": "The name of the VPC that is already configured for management purposes",
+      "Default": "Management_VPC"
+    },    
+    "ManagementvSwitch": {
+      "Type": "String",
+      "Description": "The name of the vSwitch that is already configured for management purposes",
+      "Default": "Management_vSwitch"
+    },
+    "TestvSwitch": {
+      "Type": "String",
+      "Description": "The name of the vSwitch to be created for test purposes",
+      "Default": "Test_vSwitch"
+    },
+    "SecurityGroupName": {
+      "Type": "String",
+      "Description": "The name of the Security Group that is already configured",
+      "Default": "BPS VE Security Group"
+    }
+  },
+  "Resources" : {
+    "VirtualBlade": {
+      "Type": "ALIYUN::ECS::Instance",
+      "Properties": {
+        "InstanceName": {"Ref": "InstanceName"},
+        "ImageId" : {"Ref": "ImageId"},
+        "InstanceType": {"Ref": "InstanceType"},
+        "SecurityGroupId": {"Ref": "SecurityGroupName"},
+        "VSwitchId": {
+          "Ref": "ManagementvSwitch",
+        },        
+        "VpcId": {
+          "Ref": "vpc"
+        }
+      }
+    },
+    "vswitch": {
+      "Type": "ALIYUN::ECS::VSwitch",
+      "Properties": {
+        "VSwitchName": {"Ref": "TestvSwitch"},
+        "VpcId": {
+          "Ref": "vpc"
+        },
+        "ZoneId": {
+          "Fn::Select": [
+            "0",
+            {
+              "Fn::GetAZs": {
+                "Ref": "ALIYUN::Region"
+              }
+            }
+          ]
+        },
+        "CidrBlock": "192.168.2.0/24"
+      }
+    }, 
+  },
+  "Outputs": {
+    "InstanceId": {
+      "Value" : {"Fn::GetAtt": ["VirtualBlade","InstanceId"]}
+    }
+  }
+}
