@@ -1,0 +1,67 @@
+{
+  "ROSTemplateFormatVersion" : "2015-09-01",
+  "Description": "This is the ECS instance template used for BPS VE deployment in Alibaba-based environments. It can be used with BPS VE product with version 9.00 or newer. The template will create 1 Virtual Machine  (named Virtual_Controller).",
+  "Parameters" : {
+    "InstanceName": {
+      "Type" : "String",
+      "Default": "Virtual_Controller",
+      "Description": "The name of the BPS VE Virtual Controller to be created"
+    },
+    "ImageId": {
+      "Type" : "String",
+      "Default": "BPS VE Virtual Controller Image ID",
+      "Description": "The QCOW2 image Image Id to be used for the BPS VE Virtual Controller"
+    },
+    "InstanceType": {
+      "Type": "String",
+      "Description": "The resources required for each BPS VE Virtual Controller are 8 vCPU, 8 GB RAM, 30 GB HDD",
+      "Default": "ecs.sn1ne.2xlarge",
+      "AllowedValues": [
+        "ecs.sn1ne.xlarge",
+        "ecs.sn1ne.2xlarge",
+        "ecs.sn1ne.3xlarge",
+        "ecs.sn1ne.4xlarge"
+      ]
+    },    
+    "vpc": {
+      "Type": "String",
+      "Description": "The name of the VPC that is already configured for management purposes",
+      "Default": "Management_VPC"
+    },    
+    "vswitch": {
+      "Type": "String",
+      "Description": "The name of the vSwitch that is already configured for management purposes",
+      "Default": "Management_vSwitch"
+    },
+    "SecurityGroupName": {
+      "Type": "String",
+      "Description": "The name of the Security Group that is already configured",
+      "Default": "BPS VE Security Group"
+    }
+  },
+  "Resources" : {
+    "VirtualController": {
+      "Type": "ALIYUN::ECS::Instance",
+      "Properties": {
+        "InstanceName": {"Ref": "InstanceName"},
+        "ImageId" : {"Ref": "ImageId"},
+        "InstanceType": {"Ref": "InstanceType"},
+        "SecurityGroupId": {"Ref": "SecurityGroupName"},
+        "VSwitchId": {
+          "Ref": "vswitch"
+        },
+        "VpcId": {
+          "Ref": "vpc"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "InstanceId": {
+      "Value" : {"Fn::GetAtt": ["VirtualController","InstanceId"]}
+    },
+    "PublicIp": {
+      "Value" : {"Fn::GetAtt": ["VirtualController","PublicIp"]}
+    }
+  }
+}
