@@ -45,6 +45,16 @@ variable "ApiMaxRetries" {
 	type = number
 }
 
+variable "AwsAccessCredentialsAccessKey" {
+	description = "Access key component of credentials used for programmatic calls to AWS."
+	type = string
+}
+
+variable "AwsAccessCredentialsSecretKey" {
+	description = "Secret access key component of credentials used for programmatic calls to AWS."
+	type = string
+}
+
 variable "InboundIPv4CidrBlocks" {
 	description = "List of IP Addresses /32 or IP CIDR ranges connecting inbound to App"
 	type = list(string)
