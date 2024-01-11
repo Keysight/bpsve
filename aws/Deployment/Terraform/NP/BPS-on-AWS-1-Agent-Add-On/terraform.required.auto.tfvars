@@ -1,0 +1,6 @@
+# PrivateSecurityGroupId = "sg-00000000000000000"
+# PrivateSubnetId = "subnet-00000000000000000"
+# PublicSecurityGroupId = "sg-00000000000000000"
+# PublicSubnetId = "subnet-00000000000000000"
+# UserEmailTag = "terraform@example.com"
+# UserLoginTag = "terraform"
