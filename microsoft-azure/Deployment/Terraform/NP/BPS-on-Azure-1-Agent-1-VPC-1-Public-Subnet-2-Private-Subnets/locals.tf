@@ -2,7 +2,6 @@ locals {
 	AgentVmSize = var.AgentVmSize
 	Agent1InstanceId = "agent1"
 	AppTag = "bps"
-	Preamble = "${local.UserLoginTag}-${local.AppTag}"
 	PublicSecurityRuleSourceIpPrefixes = var.PublicSecurityRuleSourceIpPrefixes
 	ResourceGroupLocation = var.ResourceGroupLocation
 	ResourceGroupName = var.ResourceGroupName
