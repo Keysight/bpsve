@@ -1,6 +1,7 @@
 provider "azurerm" {
 	client_id = var.ClientId
 	client_secret = var.ClientSecret
+	skip_provider_registration = var.SkipProviderRegistration
 	subscription_id = var.SubscriptionId
 	tenant_id = var.TenantId
 	features {
