@@ -1,6 +1,6 @@
 module "SharedImageGallery" {
 	source = "armdupre/module-bps-shared-image-gallery/azurerm"
-	version = "9.30.2"
+	version = "10.0.1"
 	ResourceGroupLocation = azurerm_resource_group.ResourceGroup.location
 	ResourceGroupName = azurerm_resource_group.ResourceGroup.name
 	StorageAccountName = local.StorageAccountName

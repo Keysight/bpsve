@@ -1,6 +1,6 @@
 module "App" {
 	source = "armdupre/module-bps-app/azurerm"
-	version = "9.30.2"
+	version = "10.0.1"
 	Eth0SubnetId = module.Vnet.PublicSubnet.id
 	ResourceGroupLocation = azurerm_resource_group.ResourceGroup.location
 	ResourceGroupName = azurerm_resource_group.ResourceGroup.name
@@ -18,7 +18,7 @@ module "App" {
 
 module "Agent1" {
 	source = "armdupre/module-bps-agent/azurerm"
-	version = "9.30.2"
+	version = "10.0.1"
 	Eth0SubnetId = module.Vnet.PublicSubnet.id
 	Eth1SubnetId = module.Vnet.PrivateSubnet.id
 	Eth2IpAddresses = local.Agent1Eth2IpAddresses
