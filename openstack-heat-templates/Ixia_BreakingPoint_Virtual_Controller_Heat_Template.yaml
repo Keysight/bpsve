@@ -2,10 +2,10 @@ heat_template_version: 2013-05-23
 
 
 description: >
-  Version: 10.00
+  Version: 10.00 Patch1
     This is the Heat Template used for BPS VE deployment in OpenStack-based environments. It can be used with BPS VE product with version 9.00 or newer.
     The template will create 1 Virtual Machine  (named "Virtual_Controller").
-    The Ixia_BreakingPoint_Virtual_Controller_10.00_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
+    The Ixia_BreakingPoint_Virtual_Controller_10.00Patch1_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
 
 
 parameters:
