@@ -1,7 +1,7 @@
-# BPS-on-AWS-1-App-1-Agent-1-VPC-1-Public-Subnet-2-Private-Subnets
+# BPS-on-Azure-1-App-1-Agent-Add-On
 
 ## Description
-This deployment creates a topology with a single virtual private cloud having a single public facing subnet and two private subnets.
+This deployment creates resources that will be attached to an existing network topology.
 
 ## Required Variables
 ```
