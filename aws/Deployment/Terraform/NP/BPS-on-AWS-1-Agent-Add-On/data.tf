@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 data "aws_region" "current" {}
 
 data "aws_availability_zones" "available" {
@@ -30,4 +32,8 @@ data "aws_subnet" "PublicSubnet" {
 		name = "tag:Name"
 		values = [ local.PublicSubnetName ]
     }
+}
+
+data "http" "ip" {
+	url = "https://ifconfig.me"
 }

@@ -13,3 +13,7 @@ module "Agent1" {
 	UserLoginTag = local.UserLoginTag
 	UserProjectTag = local.UserProjectTag
 }
+
+resource "random_id" "RandomId" {
+	byte_length = 4
+}
