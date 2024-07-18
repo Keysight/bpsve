@@ -16,3 +16,7 @@ module "Agent1" {
 		module.Vpc
 	]
 }
+
+resource "random_id" "RandomId" {
+	byte_length = 4
+}
