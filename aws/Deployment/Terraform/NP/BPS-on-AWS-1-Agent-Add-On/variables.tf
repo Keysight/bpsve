@@ -45,16 +45,6 @@ variable "ApiMaxRetries" {
 	type = number
 }
 
-variable "AwsAccessCredentialsAccessKey" {
-	description = "Access key component of credentials used for programmatic calls to AWS."
-	type = string
-}
-
-variable "AwsAccessCredentialsSecretKey" {
-	description = "Secret access key component of credentials used for programmatic calls to AWS."
-	type = string
-}
-
 variable "PrivateSecurityGroupName" {
 	description = "Security Group Name tag associated with the private subnet"
 	type = string
