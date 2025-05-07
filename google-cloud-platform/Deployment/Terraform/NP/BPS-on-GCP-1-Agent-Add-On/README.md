@@ -1,4 +1,4 @@
-# BPS-on-GCP-1-Agent-Add-On
+# BPS-on-GCP-1-App-1-Agent-Add-On
 
 ## Description
 This deployment creates resources that will be attached to an existing network topology.

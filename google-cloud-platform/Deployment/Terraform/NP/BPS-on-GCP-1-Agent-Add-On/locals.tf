@@ -1,6 +1,7 @@
 locals {
 	AgentMachineType = var.AgentMachineType
 	Agent1InstanceId = "agent1"
+	AppMachineType = var.AppMachineType
 	AppTag = "bps"
 	Private1SubnetName = var.Private1SubnetName
 	Private1VpcNetworkName = var.Private1VpcNetworkName
