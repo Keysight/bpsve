@@ -2,11 +2,11 @@ heat_template_version: 2013-05-23
 
 
 description: >
-  Version: 10.00 Patch3
+  Version: 11.00
     This is the Heat Template used for BPS VE deployment in OpenStack-based environments. It can be used with BPS VE product with version 9.00 or newer.
     The template will create 1 Virtual Networks (named "Test Network") and for Management it will be using an existing user given network name.
     The template will create 1 Virtual Machine  (named "Virtual-Blade-1").
-    The Ixia_BreakingPoint_Virtual_Blade_10.00_Patch3_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
+    The Ixia_BreakingPoint_Virtual_Blade_11.00_Heat_Template_Variables.yaml environment file is used for hardcoding the parameters for the resources defined in this Heat Template.
 
 
 parameters:
