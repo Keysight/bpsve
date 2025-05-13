@@ -1333,6 +1333,30 @@
 				}
 			}
 		},
+		"BpsVirtualBlade1Eth0ElasticIp": {
+			"Type": "AWS::EC2::EIP",
+			"DependsOn": [
+				"GwAttach",
+				"BpsVirtualBlade1"
+			],
+			"Properties": {
+				"Domain": "vpc"
+			}
+		},
+		"BpsVirtualBlade1Eth0ElasticIpAssociation": {
+			"Type": "AWS::EC2::EIPAssociation",
+			"Properties": {
+				"AllocationId": {
+					"Fn::GetAtt": [
+						"BpsVirtualBlade1Eth0ElasticIp",
+						"AllocationId"
+					]
+				},
+				"NetworkInterfaceId": {
+					"Ref": "BpsVirtualBlade1Eth0"
+				}
+			}
+		},
 		"DutElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
