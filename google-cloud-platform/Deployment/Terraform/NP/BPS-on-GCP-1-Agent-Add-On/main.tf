@@ -1,16 +1,3 @@
-module "App" {
-	source = "armdupre/module-bps-app/google"
-	version = "10.0.1"
-	Eth0SubnetName = data.google_compute_subnetwork.PublicSubnet.name
-	Eth0VpcNetworkName = data.google_compute_network.PublicVpcNetwork.name
-	MachineType = local.AppMachineType
-	RegionName = data.google_client_config.current.region
-	UserEmailTag = local.UserEmailTag
-	UserLoginTag = local.UserLoginTag
-	UserProjectTag = local.UserProjectTag
-	ZoneName = data.google_client_config.current.zone
-}
-
 module "Agent1" {
 	source = "armdupre/module-bps-agent/google"
 	version = "10.0.1"
