@@ -4,127 +4,91 @@
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
-				"AMIxSYSCTRL" : "ami-05e4a14ecb0b31bf5",
-				"AMIxVBLADE" : "ami-06d360999ca608e3a",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "US East (N. Virginia)",
 				"REGIONxTAG" : "US_EAST_1"
 			},
 			"us-east-2" : {
-				"AMIxSYSCTRL" : "ami-04bef7faee0ea88b1",
-				"AMIxVBLADE" : "ami-05dacb3c942d242f0",
 				"EC2xCONNECTxCIDR" : "3.16.146.0/29",
 				"EC2xREGION" : "US East (Ohio)",
 				"REGIONxTAG" : "US_EAST_2"
 			},
 			"us-west-1" : {
-				"AMIxSYSCTRL" : "ami-01e97c0be85837272",
-				"AMIxVBLADE" : "ami-0774ff8de2b99c3b2",
 				"EC2xCONNECTxCIDR" : "13.52.6.112/29",
 				"EC2xREGION" : "US West (N. California)",
 				"REGIONxTAG" : "US_WEST_1"
 			},
 			"us-west-2" : {
-				"AMIxSYSCTRL" : "ami-0ae37077141d4b81a",
-				"AMIxVBLADE" : "ami-0d82dda5b67e7b5b9",
 				"EC2xCONNECTxCIDR" : "18.237.140.160/29",
 				"EC2xREGION" : "US West (Oregon)",
 				"REGIONxTAG" : "US_WEST_2"
 			},
 			"ap-east-1" : {
-				"AMIxSYSCTRL" : "ami-00000000000000000",
-				"AMIxVBLADE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
-				"EC2xREGION" : "Asia Pacific (Hong Kong)",		
+				"EC2xREGION" : "Asia Pacific (Hong Kong)",
 				"REGIONxTAG" : "AP_EAST_1"
 			},
 			"ap-south-1" : {
-				"AMIxSYSCTRL" : "ami-0aac033a0344a3f1e",
-				"AMIxVBLADE" : "ami-0eb6e2bc41949fa7e",
 				"EC2xCONNECTxCIDR" : "13.233.177.0/29",
 				"EC2xREGION" : "Asia Pacific (Mumbai)",
 				"REGIONxTAG" : "AP_SOUTH_1"
 			},
 			"ap-northeast-2" : {
-				"AMIxSYSCTRL" : "ami-0b736d52aa5a5027f",
-				"AMIxVBLADE" : "ami-015c40e7661c90658",
 				"EC2xCONNECTxCIDR" : "13.209.1.56/29",
 				"EC2xREGION" : "Asia Pacific (Seoul)",
 				"REGIONxTAG" : "AP_NORTHEAST_2"
 			},
 			"ap-southeast-1" : {
-				"AMIxSYSCTRL" : "ami-0e54a36a738955ae0",
-				"AMIxVBLADE" : "ami-02c92c9a35690921b",
 				"EC2xCONNECTxCIDR" : "3.0.5.32/29",
 				"EC2xREGION" : "Asia Pacific (Singapore)",
 				"REGIONxTAG" : "AP_SOUTHEAST_1"
 			},
 			"ap-southeast-2" : {
-				"AMIxSYSCTRL" : "ami-0cbffa01d3dd69662",
-				"AMIxVBLADE" : "ami-0df60cfb34dc6f453",
 				"EC2xCONNECTxCIDR" : "13.239.158.0/29",
 				"EC2xREGION" : "Asia Pacific (Sydney)",
 				"REGIONxTAG" : "AP_SOUTHEAST_2"
 			},
 			"ap-northeast-1" : {
-				"AMIxSYSCTRL" : "ami-01ff00d7cfaa24c2a",
-				"AMIxVBLADE" : "ami-05e7c648a67e96165",
 				"EC2xCONNECTxCIDR" : "3.112.23.0/29",
 				"EC2xREGION" : "Asia Pacific (Tokyo)",
 				"REGIONxTAG" : "AP_NORTHEAST_1"
 			},
 			"ca-central-1" : {
-				"AMIxSYSCTRL" : "ami-09edbbb3e36aa3a1e",
-				"AMIxVBLADE" : "ami-01294a12bac88d4b5",
 				"EC2xCONNECTxCIDR" : "35.183.92.176/29",
 				"EC2xREGION" : "Canada (Central)",
 				"REGIONxTAG" : "CA_CENTRAL_1"
 			},
 			"eu-central-1" : {
-				"AMIxSYSCTRL" : "ami-03159ed73567248ab",
-				"AMIxVBLADE" : "ami-03140ceb8802efb27",
 				"EC2xCONNECTxCIDR" : "3.120.181.40/29",
 				"EC2xREGION" : "EU (Frankfurt)",
 				"REGIONxTAG" : "EU_CENTRAL_1"
 			},
 			"eu-west-1" : {
-				"AMIxSYSCTRL" : "ami-0ebc407b9e5e3c468",
-				"AMIxVBLADE" : "ami-08ff6c85ceed99ec6",
 				"EC2xCONNECTxCIDR" : "18.202.216.48/29",
 				"EC2xREGION" : "EU (Ireland)",
 				"REGIONxTAG" : "EU_WEST_1"
 			},
 			"eu-west-2" : {
-				"AMIxSYSCTRL" : "ami-0ecbbfda91562bc9f",
-				"AMIxVBLADE" : "ami-0d0806728d31312a9",
 				"EC2xCONNECTxCIDR" : "3.8.37.24/29",
 				"EC2xREGION" : "EU (London)",
 				"REGIONxTAG" : "EU_WEST_2"
 			},
 			"eu-west-3" : {
-				"AMIxSYSCTRL" : "ami-033fd9ca5f7c6427f",
-				"AMIxVBLADE" : "ami-0b0fb02d566ffdab7",
 				"EC2xCONNECTxCIDR" : "35.180.112.80/29",
 				"EC2xREGION" : "EU (Paris)",
 				"REGIONxTAG" : "EU_WEST_3"
 			},
 			"eu-north-1" : {
-				"AMIxSYSCTRL" : "ami-0394de16ed23ed447",
-				"AMIxVBLADE" : "ami-0894952aa8eb79fa4",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "EU (Stockholm)",
 				"REGIONxTAG" : "EU_NORTH_1"
 			},
 			"me-south-1" : {
-				"AMIxSYSCTRL" : "ami-00000000000000000",
-				"AMIxVBLADE" : "ami-00000000000000000",
 				"EC2xCONNECTxCIDR" : "18.206.107.24/29",
 				"EC2xREGION" : "Middle East (Bahrain)",		
 				"REGIONxTAG" : "ME_SOUTH_1"
 			},
 			"sa-east-1" : {
-				"AMIxSYSCTRL" : "ami-0bd7dea8b6fc9d180",
-				"AMIxVBLADE" : "ami-0a93f78e0e62ac402",
 				"EC2xCONNECTxCIDR" : "13.48.4.200/30",
 				"EC2xREGION" : "South America (Sao Paulo)",
 				"REGIONxTAG" : "SA_EAST_1"
@@ -146,7 +110,7 @@
 				"CTRLxSUBNETxCIDRxBLOCK" : "10.0.1.0/24",
 				"TEST1xSUBNETxCIDRxBLOCK" : "10.0.2.0/24",
 				"TEST2xSUBNETxCIDRxBLOCK" : "10.0.3.0/24",
-				"INTERFACExSOURCExDESTxCHECK" : false,
+				"INTERFACExSOURCExDESTxCHECK" : true,
 				"INSTANCExDISABLExAPIxTERMINATION" : false,
 				"INSTANCExMONITORING" : false,
 				"INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR" : "stop",
@@ -154,9 +118,10 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "BPS",
-				"APPxVERSION" : "10.00P1",
+				"APPxVERSION" : "11.00",
 				"SYSCTRLxCTRL0xPRIVATExIPxADDRESS" : "10.0.1.10",
-				"SYSCTRLxIMGxSIZE" : "100",
+				"SYSCTRLxIMGxSIZE" : "30",
+				"VBLADExIMGxSIZE" : "10",
 				"VBLADE1xETH0xPRIVATExIPxADDRESS" : "10.0.1.11",
 				"VBLADE1xETH1xPRIVATExIPxADDRESSES" : "10.0.2.12|10.0.2.13|10.0.2.14|10.0.2.15|10.0.2.16|10.0.2.17|10.0.2.18|10.0.2.19|10.0.2.20|10.0.2.21|10.0.2.22|10.0.2.23|10.0.2.24|10.0.2.25|10.0.2.26",
 				"VBLADE1xETH2xPRIVATExIPxADDRESSES" : "10.0.2.32|10.0.2.33|10.0.2.34|10.0.2.35|10.0.2.36|10.0.2.37|10.0.2.38|10.0.2.39|10.0.2.40|10.0.2.41|10.0.2.42|10.0.2.43|10.0.2.44|10.0.2.45|10.0.2.46"
@@ -207,35 +172,6 @@
 				"ResourceId" : { "Ref" : "Vpc" },
 				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "local", "FLOWxLOGxRESOURCExTYPE"] },
 				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "local", "FLOWxLOGxTRAFFICxTYPE"] }
-			}
-		},
-		"MgmtSubnet": {
-			"Type": "AWS::EC2::Subnet",
-			"Properties": {
-				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
-				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "local", "MGMTxSUBNETxCIDRxBLOCK"] },
-				"VpcId": {
-					"Ref": "Vpc"
-				},
-				"Tags": [
-					{
-						"Key": "Name",
-						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "MGMT_SUBNET", 
-							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
-					},
-					{
-						"Key": "Owner",
-						"Value": { "Ref" : "UserEmailTag" }
-					},
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
-					},
-					{
-						"Key": "Project",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
-					}
-				]
 			}
 		},
 		"CtrlSubnet": {
@@ -296,83 +232,6 @@
 				]
 			}
 		},
-		"MgmtSecurityGroup": {
-			"Type": "AWS::EC2::SecurityGroup",
-			"Properties": {
-				"GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP", 
-					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"VpcId": {
-					"Ref": "Vpc"
-				},
-				"Tags": [
-					{
-						"Key": "Name",
-						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "MGMT_SECURITY_GROUP", 
-							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
-					},
-					{
-						"Key": "Owner",
-						"Value": { "Ref" : "UserEmailTag" }
-					},
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
-					},
-					{
-						"Key": "Project",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
-					}
-				]
-			}
-		},
-		"MgmtIngress22": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "MgmtSecurityGroup"
-				},
-				"IpProtocol": "tcp",
-				"FromPort": 22,
-				"ToPort": 22,
-				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
-			}
-		},
-		"MgmtIngress80": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "MgmtSecurityGroup"
-				},
-				"IpProtocol": "tcp",
-				"FromPort": 80,
-				"ToPort": 80,
-				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
-			}
-		},
-		"MgmtIngress443": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "MgmtSecurityGroup"
-				},
-				"IpProtocol": "tcp",
-				"FromPort": 443,
-				"ToPort": 443,
-				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
-			}
-		},
-		"MgmtIngress8880": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "MgmtSecurityGroup"
-				},
-				"IpProtocol": "tcp",
-				"FromPort": 8880,
-				"ToPort": 8880,
-				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
-			}
-		},
         "CtrlSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
@@ -403,16 +262,16 @@
 			}
 		},
 		"CtrlIngress1": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "CtrlSecurityGroup"
-				},
-				"IpProtocol": "-1",
-				"SourceSecurityGroupId": {
-					"Ref": "CtrlSecurityGroup"
-				}
+		  "Type": "AWS::EC2::SecurityGroupIngress",
+		  "Properties": {
+			"GroupId": {
+			  "Ref": "CtrlSecurityGroup"
+			},
+			"IpProtocol": "-1",
+			"SourceSecurityGroupId": {
+			  "Ref": "CtrlSecurityGroup"
 			}
+		  }
 		},
 		"CtrlIngress2": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
@@ -438,6 +297,42 @@
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
 		},		
+		"CtrlIngress80": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"GroupId": {
+					"Ref": "CtrlSecurityGroup"
+				},
+				"IpProtocol": "tcp",
+				"FromPort": 80,
+				"ToPort": 80,
+				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
+			}
+		},
+		"CtrlIngress443": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"GroupId": {
+					"Ref": "CtrlSecurityGroup"
+				},
+				"IpProtocol": "tcp",
+				"FromPort": 443,
+				"ToPort": 443,
+				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
+			}
+		},
+		"CtrlIngress8880": {
+			"Type": "AWS::EC2::SecurityGroupIngress",
+			"Properties": {
+				"GroupId": {
+					"Ref": "CtrlSecurityGroup"
+				},
+				"IpProtocol": "tcp",
+				"FromPort": 8880,
+				"ToPort": 8880,
+				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
+			}
+		},
         "Test1SecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
@@ -468,24 +363,16 @@
 			}
 		},
 		"Test1Ingress1": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "Test1SecurityGroup"
-				},
-				"IpProtocol": "-1",
-				"SourceSecurityGroupId": {
-					"Ref": "Test1SecurityGroup"
-				}
+		  "Type": "AWS::EC2::SecurityGroupIngress",
+		  "Properties": {
+			"GroupId": {
+			  "Ref": "Test1SecurityGroup"
+			},
+			"IpProtocol": "-1",
+			"SourceSecurityGroupId": {
+			  "Ref": "Test1SecurityGroup"
 			}
-		},
-		"DefaultEgress1": {
-			"Type" : "AWS::EC2::SecurityGroupEgress",
-			"Properties" : {
-				"GroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] },
-				"IpProtocol": "-1",
-				"SourceSecurityGroupId": { "Fn::GetAtt" : ["Vpc", "DefaultSecurityGroup"] }
-			}
+		  }
 		},
 		"InternetGw": {
 			"Type": "AWS::EC2::InternetGateway",
@@ -520,46 +407,6 @@
 				"InternetGatewayId": {
 					"Ref": "InternetGw"
 				}
-			}
-		},
-		"MgmtRoute": {
-			"Type": "AWS::EC2::Route",
-			"Properties": {
-				"DestinationCidrBlock": "0.0.0.0/0",
-				"RouteTableId": {
-					"Ref": "MgmtRouteTable"
-				},
-				"GatewayId": {
-					"Ref": "InternetGw"
-				}
-			},
-			"DependsOn": "GwAttach"
-		},
-		"MgmtRouteTable": {
-			"Type": "AWS::EC2::RouteTable",
-			"Properties": {
-				"VpcId": {
-					"Ref": "Vpc"
-				},
-				"Tags": [
-					{
-						"Key": "Name",
-						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "MGMT_ROUTE_TABLE", 
-							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
-					},
-					{
-						"Key": "Owner",
-						"Value": { "Ref" : "UserEmailTag" }
-					},
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
-					},
-					{
-						"Key": "Project",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
-					}
-				]
 			}
 		},
 		"CtrlRouteTable": {
@@ -616,17 +463,6 @@
 				]
 			}
 		},
-		"MgmtSubnetRouteTableAssociation": {
-			"Type": "AWS::EC2::SubnetRouteTableAssociation",
-			"Properties": {
-				"RouteTableId": {
-					"Ref": "MgmtRouteTable"
-				},
-				"SubnetId": {
-					"Ref": "MgmtSubnet"
-				}
-			}
-		},
 		"CtrlRoute": {
 			"Type": "AWS::EC2::Route",
 			"Properties": {
@@ -660,45 +496,6 @@
 				"SubnetId": {
 					"Ref": "Test1Subnet"
 				}
-			}
-		},
-		"BpsSystemControllerEth0": {
-			"Type": "AWS::EC2::NetworkInterface",
-			"Properties": {
-				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
-					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "SYSTEM_CONTROLLER", 
-					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH0", 
-					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
-				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
-				"SubnetId": {
-					"Ref": "MgmtSubnet"
-				},
-				"GroupSet": [
-					{
-						"Ref": "MgmtSecurityGroup"
-					}
-				],
-				"Tags": [
-					{
-						"Key": "Name",
-						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
-							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "SYSTEM_CONTROLLER", 
-							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH0", 
-							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
-					},
-					{
-						"Key": "Owner",
-						"Value": { "Ref" : "UserEmailTag" }
-					},
-					{
-						"Key": "Options",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
-					},
-					{
-						"Key": "Project",
-						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
-					}
-				]
 			}
 		},
 		"BpsSystemControllerCtrl0": {
@@ -982,7 +779,7 @@
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExDISABLExAPIxTERMINATION"] },
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
-				"ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxVBLADE"] },
+                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/11.00",
 				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
@@ -1007,7 +804,83 @@
 						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
 					}
 				],
-				"UserData": "",
+				"UserData": {
+				  "Fn::Base64": {
+					"Fn::Join": [
+					  "",
+					  [
+						"#cloud-config\n",
+						"write_files:\n",
+						"  - path: /home/ixia/.ssh/id_rsa\n",
+						"    permissions: '0400'\n", 
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      -----BEGIN OPENSSH PRIVATE KEY-----\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      jeHzbTtajtEAAAARdmxhZGNhbG9AdmxhZGNhbG8BAg==\n",
+						"      -----END OPENSSH PRIVATE KEY-----\n",
+						"  - path: /home/ixia/.ssh/id_rsa.pub\n",
+						"    permissions: '0600'\n",
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      ssh-rsa 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 user@user\n",
+						"  - path: /home/ixia/.ssh/authorized_keys\n",
+						"    permissions: '0644'\n",
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      ssh-rsa 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 user@user\n",
+						"runcmd:\n",
+						"  - [ \"chmod\", \"755\", \"/home/ixia/.ssh\" ]\n",
+						"  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh\" ]\n"
+					  ]
+					]
+				  }
+				},
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
@@ -1032,11 +905,12 @@
 					{
 						"DeviceName" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExBLOCKxDEVICExNAME"] },
 						"Ebs" : { 
+							"VolumeSize": { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADExIMGxSIZE"] },
 							"DeleteOnTermination" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExEBSxDELETExONxTERMINATION"] },
 							"VolumeType" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExEBSxVOLUMExTYPE"] }
 						}
 					}
-				]   
+				]
 			}
 		},
 		"BpsSystemController": {
@@ -1044,7 +918,7 @@
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExDISABLExAPIxTERMINATION"] },
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
-				"ImageId": { "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "AMIxSYSCTRL"] },
+                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-etszhwtguwj7m/11.00",
 				"InstanceType": { "Ref" : "BPSSCInstanceType" },
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
 				"Tags": [
@@ -1069,34 +943,88 @@
 					}
 				],
 				"UserData": {
-					"Fn::Base64": {
-						"Fn::Join": [
-							" ",
-							[
-								"BLADE_IPS=(",
-								{
-									"Fn::GetAtt": [
-										"BpsVirtualBlade1Eth0",
-										"PrimaryPrivateIpAddress"
-									]
-								},
-								")"
-							]
-						]
-					}
+				  "Fn::Base64": {
+					"Fn::Join": [
+					  "",
+					  [
+						"#cloud-config\n",
+						"write_files:\n",
+						"  - path: /home/ixia/.ssh/id_rsa\n",
+						"    permissions: '0400'\n", 
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      -----BEGIN OPENSSH PRIVATE KEY-----\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      0000000000000000000000000000000000000000000000000000000000000000000000\n",
+						"      jeHzbTtajtEAAAARdmxhZGNhbG9AdmxhZGNhbG8BAg==\n",
+						"      -----END OPENSSH PRIVATE KEY-----\n",
+						"  - path: /home/ixia/.ssh/id_rsa.pub\n",
+						"    permissions: '0600'\n",
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      ssh-rsa 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 user@user\n",
+						"  - path: /home/ixia/.ssh/authorized_keys\n",
+						"    permissions: '0644'\n",
+						"    owner: ixia:ixia\n",
+						"    content: |\n",
+						"      ssh-rsa 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 user@user\n",
+						"runcmd:\n",
+						"  - [ \"chmod\", \"755\", \"/home/ixia/.ssh\" ]\n",
+						"  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh\" ]\n"
+					  ]
+					]
+				  }
 				},
 				"NetworkInterfaces": [
 					{
 						"NetworkInterfaceId": {
-							"Ref": "BpsSystemControllerEth0"
-						},
-						"DeviceIndex": "0"
-					},
-					{
-						"NetworkInterfaceId": {
 							"Ref": "BpsSystemControllerCtrl0"
 						},
-						"DeviceIndex": "1"
+						"DeviceIndex": "0"
 					}
 				],
 				"BlockDeviceMappings" : [
@@ -1113,30 +1041,6 @@
 			"DependsOn": [
 				"BpsVirtualBlade1"
 			]
-		},
-		"MgmtElasticIp": {
-			"Type": "AWS::EC2::EIP",
-			"DependsOn": [
-				"GwAttach",
-				"BpsSystemController"
-			],
-			"Properties": {
-				"Domain": "vpc"
-			}
-		},
-		"MgmtElasticIpAssociation": {
-			"Type": "AWS::EC2::EIPAssociation",
-			"Properties": {
-				"AllocationId": {
-					"Fn::GetAtt": [
-						"MgmtElasticIp",
-						"AllocationId"
-					]
-				},
-				"NetworkInterfaceId": {
-					"Ref": "BpsSystemControllerEth0"
-				}
-			}
 		},
 		"CtrlElasticIp": {
 			"Type": "AWS::EC2::EIP",
@@ -1255,20 +1159,21 @@
         "Description" : "Instance type of BPS System Controller VM",
         "Type" : "String",
         "AllowedValues": [
-			"t2.2xlarge",
-			"t2.medium"
-        ],		
-        "Default" : "t2.medium"
+			"c6in.4xlarge",
+			"c5n.4xlarge",
+			"c5.4xlarge"
+        ],
+        "Default" : "c5.4xlarge"
       },
         "BPSvBladeInstanceType" : {
         "Description" : "Instance type of BPS Virtual Blade VM",
         "Type" : "String",
         "AllowedValues": [
-			"i3.8xlarge",
-			"c5n.xlarge",
-			"c5.xlarge"
+			"c6in.4xlarge",
+			"c5n.4xlarge",
+			"c5.4xlarge"
         ],
-        "Default" : "c5n.xlarge"
+        "Default" : "c5.4xlarge"
       },
         "InboundIPv4CidrBlock" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
