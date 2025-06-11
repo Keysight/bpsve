@@ -6,10 +6,6 @@ imports:
 - path: BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
 
 properties:
-  GCP_PROJECT_NAME:
-    type: string
-    default: ixvm-261016
-    
   GCP_REGION_NAME:
     type: string
     default: us-central1
@@ -22,13 +18,9 @@ properties:
     type: string
     default: gcp-ixia@google.com
 
-  GCP_LOGIN_ID_TAG:
-    type: string
-    default: gcp-ixia
-
   GCP_PROJECT_TAG:
     type: string
-    default: bps
+    default: ks
 
   GCP_OPTIONS_TAG:
     type: string
@@ -232,14 +224,6 @@ properties:
     type: boolean
     default: false
 
-  GCP_VCONTROLLER_CUSTOM_IMAGE_PROJECT_NAME:
-    type: string
-    default: ixvm-261016
-
-  GCP_VCONTROLLER_CUSTOM_IMAGE_FAMILY_NAME:
-    type: string
-    default: ixia-breakingpoint-virtual-controller-10-00-patch3
-
   GCP_VCONTROLLER_MACHINE_TYPE:
     type: string
     default: n1-standard-4
@@ -268,10 +252,6 @@ properties:
   GCP_VBLADE_CUSTOM_IMAGE_PROJECT_NAME:
     type: string
     default: ixvm-261016
-
-  GCP_VBLADE_CUSTOM_IMAGE_FAMILY_NAME:
-    type: string
-    default: ixia-breakingpoint-virtual-blade-10-00-patch3
 
   GCP_VBLADE_MACHINE_TYPE:
     type: string
