@@ -1,12 +1,5 @@
 ## <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" alt="AWS Logo" width="50"/> Amazon Web Services (AWS)
 
-### 🔧 Configurations
-
-This section includes `.bpt` configuration files tailored for specific AWS instance types:
-
-- `c5.xlarge`
-- `c5n.xlarge`
-
 ### 🚀 Deployment
 
 Starting with version **11.00**, BreakingPoint VE Virtual Controller and Virtual Blade are available on the AWS Marketplace:
