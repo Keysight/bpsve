@@ -6,11 +6,11 @@ This repository provides deployment configurations and templates for **BreakingP
 
 ---
 
-## 🖥️ Platform
+## 🖥️ Platforms
 
-- [Amazon Web Services (AWS)](#amazon-aws)
-- [Google Cloud Platform (GCP)](#google-cloud-platform)
-- [Alibaba Cloud](#alibaba)
+- [Amazon Web Services (AWS)](#amazon-web-services-aws)
+- [Google Cloud Platform (GCP)](#google-cloud-platform-gcp)
+- [Alibaba Cloud](#alibaba-cloud)
 - [OpenStack](#openstack)
 
 ---
@@ -392,7 +392,7 @@ terraform destroy -auto-approve
 
 ---
 
-## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Google_Cloud_logo.svg/1920px-Google_Cloud_logo.svg.png" alt="GCP Logo" width="150"/> Google Cloud Platform
+## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Google_Cloud_logo.svg/1920px-Google_Cloud_logo.svg.png" alt="GCP Logo" width="150"/> Google Cloud Platform (GCP)
 
 ### 🔧 Configurations
 
