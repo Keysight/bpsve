@@ -1,6 +1,5 @@
 module "Agent1" {
-	source = "armdupre/module-bps-agent/aws"
-	version = "10.0.0"
+	source = "git::https://github.com/armdupre/terraform-aws-module-bps-agent.git?ref=11.0.0"
 	Eth0SecurityGroupId = data.aws_security_group.PublicSecurityGroup.id
 	Eth0SubnetId = data.aws_subnet.PublicSubnet.id
 	Eth1SecurityGroupId = data.aws_security_group.PrivateSecurityGroup.id
@@ -12,6 +11,7 @@ module "Agent1" {
 	UserEmailTag = local.UserEmailTag
 	UserLoginTag = local.UserLoginTag
 	UserProjectTag = local.UserProjectTag
+	init_cli = data.cloudinit_config.init_cli.rendered
 }
 
 resource "random_id" "RandomId" {

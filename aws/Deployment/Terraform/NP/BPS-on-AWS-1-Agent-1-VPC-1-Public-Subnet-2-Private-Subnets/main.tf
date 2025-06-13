@@ -1,6 +1,5 @@
 module "Agent1" {
-	source = "armdupre/module-bps-agent/aws"
-	version = "10.0.0"
+	source = "git::https://github.com/armdupre/terraform-aws-module-bps-agent.git?ref=11.0.0"
 	Eth0SecurityGroupId = module.Vpc.PublicSecurityGroup.id
 	Eth0SubnetId = module.Vpc.PublicSubnet.id
 	Eth1SecurityGroupId = module.Vpc.PrivateSecurityGroup.id
@@ -11,6 +10,7 @@ module "Agent1" {
 	UserEmailTag = local.UserEmailTag
 	UserLoginTag = local.UserLoginTag
 	UserProjectTag = local.UserProjectTag
+	init_cli = data.cloudinit_config.init_cli.rendered
 	depends_on = [
 		module.Vpc
 	]
