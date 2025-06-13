@@ -14,7 +14,7 @@
     },
     "InstanceType": {
       "Type": "String",
-      "Description": "The resources required for each BPS VE Virtual Controller are 8 vCPU, 8 GB RAM, 30 GB HDD",
+      "Description": "The resources required for each BPS VE Virtual Controller are 8 vCPU, 4 GB RAM, 30 GB HDD",
       "Default": "ecs.sn1ne.2xlarge",
       "AllowedValues": [
         "ecs.sn1ne.xlarge",

@@ -14,7 +14,7 @@
     },
     "InstanceType": {
       "Type": "String",
-      "Description": "The resources required for each BPS VE Virtual Blade are 4 vCPU, 8 GB RAM, 14 GB HDD",
+      "Description": "The resources required for each BPS VE Virtual Blade are 4 vCPU, 8 GB RAM, 10 GB HDD",
       "Default": "ecs.sn1ne.2xlarge",
       "AllowedValues": [
         "ecs.sn1ne.xlarge",
