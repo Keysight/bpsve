@@ -88,3 +88,35 @@ openstack stack create -t Ixia_BreakingPoint_Virtual_Controller_Heat_Template.ya
 openstack stack create -t Ixia_BreakingPoint_Virtual_Blade_Heat_Template.yaml \
   --parameter-file Ixia_BreakingPoint_Virtual_Blade_Heat_Template_Variables.yaml \
   BPSVE-Virtual-Blade
+```
+
+### Option 2: Horizon Dashboard
+
+1. Go to **Project > Orchestration > Stacks**
+2. Click **Launch Stack**
+3. Upload the template and variables file
+4. Provide a stack name and launch
+
+---
+
+## 📤 Outputs
+
+Each stack will output:
+
+- The **instance ID** of the deployed VM
+- The **management IP address** (if floating IP is associated)
+
+---
+
+## 📝 Post-Deployment Notes
+
+- Allow a few minutes for the instances to fully initialize.
+- For Virtual Blades, ensure test interfaces are configured as needed.
+- You can monitor and manage the instances via Horizon or CLI.
+
+---
+
+## 📬 Support
+
+For issues related to these templates or BPS VE deployment on OpenStack, please contact your Keysight representative or refer to the official documentation.
+
