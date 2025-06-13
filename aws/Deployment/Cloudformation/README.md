@@ -1,12 +1,5 @@
 ## <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" alt="AWS Logo" width="50"/> Amazon Web Services (AWS)
 
-### 🔧 Configurations
-
-This section includes `.bpt` configuration files tailored for specific AWS instance types:
-
-- `c5.xlarge`
-- `c5n.xlarge`
-
 ### 🚀 Deployment
 
 Starting with version **11.00**, BreakingPoint VE Virtual Controller and Virtual Blade are available on the AWS Marketplace:
@@ -307,70 +300,5 @@ aws cloudformation create-stack \
 ### 📋 Notes
 - Ensure the AWS CLI is configured with appropriate credentials and region.
 - Replace file paths and parameter files with your actual paths if different.
-
----
-
-### <img src="https://www.vectorlogo.zone/logos/terraformio/terraformio-icon.svg" width="30" alt="Terraform logo"> Terraform Templates
-
-Welcome to the guide for deploying **BreakingPoint VE** using Terraform templates on AWS. This document provides step-by-step instructions, example commands, and best practices for a successful deployment.
-
-### 🔧 Prerequisites
-
-Before you begin, ensure you have the following (additionally on top of top prerequisites):
-
-- **Terraform**: Installed on your local machine. Install Terraform
----
-
-### 🛠️ Setup
-
-#### 1. 🔧 Clone the Repository
-
-Clone the BreakingPoint VE Terraform templates repository to your local machine:
-
-```bash
-git clone https://github.com/Keysight/bpsve.git
-cd aws/Deployment/Terraform/
-```
-#### 🔐 2. Configure AWS Credentials
-
-```bash
-aws configure
-```
-
-#### 🌍 3. Initialize Terraform
-Run the following command to initialize the working directory:
-
-```bash
-terraform init
-```
-
-#### 🧱 4. Review the type of template you wish to use
-Choose between:
-- Demo Templates
-- Add On Templates
-
-#### 🚀 5. Apply the Deployment
-```bash
-terraform apply -auto-approve
-```
-
-#### 🧩 6. Optional Usage
-```bash
-terraform validate
-terraform plan
-terraform state list
-terraform output
-```
-
-#### 🧹 7. Cleanup
-To destroy the deployment and remove all resources:
-```bash
-terraform destroy -auto-approve
-```
-
-### 📋 Notes
-- Ensure your IAM user has permissions to create EC2 instances, VPC resources, and IAM roles.
-- Use Terraform workspaces if managing multiple environments (e.g., dev, staging, prod).
-- Store your state file securely if using remote backends like S3 with DynamoDB for locking.
 
 ---
