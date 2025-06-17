@@ -9,23 +9,23 @@ This section includes `.bpt` configuration files tailored for specific AWS insta
 
 ### 🚀 Deployment
 
-Starting with version **11.00**, BreakingPoint VE Virtual Controller and Virtual Blade are available on the AWS Marketplace:
+Starting with version **11.00**, BreakingPoint Virtual Edition Virtual Controller and Virtual Blade are available on the AWS Marketplace:
 
 - [Virtual Controller](https://aws.amazon.com/marketplace/pp/prodview-4s5ym3tp4h3no)
 - [Virtual Blade](https://aws.amazon.com/marketplace/pp/prodview-jlz7x47qr4m4c)
 
-The BreakingPoint VE product is split between the two above VMs. Please make sure that you subscript to both of them before moving forward. 
+The BreakingPoint Virtual Edition product is split between the two above VMs. Please make sure that you subscript to both of them before moving forward. 
 
 ---
 #### 🔧 Prerequisites
 
 Before you begin, ensure you have the following:
 - **AWS Account**: An active AWS account with appropriate permissions.
-- **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint VE.
+- **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint Virtual Edition.
 - **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
 ---
 
-#### 🔒 Case Study: Why do we need SSH Public and Private Keys in the BreakingPoint VE VMs ? 
+#### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint Virtual Edition VMs ? 
 
 The Virtual Controller acts as a Virtual Blade manager and needs to communicate with one or more Virtual Blades to be able to attach the Virtual Blades to the Virtual Controller and run your tests. 
 
@@ -39,7 +39,7 @@ SSH keys are a pair of cryptographic keys used for secure authentication:
 - **Private Key**: Kept secret on your local machine
 - **Public Key**: Shared with servers you want to access
 ---
-#### Linux Environment
+#### Generating SSH Keys from a Linux Environment
 
 ###### Prerequisites
 Most Linux distributions come with OpenSSH pre-installed. If not, install it:
@@ -106,7 +106,7 @@ cat ~/.ssh/id_rsa
 ```
 
 ---
-### Windows Environment
+### Generating SSH Keys from a Windows Environment
 
 #### Install PuTTY
 Download PuTTY from the official website: https://www.putty.org/
@@ -131,13 +131,13 @@ puttygen keyfile.ppk -O private-openssh -o keyfile
 puttygen keyfile.ppk -O public-openssh -o keyfile.pub
 ```
 ---
-### AWS SSH Keys Retrieval Methods
+### Generating SSH Keys from Amazon AWS
 
 #### EC2 Key Pairs Management
 
 AWS EC2 Key Pairs store only the public key. The private key is provided only once during creation and cannot be retrieved later.
 
-##### Creating Key Pairs via AWS Console
+#### Creating Key Pairs via AWS Console
 1. Navigate to **EC2 Dashboard** → **Key Pairs**
 2. Click **Create Key Pair**
 3. Choose format:
@@ -145,11 +145,11 @@ AWS EC2 Key Pairs store only the public key. The private key is provided only on
    - **.ppk** (PuTTY format)
 4. Download the private key immediately (only chance!)
 
-##### Extracting Public and Private Keys from .pem Files
+#### Extracting Public and Private Keys from .pem Files
 
 This guide shows how to extract public and private keys from .pem files using various methods and tools.
 
-###### Understanding .pem Files
+#### Understanding .pem Files
 A .pem (Privacy-Enhanced Mail) file can contain:
 - Private keys only
 - Public keys only
@@ -157,7 +157,7 @@ A .pem (Privacy-Enhanced Mail) file can contain:
 - Certificates
 - Certificate chains
 
-###### Extract SSH Public Key from Private Key
+#### Extract SSH Public Key from Private Key
 
 ```bash
 # Generate SSH public key from private key
@@ -167,7 +167,7 @@ ssh-keygen -y -f private_key.pem > public_key.pub
 ssh-keygen -y -f private_key.pem -C "user@example.com" > public_key.pub
 ```
 
-###### Convert Between Formats
+#### Convert Between Formats
 
 ```bash
 # Convert OpenSSH to PEM format
@@ -296,7 +296,7 @@ aws cloudformation create-stack \
 
 Before starting a CFT template deployment please make sure you edit the Private and Public SSH Keys for both Virtual Controller and Virtual Blade inside the templates. Currently all keys are blanked out (all zeros) so that you can see what format is needed for deployment. 
 
-This adds a Virtual Blade to an existing infrastructure (e.g., VPC, subnets).
+This adds a Virtual Blade and a Virtual Controller to an existing infrastructure (e.g., VPC, subnets).
 
 ```bash
 aws cloudformation create-stack \
