@@ -1,6 +1,6 @@
 ## GCP Deployment Manager Templates for Keysight BPS-VE Use Cases
 
-This directory contains Jinja2-based templates and schema files for Google Cloud Deployment Manager. These templates automate the provisioning of Keysight BreakingPoint Virtual Edition (BPS-VE) environments on GCP, supporting both demo and add-on use cases.
+This directory contains Jinja-based templates and schema files for Google Cloud Deployment Manager. These templates automate the provisioning of Keysight BreakingPoint Virtual Edition (BPS-VE) environments on GCP, supporting both Demo and Add-On use cases.
 
 ---
 
@@ -8,7 +8,7 @@ This directory contains Jinja2-based templates and schema files for Google Cloud
 
 Starting with version **11.00**, BreakingPoint VE Virtual Controller and Virtual Blade are available on the Google Cloud Marketplace as one product:
 
-- [BreakingPoint Virtual Edition](https://console.cloud.google.com/marketplace/product/keysight-public/keysight-breakingpoint-virtual-edition)
+- [BreakingPoint Virtual Edition Google Cloud Marketplace](https://console.cloud.google.com/marketplace/product/keysight-public/keysight-breakingpoint-virtual-edition)
 
 This marketplace product includes both Virtual Controller and Virtual Blade. 
 
@@ -17,17 +17,17 @@ This marketplace product includes both Virtual Controller and Virtual Blade.
 
 Before you begin, ensure you have the following:
 - **GCP Account**: An active GCP account with appropriate permissions.
-- **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint VE.
-- **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
+- **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint Virtual Edition.
+- **SSH Public and Private Pre-generated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
 ---
 
-#### 🔒 Case Study: Why do we need SSH Public and Private Keys in the BreakingPoint VE VMs ? 
+#### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint Virtual Edition VMs ? 
 
 The Virtual Controller acts as a Virtual Blade manager and needs to communicate with one or more Virtual Blades to be able to attach the Virtual Blades to the Virtual Controller and run your tests. 
 
 Instead of using static SSH keys residing on the Virtual Controller and Virtual Blade, we rely on the end user to add those SSH keys at deployment time.
 
-#### 🔑 How do we generate SSH Keys to use in Amazon AWS ? 
+#### 🔑 How do we generate SSH Keys to use in Google Cloud Platform ? 
 
 ##### ❓ What are SSH Keys?
 
@@ -35,7 +35,7 @@ SSH keys are a pair of cryptographic keys used for secure authentication:
 - **Private Key**: Kept secret on your local machine
 - **Public Key**: Shared with servers you want to access
 ---
-#### Linux Environment
+#### Generating SSH Keys from a Linux Environment
 
 ###### Prerequisites
 Most Linux distributions come with OpenSSH pre-installed. If not, install it:
@@ -46,8 +46,6 @@ sudo apt update && sudo apt install openssh-client
 
 # CentOS/RHEL/Fedora
 sudo yum install openssh-clients
-# or for newer versions
-sudo dnf install openssh-clients
 ```
 
 ###### Generating SSH Keys
@@ -74,20 +72,6 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
    Enter same passphrase again:
    ```
 
-###### Key Type Options
-```bash
-# RSA (most common, good compatibility)
-ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
-
-###### Advanced Options
-```bash
-# Generate with custom filename
-ssh-keygen -t rsa -b 4096 -f ~/.ssh/my_custom_key -C "your_email@example.com"
-
-# Generate without passphrase (not recommended for production)
-ssh-keygen -t rsa -b 4096 -N "" -C "your_email@example.com"
-```
-
 ###### Viewing Generated Keys
 
 ```bash
@@ -97,12 +81,12 @@ ls -la ~/.ssh/
 # View public key content
 cat ~/.ssh/id_rsa.pub
 
-# View private key content (be careful!)
+# View private key content
 cat ~/.ssh/id_rsa
 ```
 
 ---
-### Windows Environment
+### Generating SSH Keys from a Windows Environment
 
 #### Install PuTTY
 Download PuTTY from the official website: https://www.putty.org/
@@ -127,7 +111,7 @@ puttygen keyfile.ppk -O private-openssh -o keyfile
 puttygen keyfile.ppk -O public-openssh -o keyfile.pub
 ```
 ---
-### Generating SSH Keys for Google Cloud
+### Generating SSH Keys from Google Cloud
 
 #### 🖥️ Using Google Cloud Shell
 
@@ -166,7 +150,7 @@ puttygen keyfile.ppk -O public-openssh -o keyfile.pub
 
 ✅ You can now use the private key to SSH into your VM from other systems or tools.
 
-## 🔐 Applying SSH Keys to AWS CloudFormation Templates
+## 🔐 Applying SSH Keys to Google Cloud Deployment Manager Templates
 
 To enable secure access, you must configure your previously generated SSH key pair in the `metadata` section of each instance (Virtual Controller and Virtual Blade):
 
@@ -180,7 +164,7 @@ Below SSH keys have been intentionally zeroed out due to security reasons. Pleas
 ``` yaml
     metadata:
       items:
-      - key: Owner
+      - key: Owner 
         value: {{ properties["GCP_OWNER_TAG"] }}
       - key: Project
         value: {{ properties["GCP_PROJECT_TAG"] }}
@@ -263,9 +247,9 @@ Below SSH keys have been intentionally zeroed out due to security reasons. Pleas
             - [ chown, ixia:ixia, /home/ixia/.ssh ]		
 ```
 
-## 📁 Templates Overview
+### 📁 Templates Overview
 
-### 1. `BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja`
+#### 1. `BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
 Deploys a standalone BreakingPoint Virtual Edition (BPS-VE) demo environment with a single Virtual Blade instance and a single Virtual Controller for testing and evaluation.
@@ -301,7 +285,7 @@ gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Demo-Use-Case-D
 
 ---
 
-### 2. `BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja`
+#### 2. `BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
 A type of deployment that takes advantage of an existing environment (e.g. an existing VPC, subnets, firewalls etc).
@@ -334,9 +318,6 @@ gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Add-On-Use-Case
 
 ---
 
-## 📌 Notes
+### 📌 Notes
 
 - Schema files are used for parameter validation and should not be deployed directly.
-- Ensure that the image family and project are accessible and contain the correct BPS image.
-- For production use, consider adding startup scripts, service accounts, and monitoring configurations.
-
