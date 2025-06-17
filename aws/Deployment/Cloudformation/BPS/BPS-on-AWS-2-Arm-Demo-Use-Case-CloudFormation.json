@@ -725,6 +725,7 @@
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
                 "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/11.00",
 				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
+				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
@@ -893,6 +894,14 @@
                 },
                 {
                     "Label": {
+                        "default": "Keysight BPS-VE Instance Configuration"
+                    },
+                    "Parameters": [
+                        "SSHKey"
+                    ]
+                },
+                {
+                    "Label": {
                         "default": "BreakingPoint Virtual Blade Instance Configuration"
                     },
                     "Parameters": [
@@ -918,6 +927,9 @@
 				"BPSvBladeInstanceType": {
 					"default": "Virtual Blade Instance Type"
 				},
+                "SSHKey": {
+                    "default": "Keysight BPS-VE SSH Key"
+                },
 				"InboundIPv4CidrBlock": {
 					"default": "Inbound IPv4 CIDR Block"
 				}
@@ -935,8 +947,13 @@
         "MinLength": "4",
         "Type" : "String"
       },
+		"SSHKey": {
+			"Description": "Name of an existing EC2 KeyPair to enable SSH access",
+			"Type": "AWS::EC2::KeyPair::KeyName",
+			"Default": "bps-ssh-key"
+		},	  
         "BPSvBladeInstanceType" : {
-        "Description" : "Instance type of BPS Virtual Blade VM",
+        "Description" : "Instance type of BPS-VE Virtual Blade VM",
         "Type" : "String",
         "AllowedValues": [
 			"c6in.4xlarge",

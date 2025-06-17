@@ -780,6 +780,7 @@
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
                 "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/11.00",
 				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
+				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
@@ -919,6 +920,7 @@
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
                 "ImageId": "resolve:ssm:/aws/service/marketplace/prod-etszhwtguwj7m/11.00",
 				"InstanceType": { "Ref" : "BPSSCInstanceType" },
+				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
 				"Tags": [
 					{
@@ -1101,7 +1103,15 @@
                 },
                 {
                     "Label": {
-                        "default": "BreakingPoint System Controller Instance Configuration"
+                        "default": "Keysight BPS-VE Instance Configuration"
+                    },
+                    "Parameters": [
+                        "SSHKey"
+                    ]
+                },
+                {
+                    "Label": {
+                        "default": "BreakingPoint Virtual Controller Instance Configuration"
                     },
                     "Parameters": [
                         "BPSSCInstanceType"
@@ -1132,11 +1142,14 @@
 					"default": "User Login Tag"
 				},
 				"BPSSCInstanceType": {
-					"default": "System Controller Instance Type"
+					"default": "Virtual Controller Instance Type"
 				},
 				"BPSvBladeInstanceType": {
 					"default": "Virtual Blade Instance Type"
 				},
+                "SSHKey": {
+                    "default": "Keysight BPS-VE SSH Key"
+                },
 				"InboundIPv4CidrBlock": {
 					"default": "Inbound IPv4 CIDR Block"
 				}
@@ -1154,8 +1167,13 @@
         "MinLength": "4",
         "Type" : "String"
       },
+		"SSHKey": {
+			"Description": "Name of an existing EC2 KeyPair to enable SSH access",
+			"Type": "AWS::EC2::KeyPair::KeyName",
+			"Default": "bps-ssh-key"
+		},	  
         "BPSSCInstanceType" : {
-        "Description" : "Instance type of BPS System Controller VM",
+        "Description" : "Instance type of BPS-VEVirtual Controller VM",
         "Type" : "String",
         "AllowedValues": [
 			"c6in.4xlarge",
@@ -1165,7 +1183,7 @@
         "Default" : "c5.4xlarge"
       },
         "BPSvBladeInstanceType" : {
-        "Description" : "Instance type of BPS Virtual Blade VM",
+        "Description" : "Instance type of BPS-VEVirtual Blade VM",
         "Type" : "String",
         "AllowedValues": [
 			"c6in.4xlarge",
