@@ -1,13 +1,13 @@
 # GCP VPC Network Peering Automation Scripts
 
-This repository contains two Bash scripts designed to automate the deployment and cleanup of VPC Network Peering connections in Google Cloud Platform (GCP). These scripts are intended to be run in the Google Cloud Shell environment and are part of the Keysight BPSVE deployment process.
+This repository contains two Bash scripts designed to automate the deployment and cleanup of VPC Network Peering connections in Google Cloud Platform (GCP). These scripts are intended to be run in the Google Cloud Shell environment and are part of the Keysight BreakingPoint Virtual Edition deployment process.
 
 ## 📁 Scripts Overview
 
 ### 1. `GCP_VPC_Network_Peering_Deployment_Bash_Script.bash`
 
 **Purpose:**  
-Automates the creation of VPC Network Peering connections between two GCP projects or networks.
+Automates the creation of VPC Network Peering connections between two GCP projects or networks. This is useful on use cases with both Demo and Add-On templates where the test interfaces of the Virtual Blade need to be connected in back to back. 
 
 **Key Features:**
 - Prompts the user for necessary input such as project IDs, VPC network names, and region.
@@ -18,7 +18,7 @@ Automates the creation of VPC Network Peering connections between two GCP projec
 ### 2. `GCP_VPC_Network_Peering_Cleanup_Bash_Script.bash`
 
 **Purpose:**  
-Automates the deletion of existing VPC Network Peering connections.
+Automates the deletion of existing VPC Network Peering connections that you might have created with the above script (see section 1)
 
 **Key Features:**
 - Prompts the user for the same input parameters used during deployment.
