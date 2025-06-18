@@ -28,7 +28,7 @@ parameters:
     Virtual_Controller_Flavor:
       type:        string
       label:       BPS Virtual Controller - Flavor
-      description: The resources required for each BPS VIRTUAL CONTROLLER are 8 vCPU, 8 GB RAM, 30 GB HDD  
+      description: The resources required for each BPS VIRTUAL CONTROLLER are 4 vCPU, 8 GB RAM, 30 GB HDD  
       
 resources:
        

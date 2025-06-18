@@ -198,7 +198,7 @@ ssh-keygen -p -m OpenSSH -f private_key.pem
 
 ### 📦 CloudFormation Templates
 
-Located in `aws/Deployment/Cloudformation`, these JSON templates are organized into:
+Located in `aws/Deployment/CloudFormation`, these JSON templates are organized into:
 
 - **BPS Folder**: Includes both Virtual Controller and Blade(s)
   - **Demo Use Case**: Full deployment including networking, security groups, etc.
@@ -305,7 +305,7 @@ To deploy a full BreakingPoint VE environment using a CloudFormation template:
 ```bash
 aws cloudformation create-stack \
   --stack-name BPS-Demo-Deployment \
-  --template-body file://Deployment/Cloudformation/BPS/BPS-on-AWS-1-vBlade-Demo-Use-Case-CloudFormation.json
+  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Demo-Use-Case.json
 ```
 ---
 
@@ -318,7 +318,7 @@ This adds a Virtual Blade to an existing infrastructure (e.g., VPC, subnets).
 ```bash
 aws cloudformation create-stack \
   --stack-name BPS-AddOn-Deployment \
-  --template-body file://Deployment/Cloudformation/BPS BPS-on-AWS-1-vBlade-Add-On-Use-Case-CloudFormation.json
+  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Add-On-Use-Case.json
 ```
 
 ### 📋 Notes
@@ -675,7 +675,7 @@ Before starting the deployment please upload your .jinja and .jinja.schema files
 The following command should be executed to run a deployment: 
 
   ```bash
-  gcloud deployment-manager deployments create DEPLOYMENT-NAME --template BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
+  gcloud deployment-manager deployments create DEPLOYMENT-NAME --template -GCP-1-Virtual-Blade-Demo-Use-Case-DM-Template.jinja
   ```
 
 The status of the deployment will be displayed when the deployment will finish. 

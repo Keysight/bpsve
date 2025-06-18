@@ -1,31 +1,43 @@
-## <img src="https://a0.awsstatic.com/libra-css/images/logos/aws_logo_smile_1200x630.png" alt="AWS Logo" width="50"/> Amazon Web Services (AWS)
+# AWS CloudFormation Deployment Templates
 
-### 🔧 Configurations
-
-This section includes `.bpt` configuration files tailored for specific AWS instance types:
-
-- `c5.xlarge`
-- `c5n.xlarge`
-
-### 🚀 Deployment
-
-Starting with version **11.00**, BreakingPoint Virtual Edition Virtual Controller and Virtual Blade are available on the AWS Marketplace:
-
-- [Virtual Controller](https://aws.amazon.com/marketplace/pp/prodview-4s5ym3tp4h3no)
-- [Virtual Blade](https://aws.amazon.com/marketplace/pp/prodview-jlz7x47qr4m4c)
-
-The BreakingPoint Virtual Edition product is split between the two above VMs. Please make sure that you subscript to both of them before moving forward. 
+These template examples serve as starting points for deploying resources using AWS CloudFormation.
 
 ---
-#### 🔧 Prerequisites
 
-Before you begin, ensure you have the following:
-- **AWS Account**: An active AWS account with appropriate permissions.
-- **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint Virtual Edition.
-- **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
+## ✅ Pre-Deployment Checklist
+
+Before deploying, please ensure the following:
+
+- **Understand CloudFormation Templates (CFT):**  
+  Familiarize yourself with AWS CloudFormation and how it works. Refer to the AWS CloudFormation Documentation for guidance.
+
+- **Configure SSH Keys:**  
+  Set up your private and public SSH keys in the templates as described in this [guide](https://github.com/Keysight/bpsve/tree/main/aws/Deployment/CloudFormation#-case-study-why-do-we-need-ssh-public-and-private-keys-in-the-breakingpoint-ve-vms-)
+
+## 🔧 Post-Deployment Steps
+
+After deployment, complete the following steps:
+
+1. **Activate the BPS-VE License**  
+   Either activate a new license or configure the Virtual Controller to use an existing external license server (if applicable).
+
+2. **Access the Virtual Controller**  
+   - Open your browser and navigate to: `https://<VIRTUAL_CONTROLLER_IP>`  
+   - Wait 5–10 minutes for all services to initialize.  
+   - Log in using the default credentials:  
+     **Username:** `admin`  
+     **Password:** `admin`
+
+3. **Attach the Virtual Blade**  
+   - Go to the **Administration** page  
+   - Navigate to **Manage Chassis**  
+   - Attach the Virtual Blade to the Virtual Controller
+
+
 ---
 
-#### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint Virtual Edition VMs ? 
+
+## 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint VE VMs ? 
 
 The Virtual Controller acts as a Virtual Blade manager and needs to communicate with one or more Virtual Blades to be able to attach the Virtual Blades to the Virtual Controller and run your tests. 
 
@@ -39,7 +51,7 @@ SSH keys are a pair of cryptographic keys used for secure authentication:
 - **Private Key**: Kept secret on your local machine
 - **Public Key**: Shared with servers you want to access
 ---
-#### Generating SSH Keys from a Linux Environment
+#### Linux Environment
 
 ###### Prerequisites
 Most Linux distributions come with OpenSSH pre-installed. If not, install it:
@@ -106,7 +118,7 @@ cat ~/.ssh/id_rsa
 ```
 
 ---
-### Generating SSH Keys from a Windows Environment
+### Windows Environment
 
 #### Install PuTTY
 Download PuTTY from the official website: https://www.putty.org/
@@ -131,13 +143,13 @@ puttygen keyfile.ppk -O private-openssh -o keyfile
 puttygen keyfile.ppk -O public-openssh -o keyfile.pub
 ```
 ---
-### Generating SSH Keys from Amazon AWS
+### AWS SSH Keys Retrieval Methods
 
 #### EC2 Key Pairs Management
 
 AWS EC2 Key Pairs store only the public key. The private key is provided only once during creation and cannot be retrieved later.
 
-#### Creating Key Pairs via AWS Console
+##### Creating Key Pairs via AWS Console
 1. Navigate to **EC2 Dashboard** → **Key Pairs**
 2. Click **Create Key Pair**
 3. Choose format:
@@ -145,11 +157,11 @@ AWS EC2 Key Pairs store only the public key. The private key is provided only on
    - **.ppk** (PuTTY format)
 4. Download the private key immediately (only chance!)
 
-#### Extracting Public and Private Keys from .pem Files
+##### Extracting Public and Private Keys from .pem Files
 
 This guide shows how to extract public and private keys from .pem files using various methods and tools.
 
-#### Understanding .pem Files
+###### Understanding .pem Files
 A .pem (Privacy-Enhanced Mail) file can contain:
 - Private keys only
 - Public keys only
@@ -157,7 +169,7 @@ A .pem (Privacy-Enhanced Mail) file can contain:
 - Certificates
 - Certificate chains
 
-#### Extract SSH Public Key from Private Key
+###### Extract SSH Public Key from Private Key
 
 ```bash
 # Generate SSH public key from private key
@@ -167,7 +179,7 @@ ssh-keygen -y -f private_key.pem > public_key.pub
 ssh-keygen -y -f private_key.pem -C "user@example.com" > public_key.pub
 ```
 
-#### Convert Between Formats
+###### Convert Between Formats
 
 ```bash
 # Convert OpenSSH to PEM format
@@ -179,18 +191,7 @@ ssh-keygen -p -m OpenSSH -f private_key.pem
 
 ---
 
-### 📦 CloudFormation Templates
-
-Located in `aws/Deployment/CloudFormation`, these JSON templates are organized into:
-
-- **BPS Folder**: Includes both Virtual Controller and Blade(s)
-  - **Demo Use Case**: Full deployment including networking, security groups, etc.
-  - **Standalone Use Case**: Similar to Demo, but allows parameter customization (e.g., VPC CIDR)
-  - **Add-On Use Case**: Designed to integrate with existing infrastructure
-- **NP Folder**: Templates for deploying additional Virtual Blades
----
-
-#### 🔐 Applying SSH Keys to AWS CloudFormation Templates
+## 🔐 Applying SSH Keys to AWS CloudFormation Templates
 
 To enable secure access, you must configure your previously generated SSH key pair in the `UserData` section of each instance (Virtual Controller and Virtual Blade):
 
@@ -279,98 +280,207 @@ To enable secure access, you must configure your previously generated SSH key pa
 				}
 ```
 
-#### 🧪 Example #1: Deploying a Demo Use Case Template
+## 📘 Template Guide
 
-Before starting a CFT template deployment please make sure you edit the Private and Public SSH Keys for both Virtual Controller and Virtual Blade inside the templates. Currently all keys are blanked out (all zeros) so that you can see what format is needed for deployment. 
+Below is a guide for the available CloudFormation templates:
 
-To deploy a full BreakingPoint VE environment using a CloudFormation template:
+### 1. `AWS-1-Virtual-Blade-Add-On-Use-Case.json`  
+**Location:**  
+`aws/Deployment/CloudFormation/BPS-VE-FullDeployment/`
 
-```bash
-aws cloudformation create-stack \
-  --stack-name BPS-Demo-Deployment \
-  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Demo-Use-Case.json
-```
+This templates deploys the BPS-VE product but relies on existing infrastructure that the product should run on:
+
+- **1x Virtual Controller**
+- **1x Virtual Blade**
+- **All required AWS infrastructure components**, including:
+  - Placement Group
+  - Security Groups (Management and Test) with associated rules
+  - Network Interfaces (Management and Test)
+  - Elastic IPs and their associations
+
+### 🔧 Template Parameters
+
+These templates require the following input parameters from the user:
+
+- `UserEmailTag` – Email address tag of the user creating the stack  
+  *(Minimum length: 14 characters)*
+
+- `UserLoginTag` – Login ID tag of the user creating the stack  
+  *(Minimum length: 4 characters)*
+
+- `VpcId` – ID of the existing Virtual Private Cloud (VPC)
+
+- `MgmtSubnetId` – Subnet ID for the Management network
+
+- `CtrlSubnetId` – Subnet ID for the Control network
+
+- `Test1SubnetId` – Subnet ID for the first Test network
+
+- `Test2SubnetId` – Subnet ID for the second Test network
+
+- `BPSSCInstanceType` – Instance type for the Virtual Controller VM  
+  *(Options: `c6in.4xlarge`, `c5n.4xlarge`, `c5.4xlarge`; Default: `c5.4xlarge`)*
+
+- `BPSSCCtrl0PrivateIpAddress` – Private IP address for the Virtual Controller on the Control subnet  
+  *(Must be a valid IPv4 address, e.g., `10.0.1.12`)*
+
+- `BPSvBladeInstanceType` – Instance type for the BPS Virtual Blade VM  
+  *(Options: `c6in.4xlarge`, `c5n.4xlarge`, `c5.4xlarge`; Default: `c5.4xlarge`)*
+
+- `BPSvBlade1Eth0PrivateIpAddress` – Private IP address for Virtual Blade 1 Eth0 (Control subnet)  
+  *(Must be a valid IPv4 address, e.g., `10.0.1.13`)*
+
+- `BPSvBlade1Eth1PrivateIpAddresses` – Comma-separated list of private IP addresses for Virtual Blade 1 Eth1 (Test1 subnet)  
+  *(Example: `10.0.2.22,10.0.2.23,...`)*
+
+- `BPSvBlade1Eth2PrivateIpAddresses` – Comma-separated list of private IP addresses for Virtual Blade 1 Eth2 (Test2 subnet)  
+  *(Example: `10.0.3.22,10.0.3.23,...`)*
+
+- `SSHKey` – SSH Key to be assigned to your instance
+
+- `InboundIPv4CidrBlock` – IPv4 CIDR block or IP address (e.g., `x.x.x.x/x`) to allow inbound access from your client  
+  *(Must be a valid CIDR range, e.g., `203.0.113.0/24`)*
 ---
 
-#### 🧷 Example #2: Deploying an Add-On Use Case Template
+### 2. `AWS-1-Virtual-Blade-Demo-Use-Case.json`  
+**Location:**  
+`aws/Deployment/CloudFormation/BPS-VE-FullDeployment/`
 
-Before starting a CFT template deployment please make sure you edit the Private and Public SSH Keys for both Virtual Controller and Virtual Blade inside the templates. Currently all keys are blanked out (all zeros) so that you can see what format is needed for deployment. 
+This templates deploys complete infrastructure that needs to be used by the BPS-VE product and:
 
-This adds a Virtual Blade and a Virtual Controller to an existing infrastructure (e.g., VPC, subnets).
+- **1x Virtual Controller**
+- **1x Virtual Blade**
+- **All required AWS infrastructure components**, including:
+  - Placement Group
+  - VPC (Virtual Private Cloud)
+  - Flow Logs
+  - Subnets (Management and Test)
+  - Security Groups (Management and Test) with associated rules
+  - Internet Gateway
+  - Route Tables, Routes, and VPC Gateway Attachment
+  - Network Interfaces (Management and Test)
+  - Elastic IPs and their associations
 
-```bash
-aws cloudformation create-stack \
-  --stack-name BPS-AddOn-Deployment \
-  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Add-On-Use-Case.json
-```
+### 🔧 Template Parameters
 
-### 📋 Notes
-- Ensure the AWS CLI is configured with appropriate credentials and region.
-- Replace file paths and parameter files with your actual paths if different.
+These templates require the following input parameters from the user:
 
+- `UserEmailTag` – Tag to identify the user by email
+- `UserLoginTag` – Tag to identify the user by login name
+- `BPSSCInstanceType` – Instance type for the Virtual Controller  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `BPSvBladeInstanceType` – Instance type for the Virtual Blade  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `SSHKey` – SSH Key to be assigned to your instance
+- `InboundIPv4CidrBlock` – IPv4 CIDR block to allow inbound traffic from your PC
+---
+### 3. `AWS-1-Virtual-Blade-Standalone-Use-Case.json`  
+**Location:**  
+`aws/Deployment/CloudFormation/BPS-VE-FullDeployment/`
+
+This templates deploys complete infrastructure that needs to be used by the BPS-VE product and:
+
+- **1x Virtual Controller**
+- **1x Virtual Blade**
+- **All required AWS infrastructure components**, including:
+  - Placement Group
+  - VPC (Virtual Private Cloud)
+  - Flow Logs
+  - Subnets (Management and Test)
+  - Security Groups (Management and Test) with associated rules
+  - Internet Gateway
+  - Route Tables, Routes, and VPC Gateway Attachment
+  - Network Interfaces (Management and Test)
+  - Elastic IPs and their associations
+
+### 🔧 Template Parameters
+
+These templates require the following input parameters from the user:
+
+- `UserEmailTag` – Tag to identify the user by email
+- `UserLoginTag` – Tag to identify the user by login name
+- `VpcCidrBlock` - Virtual Private Cloud IP CIDR range
+- `MgmtSubnetCidrBlock` - Management Subnet IP CIDR range
+- `CtrlSubnetCidrBlock` - Management Subnet IP CIDR range
+- `Test1SubnetCidrBlock` - Test1 Subnet IP CIDR range
+- `Test2SubnetCidrBlock` - Test2 Subnet IP CIDR range
+- `BPSSCCtrl0PrivateIpAddress` - Virtual Controller Management Subnet IP Address
+- `BPSvBlade1Eth0PrivateIpAddress` - Virtual Blade Management Subnet IP Address
+- `BPSvBlade1Eth1PrivateIpAddresses` - Virtual Blade 1 Eth1 Test1 Subnet IP Address CSV list
+- `BPSvBlade1Eth2PrivateIpAddresses` - Virtual Blade 1 Eth2 Test2 Subnet IP Address CSV list
+- `BPSSCInstanceType` – Instance type for the Virtual Controller  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `BPSvBladeInstanceType` – Instance type for the Virtual Blade  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `SSHKey` – SSH Key to be assigned to your instance
+- `InboundIPv4CidrBlock` – IPv4 CIDR block to allow inbound traffic from your PC
+
+The main difference between this template and the "Demo" category one is that here you can manually modify the VPC parameters such as VPC, Subnets or Private IPs. 
 ---
 
-### <img src="https://www.vectorlogo.zone/logos/terraformio/terraformio-icon.svg" width="30" alt="Terraform logo"> Terraform Templates
+### 4. `AWS-2-Arm-Demo-Use-Case.json`  
+**Location:**  
+`aws/Deployment/CloudFormation/BPS-VE-FullDeployment/`
 
-Welcome to the guide for deploying **BreakingPoint VE** using Terraform templates on AWS. This document provides step-by-step instructions, example commands, and best practices for a successful deployment.
+This templates deploys complete infrastructure that needs to be used by the BPS-VE product and:
 
-### 🔧 Prerequisites
+- **1x Virtual Controller**
+- **2x Virtual Blade**
+- **All required AWS infrastructure components**, including:
+  - Placement Group
+  - VPC (Virtual Private Cloud)
+  - Flow Logs
+  - Subnets (Management and Test)
+  - Security Groups (Management and Test) with associated rules
+  - Internet Gateway
+  - Route Tables, Routes, and VPC Gateway Attachment
+  - Network Interfaces (Management and Test)
+  - Elastic IPs and their associations
 
-Before you begin, ensure you have the following (additionally on top of top prerequisites):
+### 🔧 Template Parameters
 
-- **Terraform**: Installed on your local machine. Install Terraform
+These templates require the following input parameters from the user:
+
+- `UserEmailTag` – Tag to identify the user by email
+- `UserLoginTag` – Tag to identify the user by login name
+- `BPSSCInstanceType` – Instance type for the Virtual Controller  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `BPSvBladeInstanceType` – Instance type for the Virtual Blade  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `SSHKey` – SSH Key to be assigned to your instance
+- `InboundIPv4CidrBlock` – IPv4 CIDR block to allow inbound traffic from your PC
 ---
 
-### 🛠️ Setup
+### 5. `AWS-2-Virtual-Blade-Demo-Use-Case.json`  
+**Location:**  
+`aws/Deployment/CloudFormation/BPS-VE-FullDeployment/`
 
-#### 1. 🔧 Clone the Repository
+This templates deploys complete infrastructure that needs to be used by the BPS-VE product and:
 
-Clone the BreakingPoint VE Terraform templates repository to your local machine:
+- **1x Virtual Controller**
+- **2x Virtual Blade**
+- **All required AWS infrastructure components**, including:
+  - Placement Group
+  - VPC (Virtual Private Cloud)
+  - Flow Logs
+  - Subnets (Management and Test)
+  - Security Groups (Management and Test) with associated rules
+  - Internet Gateway
+  - Route Tables, Routes, and VPC Gateway Attachment
+  - Network Interfaces (Management and Test)
+  - Elastic IPs and their associations
 
-```bash
-git clone https://github.com/Keysight/bpsve.git
-cd aws/Deployment/Terraform/
-```
-#### 🔐 2. Configure AWS Credentials
+### 🔧 Template Parameters
 
-```bash
-aws configure
-```
+These templates require the following input parameters from the user:
 
-#### 🌍 3. Initialize Terraform
-Run the following command to initialize the working directory:
-
-```bash
-terraform init
-```
-
-#### 🧱 4. Review the type of template you wish to use
-Choose between:
-- Demo Templates
-- Add On Templates
-
-#### 🚀 5. Apply the Deployment
-```bash
-terraform apply -auto-approve
-```
-
-#### 🧩 6. Optional Usage
-```bash
-terraform validate
-terraform plan
-terraform state list
-terraform output
-```
-
-#### 🧹 7. Cleanup
-To destroy the deployment and remove all resources:
-```bash
-terraform destroy -auto-approve
-```
-
-### 📋 Notes
-- Ensure your IAM user has permissions to create EC2 instances, VPC resources, and IAM roles.
-- Use Terraform workspaces if managing multiple environments (e.g., dev, staging, prod).
-- Store your state file securely if using remote backends like S3 with DynamoDB for locking.
-
+- `UserEmailTag` – Tag to identify the user by email
+- `UserLoginTag` – Tag to identify the user by login name
+- `BPSSCInstanceType` – Instance type for the Virtual Controller  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `BPSvBladeInstanceType` – Instance type for the Virtual Blade  
+  *(Options: `c5.4xlarge`, `c6in.4xlarge`, `c5n.4xlarge`; Default: `c5.4xlarge`)*
+- `SSHKey` – SSH Key to be assigned to your instance
+- `InboundIPv4CidrBlock` – IPv4 CIDR block to allow inbound traffic from your PC
 ---
+

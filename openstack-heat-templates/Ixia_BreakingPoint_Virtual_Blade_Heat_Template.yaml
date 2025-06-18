@@ -39,7 +39,7 @@ parameters:
     Virtual_Blade_Flavor:
       type:        string
       label:       BPS Virtual Blade - Flavor
-      description: The resources required for each BPS VIRTUAL BLADE are 4 vCPU, 8 GB RAM, 14 GB HDD      
+      description: The resources required for each BPS VIRTUAL BLADE are 4 vCPU, 8 GB RAM, 10 GB HDD      
 
 resources:
 

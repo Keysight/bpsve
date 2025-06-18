@@ -12,8 +12,8 @@ The prerequisites are:
 - BreakingPoint VE Virtual Controller and BreakingPoint VE Virtual Blade qcow2 images extracted and uploaded into OpenStack Glance Server (images)
 - OpenStack setup and account for running your tests
 - Flavors created for the BreakingPoint VE Virtual Controller and BreakingPoint VE Virtual Blade.
-  - BreakingPoint VE Virtual Controller: 8GB RAM, 4vCPUs and 20GB Disk
-  - BreakingPoint VE Virtual Blade: 8GB RAM, 4 vCPUs and 3GB Disk
+  - BreakingPoint VE Virtual Controller: 8GB RAM, 4vCPUs and 30GB Disk
+  - BreakingPoint VE Virtual Blade: 8GB RAM, 4 vCPUs and 10GB Disk
  
 ## Specialized knowledge
 Before you deploy these templates, we recommend that you become familiar with the following notions:
