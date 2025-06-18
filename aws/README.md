@@ -181,7 +181,7 @@ ssh-keygen -p -m OpenSSH -f private_key.pem
 
 ### 📦 CloudFormation Templates
 
-Located in `aws/Deployment/Cloudformation`, these JSON templates are organized into:
+Located in `aws/Deployment/CloudFormation`, these JSON templates are organized into:
 
 - **BPS Folder**: Includes both Virtual Controller and Blade(s)
   - **Demo Use Case**: Full deployment including networking, security groups, etc.
@@ -288,7 +288,7 @@ To deploy a full BreakingPoint VE environment using a CloudFormation template:
 ```bash
 aws cloudformation create-stack \
   --stack-name BPS-Demo-Deployment \
-  --template-body file://Deployment/Cloudformation/BPS/BPS-on-AWS-1-vBlade-Demo-Use-Case-CloudFormation.json
+  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Demo-Use-Case.json
 ```
 ---
 
@@ -301,7 +301,7 @@ This adds a Virtual Blade and a Virtual Controller to an existing infrastructure
 ```bash
 aws cloudformation create-stack \
   --stack-name BPS-AddOn-Deployment \
-  --template-body file://Deployment/Cloudformation/BPS BPS-on-AWS-1-vBlade-Add-On-Use-Case-CloudFormation.json
+  --template-body file://Deployment/CloudFormation/BPS-VE-FullDeployment/AWS-1-Virtual-Blade-Add-On-Use-Case.json
 ```
 
 ### 📋 Notes

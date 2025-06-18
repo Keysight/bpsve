@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "NP on AWS 1-vBlade Add-On Test CloudFormation",
+	"Description": "NP on AWS 1-Virtual-Blade Add-On Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {

@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "BPS on AWS 1-vBlade Add-On Test CloudFormation",
+	"Description": "BPS on AWS 1-Virtual-Blade Standalone Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
@@ -98,7 +98,13 @@
 			"local" : {
 				"OPTIONSxTAG" : "MANUAL",
 				"PROJECTxTAG" : "OPEN_IXIA",
+				"VPCxINSTANCExTENANCY" : "default",
+				"VPCxENABLExDNSxSUPPORT" : true,
+				"VPCxENABLExDNSxHOSTNAMES" : true,
 				"PLACEMENTxGROUPxSTRATEGY" : "cluster",
+				"FLOWxLOGxRESOURCExTYPE" : "VPC",
+				"FLOWxLOGxTRAFFICxTYPE" : "REJECT",
+				"SUBNETxAVAILABILITYxZONExINDEX" : "0",
 				"INTERFACExSOURCExDESTxCHECK" : true,
 				"INSTANCExDISABLExAPIxTERMINATION" : false,
 				"INSTANCExMONITORING" : false,
@@ -109,7 +115,7 @@
 				"APPxTAG" : "BPS",
 				"APPxVERSION" : "11.00",
 				"SYSCTRLxIMGxSIZE" : "30",
-				"VBLADExIMGxSIZE" : "10"													
+				"VBLADExIMGxSIZE" : "10"
 			}
 		}
 	},
@@ -120,13 +126,139 @@
 				"Strategy" : { "Fn::FindInMap" : [ "VariableMap", "local", "PLACEMENTxGROUPxSTRATEGY"] }
 			}
 		},
+		"Vpc": {
+			"Type": "AWS::EC2::VPC",
+			"Properties": {
+				"CidrBlock": { "Ref" : "VpcCidrBlock" },
+				"InstanceTenancy": { "Fn::FindInMap" : [ "VariableMap", "local", "VPCxINSTANCExTENANCY"] },
+				"EnableDnsSupport": { "Fn::FindInMap" : [ "VariableMap", "local", "VPCxENABLExDNSxSUPPORT"] },
+				"EnableDnsHostnames": { "Fn::FindInMap" : [ "VariableMap", "local", "VPCxENABLExDNSxHOSTNAMES"] },
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "VPC", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"VpcFlowLog" : {
+			"Type" : "AWS::EC2::FlowLog",
+			"Properties" : {
+				"DeliverLogsPermissionArn" : { "Fn::GetAtt" : ["VPCFlowLogAccessRole", "Arn"] },
+				"LogGroupName" : { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "VPC_FLOW_LOG", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"ResourceId" : { "Ref" : "Vpc" },
+				"ResourceType" : { "Fn::FindInMap" : [ "VariableMap", "local", "FLOWxLOGxRESOURCExTYPE"] },
+				"TrafficType" : { "Fn::FindInMap" : [ "VariableMap", "local", "FLOWxLOGxTRAFFICxTYPE"] }
+			}
+		},
+		"CtrlSubnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"CidrBlock": { "Ref" : "CtrlSubnetCidrBlock" },
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "CTRL_SUBNET", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"Test1Subnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"CidrBlock": { "Ref" : "Test1SubnetCidrBlock" },
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST1_SUBNET", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+  		"Test2Subnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"CidrBlock": { "Ref" : "Test2SubnetCidrBlock" },
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST2_SUBNET", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
         "CtrlSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "CTRL_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"VpcId": {
-                    "Ref": "VpcId"
+                    "Ref": "Vpc"
                 },
 				"Tags": [
 					{
@@ -150,16 +282,16 @@
 			}
 		},
 		"CtrlIngress1": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
-			"Properties": {
-				"GroupId": {
-					"Ref": "CtrlSecurityGroup"
-				},
-				"IpProtocol": "-1",
-				"SourceSecurityGroupId": {
-					"Ref": "CtrlSecurityGroup"
-				}
+		  "Type": "AWS::EC2::SecurityGroupIngress",
+		  "Properties": {
+			"GroupId": {
+			  "Ref": "CtrlSecurityGroup"
+			},
+			"IpProtocol": "-1",
+			"SourceSecurityGroupId": {
+			  "Ref": "CtrlSecurityGroup"
 			}
+		  }
 		},
 		"CtrlIngress2": {
 			"Type": "AWS::EC2::SecurityGroupIngress",
@@ -227,7 +359,7 @@
                 "GroupDescription": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST1_SECURITY_GROUP", 
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
                 "VpcId": {
-                    "Ref": "VpcId"
+                    "Ref": "Vpc"
                 },
 				"Tags": [
 					{
@@ -251,14 +383,149 @@
 			}
 		},
 		"Test1Ingress1": {
-			"Type": "AWS::EC2::SecurityGroupIngress",
+		  "Type": "AWS::EC2::SecurityGroupIngress",
+		  "Properties": {
+			"GroupId": {
+			  "Ref": "Test1SecurityGroup"
+			},
+			"IpProtocol": "-1",
+			"SourceSecurityGroupId": {
+			  "Ref": "Test1SecurityGroup"
+			}
+		  }
+		},
+		"InternetGw": {
+			"Type": "AWS::EC2::InternetGateway",
 			"Properties": {
-				"GroupId": {
-					"Ref": "Test1SecurityGroup"
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "INTERNET_GW", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"GwAttach": {
+			"Type": "AWS::EC2::VPCGatewayAttachment",
+			"Properties": {
+				"VpcId": {
+					"Ref": "Vpc"
 				},
-				"IpProtocol": "-1",
-				"SourceSecurityGroupId": {
-					"Ref": "Test1SecurityGroup"
+				"InternetGatewayId": {
+					"Ref": "InternetGw"
+				}
+			}
+		},
+		"CtrlRouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"Properties": {
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "CTRL_ROUTE_TABLE", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"Test1RouteTable": {
+			"Type": "AWS::EC2::RouteTable",
+			"Properties": {
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST1_ROUTE_TABLE", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"CtrlRoute": {
+			"Type": "AWS::EC2::Route",
+			"Properties": {
+				"DestinationCidrBlock": "0.0.0.0/0",
+				"RouteTableId": {
+					"Ref": "CtrlRouteTable"
+				},
+				"GatewayId": {
+					"Ref": "InternetGw"
+				}
+			},
+			"DependsOn": "GwAttach"
+		},
+		"CtrlSubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "CtrlRouteTable"
+				},
+				"SubnetId": {
+					"Ref": "CtrlSubnet"
+				}
+			}
+		},
+		"Test1SubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "Test1RouteTable"
+				},
+				"SubnetId": {
+					"Ref": "Test1Subnet"
+				}
+			}
+		},
+		"Test2SubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "Test1RouteTable"
+				},
+				"SubnetId": {
+					"Ref": "Test2Subnet"
 				}
 			}
 		},
@@ -271,7 +538,7 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "CtrlSubnetId"
+					"Ref": "CtrlSubnet"
 				},
 				"GroupSet": [
 					{
@@ -311,7 +578,7 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "CtrlSubnetId"
+					"Ref": "CtrlSubnet"
 				},
 				"GroupSet": [
 					{
@@ -351,7 +618,7 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "Test1SubnetId"
+					"Ref": "Test1Subnet"
 				},
 				"GroupSet": [
 					{
@@ -429,7 +696,7 @@
 					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
 				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
 				"SubnetId": {
-					"Ref": "Test2SubnetId"
+					"Ref": "Test2Subnet"
 				},
 				"GroupSet": [
 					{
@@ -771,6 +1038,7 @@
 		"CtrlElasticIp": {
 			"Type": "AWS::EC2::EIP",
 			"DependsOn": [
+				"GwAttach",
 				"BpsSystemController"
 			],
 			"Properties": {
@@ -790,7 +1058,28 @@
 					"Ref": "BpsSystemControllerCtrl0"
 				}
 			}
-		}
+		},
+		"VPCFlowLogAccessRole": {
+            "Properties": {
+                "AssumeRolePolicyDocument": {
+                    "Statement": [
+                        {
+                            "Action": "sts:AssumeRole",
+                            "Effect": "Allow",
+                            "Principal": {
+                                "Service": "vpc-flow-logs.amazonaws.com"
+                            }
+                        }
+                    ],
+                    "Version": "2012-10-17"
+                },
+                "ManagedPolicyArns": [
+                    "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+                ],
+                "Path": "/"
+            },
+            "Type": "AWS::IAM::Role"
+        }
 	},
 	"Metadata" : {
 		"AWS::CloudFormation::Interface" : {	
@@ -817,11 +1106,11 @@
                         "default": "Virtual Private Cloud Configuration"
                     },
                     "Parameters": [
-                        "VpcId",
-						"MgmtSubnetId",
-						"CtrlSubnetId",
-						"Test1SubnetId",
-						"Test2SubnetId"
+                        "VpcCidrBlock",
+						"MgmtSubnetCidrBlock",
+						"CtrlSubnetCidrBlock",
+						"Test1SubnetCidrBlock",
+						"Test2SubnetCidrBlock"
                     ]
                 },
                 {
@@ -860,26 +1149,26 @@
 				"UserLoginTag": {
 					"default": "User Login Tag"
 				},
-				"VpcId": {
-					"default": "VPC ID"
+				"VpcCidrBlock": {
+					"default": "VPC CIDR Block"
 				},
-				"MgmtSubnetId": {
-					"default": "Management Subnet ID"
+				"MgmtSubnetCidrBlock": {
+					"default": "Management Subnet CIDR Block"
 				},
-				"CtrlSubnetId": {
-					"default": "Control Subnet ID"
+				"CtrlSubnetCidrBlock": {
+					"default": "Control Subnet CIDR Block"
 				},
-				"Test1SubnetId": {
-					"default": "Test1 Subnet ID"
+				"Test1SubnetCidrBlock": {
+					"default": "Test1 Subnet CIDR Block"
 				},
-				"Test2SubnetId": {
-					"default": "Test2 Subnet ID"
+				"Test2SubnetCidrBlock": {
+					"default": "Test2 Subnet CIDR Block"
 				},
 				"BPSSCInstanceType": {
 					"default": "Virtual Controller Instance Type"
 				},
 				"BPSSCCtrl0PrivateIpAddress": {
-					"default": "Virtual Controller Management Private IP Address"
+					"default": "Virtual Controller Ctrl0 Private IP Address"
 				},
 				"BPSvBladeInstanceType": {
 					"default": "Virtual Blade Instance Type"
@@ -918,25 +1207,40 @@
 			"Type": "AWS::EC2::KeyPair::KeyName",
 			"Default": "bps-ssh-key"
 		},	  
-	    "VpcId" : {
-        "Description" : "Virtual Private Cloud ID",
-        "Type" : "AWS::EC2::VPC::Id"
+	    "VpcCidrBlock" : {
+        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+        "Description" : "Virtual Private Cloud IP CIDR range",
+        "Type" : "String",
+		"Default": "10.0.0.0/16"
       },
-	    "MgmtSubnetId" : {
-        "Description" : "Management Subnet ID",
-        "Type" : "AWS::EC2::Subnet::Id"
+	    "MgmtSubnetCidrBlock" : {
+        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+        "Description" : "Management Subnet IP CIDR range",
+        "Type" : "String",
+		"Default": "10.0.10.0/24"
       },
-	    "CtrlSubnetId" : {
-        "Description" : "Control Subnet ID",
-        "Type" : "AWS::EC2::Subnet::Id"
+	    "CtrlSubnetCidrBlock" : {
+        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+        "Description" : "Control Subnet IP CIDR range",
+        "Type" : "String",
+		"Default": "10.0.1.0/24"
       },
-	    "Test1SubnetId" : {
-        "Description" : "Test1 Subnet ID",
-        "Type" : "AWS::EC2::Subnet::Id"
+	    "Test1SubnetCidrBlock" : {
+        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+        "Description" : "Test1 Subnet IP CIDR range",
+        "Type" : "String",
+		"Default": "10.0.2.0/24"
       },
-	    "Test2SubnetId" : {	  
-        "Description" : "Test2 Subnet ID",
-        "Type" : "AWS::EC2::Subnet::Id"
+	    "Test2SubnetCidrBlock" : {
+        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+        "Description" : "Test2 Subnet IP CIDR range",
+        "Type" : "String",
+		"Default": "10.0.3.0/24"
       },
         "BPSSCInstanceType" : {
         "Description" : "Instance type of BPS-VE Virtual Controller VM",
@@ -951,9 +1255,9 @@
         "BPSSCCtrl0PrivateIpAddress" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
         "ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
-        "Description" : "Virtual Controller Management Subnet IP Address",
+        "Description" : "Virtual Controller Ctrl0 Control Subnet IP Address",
         "Type" : "String",
-        "Default" : "10.0.1.12"
+        "Default" : "10.0.1.10"
       },
         "BPSvBladeInstanceType" : {
         "Description" : "Instance type of BPS-VE Virtual Blade VM",
@@ -970,17 +1274,17 @@
         "ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
         "Description" : "Virtual Blade 1 Eth0 Control Subnet IP Address",
         "Type" : "String",
-        "Default" : "10.0.1.13"
+        "Default" : "10.0.1.11"
       },
         "BPSvBlade1Eth1PrivateIpAddresses" : {
         "Description" : "Virtual Blade 1 Eth1 Test1 Subnet IP Address CSV list",
         "Type" : "CommaDelimitedList",
-        "Default" : "10.0.2.22,10.0.2.23,10.0.2.24,10.0.2.25,10.0.2.26,10.0.2.27,10.0.2.28,10.0.2.29,10.0.2.30,10.0.2.31"
+        "Default" : "10.0.2.12,10.0.2.13,10.0.2.14,10.0.2.15,10.0.2.16,10.0.2.17,10.0.2.18,10.0.2.19,10.0.2.20,10.0.2.21"
       },
         "BPSvBlade1Eth2PrivateIpAddresses" : {
         "Description" : "Virtual Blade 1 Eth2 Test2 Subnet IP Address CSV list",
         "Type" : "CommaDelimitedList",
-        "Default" : "10.0.3.22,10.0.3.23,10.0.3.24,10.0.3.25,10.0.3.26,10.0.3.27,10.0.3.28,10.0.3.29,10.0.3.30,10.0.3.31"
+        "Default" : "10.0.3.12,10.0.3.13,10.0.3.14,10.0.3.15,10.0.3.16,10.0.3.17,10.0.3.18,10.0.3.19,10.0.3.20,10.0.3.21"
       },
         "InboundIPv4CidrBlock" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",

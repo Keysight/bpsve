@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "BPS on AWS 1-vBlade 1-VPC 1-Subnet Test CloudFormation",
+	"Description": "BPS on AWS 1-Virtual-Blade 1-VPC 1-Subnet Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {

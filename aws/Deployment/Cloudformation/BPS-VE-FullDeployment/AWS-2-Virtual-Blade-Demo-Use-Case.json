@@ -1,6 +1,6 @@
 {
 	"AWSTemplateFormatVersion": "2010-09-09",
-	"Description": "BPS on AWS 1-vBlade Test CloudFormation",
+	"Description": "BPS on AWS 2-Virtual-Blade Test CloudFormation",
 	"Mappings" : {
 		"RegionMap" : {
 			"us-east-1" : {
@@ -109,6 +109,8 @@
 				"CTRLxSUBNETxCIDRxBLOCK" : "10.0.1.0/24",
 				"TEST1xSUBNETxCIDRxBLOCK" : "10.0.2.0/24",
 				"TEST2xSUBNETxCIDRxBLOCK" : "10.0.3.0/24",
+				"TEST3xSUBNETxCIDRxBLOCK" : "10.0.4.0/24",
+				"TEST4xSUBNETxCIDRxBLOCK" : "10.0.5.0/24",
 				"INTERFACExSOURCExDESTxCHECK" : true,
 				"INSTANCExDISABLExAPIxTERMINATION" : false,
 				"INSTANCExMONITORING" : false,
@@ -123,7 +125,10 @@
 				"VBLADExIMGxSIZE" : "10",
 				"VBLADE1xETH0xPRIVATExIPxADDRESS" : "10.0.1.11",
 				"VBLADE1xETH1xPRIVATExIPxADDRESSES" : "10.0.2.12|10.0.2.13|10.0.2.14|10.0.2.15|10.0.2.16|10.0.2.17|10.0.2.18|10.0.2.19|10.0.2.20|10.0.2.21",
-				"VBLADE1xETH2xPRIVATExIPxADDRESSES" : "10.0.3.12|10.0.3.13|10.0.3.14|10.0.3.15|10.0.3.16|10.0.3.17|10.0.3.18|10.0.3.19|10.0.3.20|10.0.3.21"
+				"VBLADE1xETH2xPRIVATExIPxADDRESSES" : "10.0.3.12|10.0.3.13|10.0.3.14|10.0.3.15|10.0.3.16|10.0.3.17|10.0.3.18|10.0.3.19|10.0.3.20|10.0.3.21",
+				"VBLADE2xETH0xPRIVATExIPxADDRESS" : "10.0.1.12",
+				"VBLADE2xETH1xPRIVATExIPxADDRESSES" : "10.0.4.12|10.0.4.13|10.0.4.14|10.0.4.15|10.0.4.16|10.0.4.17|10.0.4.18|10.0.4.19|10.0.4.20|10.0.4.21",
+				"VBLADE2xETH2xPRIVATExIPxADDRESSES" : "10.0.5.12|10.0.5.13|10.0.5.14|10.0.5.15|10.0.5.16|10.0.5.17|10.0.5.18|10.0.5.19|10.0.5.20|10.0.5.21"
 			}
 		}
 	},
@@ -260,6 +265,64 @@
 				]
 			}
 		},
+  		"Test3Subnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "local", "TEST3xSUBNETxCIDRxBLOCK"] },
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST3_SUBNET", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+  		"Test4Subnet": {
+			"Type": "AWS::EC2::Subnet",
+			"Properties": {
+				"AvailabilityZone": { "Fn::Select" : [ { "Fn::FindInMap" : [ "VariableMap", "local", "SUBNETxAVAILABILITYxZONExINDEX"] }, { "Fn::GetAZs" : { "Ref" : "AWS::Region" } } ] },
+				"CidrBlock": { "Fn::FindInMap" : [ "VariableMap", "local", "TEST4xSUBNETxCIDRxBLOCK"] },
+				"VpcId": {
+					"Ref": "Vpc"
+				},
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, "TEST4_SUBNET", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
         "CtrlSecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
@@ -360,7 +423,7 @@
 				"ToPort": 8880,
 				"CidrIp": { "Ref" : "InboundIPv4CidrBlock" }
 			}
-		},
+		},		
         "Test1SecurityGroup": {
             "Type": "AWS::EC2::SecurityGroup",
             "Properties": {
@@ -534,6 +597,28 @@
 				},
 				"SubnetId": {
 					"Ref": "Test2Subnet"
+				}
+			}
+		},
+		"Test3SubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "Test1RouteTable"
+				},
+				"SubnetId": {
+					"Ref": "Test3Subnet"
+				}
+			}
+		},
+		"Test4SubnetRouteTableAssociation": {
+			"Type": "AWS::EC2::SubnetRouteTableAssociation",
+			"Properties": {
+				"RouteTableId": {
+					"Ref": "Test1RouteTable"
+				},
+				"SubnetId": {
+					"Ref": "Test4Subnet"
 				}
 			}
 		},
@@ -773,6 +858,202 @@
 				]
 			}
 		},
+		"BpsVirtualBlade2Eth0": {
+			"Type": "AWS::EC2::NetworkInterface",
+			"Properties": {
+				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH0", 
+					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
+				"SubnetId": {
+					"Ref": "CtrlSubnet"
+				},
+				"GroupSet": [
+					{
+						"Ref": "CtrlSecurityGroup"
+					}
+				],
+				"PrivateIpAddress": { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH0xPRIVATExIPxADDRESS" ] },
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH0", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"BpsVirtualBlade2Eth1": {
+			"Type": "AWS::EC2::NetworkInterface",
+			"Properties": {
+				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH1", 
+					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
+				"SubnetId": {
+					"Ref": "Test3Subnet"
+				},
+				"GroupSet": [
+					{
+						"Ref": "Test1SecurityGroup"
+					}
+				],
+				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+				"PrivateIpAddresses": [
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "1", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "2", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "3", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "4", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "5", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "6", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "7", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "8", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "9", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH1xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					}
+				],
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH1", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
+		"BpsVirtualBlade2Eth2": {
+			"Type": "AWS::EC2::NetworkInterface",
+			"Properties": {
+				"Description": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+					{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH2", 
+					{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] },
+				"SourceDestCheck": { "Fn::FindInMap" : [ "VariableMap", "local", "INTERFACExSOURCExDESTxCHECK"] },
+				"SubnetId": {
+					"Ref": "Test4Subnet"
+				},
+				"GroupSet": [
+					{
+						"Ref": "Test1SecurityGroup"
+					}
+				],
+				"PrivateIpAddress": { "Fn::Select" : [ "0", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+				"PrivateIpAddresses": [
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "1", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "2", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "3", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "4", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "5", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "6", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "7", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "8", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					},
+					{
+						"PrivateIpAddress": { "Fn::Select" : [ "9", { "Fn::Split" : [ "|", { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADE2xETH2xPRIVATExIPxADDRESSES" ] } ] } ] },
+						"Primary": false
+					}
+				],
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] },
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, "ETH2", 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				]
+			}
+		},
 		"BpsVirtualBlade1": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
@@ -780,8 +1061,8 @@
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
                 "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/11.00",
 				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
-				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
+				"KeyName": {"Ref": "SSHKey"},
 				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
 				"Tags": [
 					{
@@ -913,6 +1194,70 @@
 				]
 			}
 		},
+		"BpsVirtualBlade2": {
+			"Type": "AWS::EC2::Instance",
+			"Properties": {
+				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExDISABLExAPIxTERMINATION"] },
+				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
+                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/11.00",
+				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
+				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
+				"KeyName": {"Ref": "SSHKey"},
+				"PlacementGroupName" : { "Ref" : "PlacementGroup" },
+				"Tags": [
+					{
+						"Key": "Name",
+						"Value": { "Fn::Join" : [ "_", [ { "Ref" : "UserLoginTag" }, { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }, 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxTAG"] }, "VIRTUAL_BLADE2", 
+							{ "Fn::FindInMap" : [ "VariableMap", "local", "APPxVERSION"] }, 
+							{ "Fn::FindInMap" : [ "RegionMap", { "Ref" : "AWS::Region" }, "REGIONxTAG"]} ] ] }
+					},
+					{
+						"Key": "Owner",
+						"Value": { "Ref" : "UserEmailTag" }
+					},
+					{
+						"Key": "Options",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "OPTIONSxTAG"] }
+					},
+					{
+						"Key": "Project",
+						"Value": { "Fn::FindInMap" : [ "VariableMap", "local", "PROJECTxTAG"] }
+					}
+				],
+				"UserData": "",
+				"NetworkInterfaces": [
+					{
+						"NetworkInterfaceId": {
+							"Ref": "BpsVirtualBlade2Eth0"
+						},
+						"DeviceIndex": "0"
+					},
+					{
+						"NetworkInterfaceId": {
+							"Ref": "BpsVirtualBlade2Eth1"
+						},
+						"DeviceIndex": "1"
+					},
+					{
+						"NetworkInterfaceId": {
+							"Ref": "BpsVirtualBlade2Eth2"
+						},
+						"DeviceIndex": "2"
+					}
+				],
+				"BlockDeviceMappings" : [
+					{
+						"DeviceName" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExBLOCKxDEVICExNAME"] },
+						"Ebs" : { 
+							"VolumeSize": { "Fn::FindInMap" : [ "VariableMap", "local", "VBLADExIMGxSIZE"] },
+							"DeleteOnTermination" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExEBSxDELETExONxTERMINATION"] },
+							"VolumeType" : { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExEBSxVOLUMExTYPE"] }
+						}
+					}
+				]   
+			}
+		},
 		"BpsSystemController": {
 			"Type": "AWS::EC2::Instance",
 			"Properties": {
@@ -1040,7 +1385,8 @@
 				]
 			},
 			"DependsOn": [
-				"BpsVirtualBlade1"
+				"BpsVirtualBlade1",
+				"BpsVirtualBlade2"
 			]
 		},
 		"CtrlElasticIp": {
@@ -1173,7 +1519,7 @@
 			"Default": "bps-ssh-key"
 		},	  
         "BPSSCInstanceType" : {
-        "Description" : "Instance type of BPS-VEVirtual Controller VM",
+        "Description" : "Instance type of BPS-VE Virtual Controller VM",
         "Type" : "String",
         "AllowedValues": [
 			"c6in.4xlarge",
@@ -1183,7 +1529,7 @@
         "Default" : "c5.4xlarge"
       },
         "BPSvBladeInstanceType" : {
-        "Description" : "Instance type of BPS-VEVirtual Blade VM",
+        "Description" : "Instance type of BPS-VE Virtual Blade VM",
         "Type" : "String",
         "AllowedValues": [
 			"c6in.4xlarge",
@@ -1207,6 +1553,15 @@
 			"Value": {
 				"Fn::GetAtt": [
 					"BpsVirtualBlade1",
+					"PrivateIp"
+				]
+			}
+		},
+		"BpsVirtualBlade2": {
+			"Description": "KEY_BPS_VIRTUAL_BLADE2_PRIVATE_IP",
+			"Value": {
+				"Fn::GetAtt": [
+					"BpsVirtualBlade2",
 					"PrivateIp"
 				]
 			}
