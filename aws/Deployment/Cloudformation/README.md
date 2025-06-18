@@ -18,7 +18,7 @@ Before you begin, ensure you have the following:
 - **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
 ---
 
-#### 🔒 Case Study: Why do we need SSH Public and Private Keys in the BreakingPoint VE VMs ? 
+#### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint VE VMs ? 
 
 The Virtual Controller acts as a Virtual Blade manager and needs to communicate with one or more Virtual Blades to be able to attach the Virtual Blades to the Virtual Controller and run your tests. 
 

@@ -40,7 +40,7 @@ After deployment, complete the following steps:
 
 Below is a guide for the available CloudFormation templates:
 
-### 1. `Update NP-on-AWS-1-Virtual-Blade-Add-On-Use-Case-CloudFormation.json`  
+### 1. `Update NP-on-AWS-1-Virtual-Blade-Add-On-Use-Case.json`  
 **Location:**  
 `aws/Deployment/CloudFormation/NP/`
 

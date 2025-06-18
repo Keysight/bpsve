@@ -249,7 +249,7 @@ Below SSH keys have been intentionally zeroed out due to security reasons. Pleas
 
 ### 📁 Templates Overview
 
-#### 1. `BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja`
+#### 1. `-GCP-1-Virtual-Blade-Demo-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
 Deploys a standalone BreakingPoint Virtual Edition (BPS-VE) demo environment with a single Virtual Blade instance and a single Virtual Controller for testing and evaluation.
@@ -280,12 +280,12 @@ Deploys a standalone BreakingPoint Virtual Edition (BPS-VE) demo environment wit
 3. **Run the deployment command**:
 
 ```bash
-gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template --template BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
+gcloud deployment-manager deployments create -GCP-1-Virtual-Blade-Demo-Use-Case-DM-Template --template -GCP-1-Virtual-Blade-Demo-Use-Case-DM-Template.jinja
 ```
 
 ---
 
-#### 2. `BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja`
+#### 2. `-GCP-1-Virtual-Blade-Add-On-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
 A type of deployment that takes advantage of an existing environment (e.g. an existing VPC, subnets, firewalls etc).
@@ -313,7 +313,7 @@ A type of deployment that takes advantage of an existing environment (e.g. an ex
 3. **Run the deployment command**:
 
 ```bash
-gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template --template BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja
+gcloud deployment-manager deployments create -GCP-1-Virtual-Blade-Add-On-Use-Case-DM-Template --template -GCP-1-Virtual-Blade-Add-On-Use-Case-DM-Template.jinja
 ```
 
 ---
