@@ -1,7 +1,7 @@
 # AgentInstanceType = "c5n.xlarge"
 # ApiMaxRetries = 1
 # AppInstanceType = "c5.xlarge"
-# InboundIPv4CidrBlocks = [ "1.1.1.1/32" ]
+# InboundIPv4CidrBlocks = [ "0.0.0.0/0" ]
 # PrivateSubnetAvailabilityZone = "us-east-1a"
 # PublicSubnetAvailabilityZone = "us-east-1a"
 # Region = "us-east-1"

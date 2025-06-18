@@ -6,7 +6,7 @@ locals {
 	AppUserName = "ixia"
 	AwsAccessCredentialsAccessKey = var.AwsAccessCredentialsAccessKey
 	AwsAccessCredentialsSecretKey = var.AwsAccessCredentialsSecretKey
-	InboundIPv4CidrBlocks = var.InboundIPv4CidrBlocks == null ? [ "${data.http.ip.response_body}/32" ] : var.InboundIPv4CidrBlocks
+	InboundIPv4CidrBlocks = var.InboundIPv4CidrBlocks
 	File1Content = tls_private_key.SshKey.private_key_pem
 	File1Name = "id_rsa"
 	File2Content = tls_private_key.SshKey.public_key_openssh

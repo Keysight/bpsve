@@ -48,7 +48,3 @@ data "cloudinit_config" "init_cli" {
 		})
 	}
 }
-
-data "http" "ip" {
-	url = "https://ifconfig.me"
-}
