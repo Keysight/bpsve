@@ -1,29 +1,24 @@
-## <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Google_Cloud_logo.svg/1920px-Google_Cloud_logo.svg.png" alt="GCP Logo" width="150"/> Google Cloud Platform (GCP)
+## GCP Deployment Manager Templates for Keysight BPS-VE Use Cases
 
-### 🔧 Configurations
+This directory contains Jinja-based templates and schema files for Google Cloud Deployment Manager. These templates automate the provisioning of Keysight BreakingPoint Virtual Edition (BPS-VE) environments on GCP, supporting both Demo and Add-On use cases.
 
-This folder contains several BPS-VE .bpt configurations that can be used on their respective instance sizes. 
-We have 4 different folders: 
-- C2-STANDARD-4
-- C2-STANDARD-8
-- C2-STANDARD-16
+---
 
 ### 🚀 Deployment
 
-Starting with version **11.00**, BreakingPoint Virtual Edition Virtual Controller and Virtual Blade are available on the GCP Marketplace here:
+Starting with version **11.00**, BreakingPoint VE Virtual Controller and Virtual Blade are available on the Google Cloud Marketplace as one product:
 
-- [Keysight BreakingPoint Virtual Edition Marketplace](https://console.cloud.google.com/marketplace/product/keysight-public/keysight-breakingpoint-virtual-edition)
+- [BreakingPoint Virtual Edition Google Cloud Marketplace](https://console.cloud.google.com/marketplace/product/keysight-public/keysight-breakingpoint-virtual-edition)
 
-This product contains both the Virtual Controller and Virtual Blade as part of the product subscription.
+This marketplace product includes both Virtual Controller and Virtual Blade. 
+
 ---
-
-#### 🔧 Prerequisites
+### 🔧 Prerequisites
 
 Before you begin, ensure you have the following:
 - **GCP Account**: An active GCP account with appropriate permissions.
-- **GCP CLI**: Installed and configured with your credentials. Install GCP CLI
 - **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint Virtual Edition.
-- **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
+- **SSH Public and Private Pre-generated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other. 
 ---
 
 #### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint Virtual Edition VMs ? 
@@ -42,7 +37,7 @@ SSH keys are a pair of cryptographic keys used for secure authentication:
 ---
 #### Generating SSH Keys from a Linux Environment
 
-##### Prerequisites
+###### Prerequisites
 Most Linux distributions come with OpenSSH pre-installed. If not, install it:
 
 ```bash
@@ -53,8 +48,14 @@ sudo apt update && sudo apt install openssh-client
 sudo yum install openssh-clients
 ```
 
-##### Generating SSH Keys
+###### Generating SSH Keys
 
+###### Basic Key Generation
+```bash
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+```
+
+###### Step-by-step Process
 1. **Run the command**:
    ```bash
    ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
@@ -71,7 +72,7 @@ sudo yum install openssh-clients
    Enter same passphrase again:
    ```
 
-##### Viewing Generated Keys
+###### Viewing Generated Keys
 
 ```bash
 # List keys in SSH directory
@@ -141,17 +142,15 @@ puttygen keyfile.ppk -O public-openssh -o keyfile.pub
    cat ~/.ssh/gcp_key       # Private key
    ```
 
+4. **Add Public Key to VM Metadata**
+
+   - Go to **Compute Engine > Metadata > SSH Keys**
+   - Click **Edit** and paste the contents of `gcp_key.pub`
+   - Click **Save**
+
 ✅ You can now use the private key to SSH into your VM from other systems or tools.
 
-### 📦 Deployment Manager Templates
-
-Located in `google-cloud-platform/Deployment/DeploymentManager`, these JINJA templates are organized into:
-
-  - **Demo Use Case**: Full deployment including networking, security groups, etc.
-  - **Add-On Use Case**: Designed to integrate with existing infrastructure
----
-
-#### 🔐 Applying SSH Keys to Google Cloud Deployment Manager Templates
+## 🔐 Applying SSH Keys to Google Cloud Deployment Manager Templates
 
 To enable secure access, you must configure your previously generated SSH key pair in the `metadata` section of each instance (Virtual Controller and Virtual Blade):
 
@@ -165,7 +164,7 @@ Below SSH keys have been intentionally zeroed out due to security reasons. Pleas
 ``` yaml
     metadata:
       items:
-      - key: Owner
+      - key: Owner 
         value: {{ properties["GCP_OWNER_TAG"] }}
       - key: Project
         value: {{ properties["GCP_PROJECT_TAG"] }}
@@ -248,12 +247,12 @@ Below SSH keys have been intentionally zeroed out due to security reasons. Pleas
             - [ chown, ixia:ixia, /home/ixia/.ssh ]		
 ```
 
-#### 🧪 Example #1: Deploying a Demo Use Case Template
+### 📁 Templates Overview
+
+#### 1. `BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
-Before starting a CFT template deployment please make sure you edit the Private and Public SSH Keys for both Virtual Controller and Virtual Blade inside the templates. Currently all keys are blanked out (all zeros) so that you can see what format is needed for deployment. 
-
-**Important**: If the SSH keys are not correctly applied, the Virtual Blade attach operation to the Virtual Controller will fail.
+Deploys a standalone BreakingPoint Virtual Edition (BPS-VE) demo environment with a single Virtual Blade instance and a single Virtual Controller for testing and evaluation.
 
 **Resources Created:**
 - 1x  Virtual Blade
@@ -281,18 +280,15 @@ Before starting a CFT template deployment please make sure you edit the Private 
 3. **Run the deployment command**:
 
 ```bash
-gcloud deployment-manager deployments create GCP-1-Virtual-Blade-Demo-Use-Case --template GCP-1-Virtual-Blade-Demo-Use-Case.jinja
+gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template --template BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
 ```
+
 ---
 
-#### 🧷 Example #2: Deploying an Add-On Use Case Template
+#### 2. `BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja`
 
 **Purpose:**  
-Before starting a CFT template deployment please make sure you edit the Private and Public SSH Keys for both Virtual Controller and Virtual Blade inside the templates. Currently all keys are blanked out (all zeros) so that you can see what format is needed for deployment. 
-
-This adds a Virtual Blade and a Virtual Controller to an existing infrastructure (e.g., VPC, subnets).
-
-**Important**: If the SSH keys are not correctly applied, the Virtual Blade attach operation to the Virtual Controller will fail.
+A type of deployment that takes advantage of an existing environment (e.g. an existing VPC, subnets, firewalls etc).
 
 **Resources Created:**
 - 1x  Virtual Blade
@@ -317,5 +313,11 @@ This adds a Virtual Blade and a Virtual Controller to an existing infrastructure
 3. **Run the deployment command**:
 
 ```bash
-gcloud deployment-manager deployments create GCP-1-Virtual-Blade-Add-On-Use-Case --template GCP-1-Virtual-Blade-Add-On-Use-Case.jinja
+gcloud deployment-manager deployments create BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template --template BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja
 ```
+
+---
+
+### 📌 Notes
+
+- Schema files are used for parameter validation and should not be deployed directly.

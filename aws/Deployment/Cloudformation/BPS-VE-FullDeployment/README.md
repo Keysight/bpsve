@@ -74,10 +74,10 @@ These templates require the following input parameters from the user:
 
 - `Test2SubnetId` – Subnet ID for the second Test network
 
-- `BPSSCInstanceType` – Instance type for the BPS System Controller VM  
+- `BPSSCInstanceType` – Instance type for the Virtual Controller VM  
   *(Options: `c6in.4xlarge`, `c5n.4xlarge`, `c5.4xlarge`; Default: `c5.4xlarge`)*
 
-- `BPSSCCtrl0PrivateIpAddress` – Private IP address for the System Controller on the Control subnet  
+- `BPSSCCtrl0PrivateIpAddress` – Private IP address for the Virtual Controller on the Control subnet  
   *(Must be a valid IPv4 address, e.g., `10.0.1.12`)*
 
 - `BPSvBladeInstanceType` – Instance type for the BPS Virtual Blade VM  

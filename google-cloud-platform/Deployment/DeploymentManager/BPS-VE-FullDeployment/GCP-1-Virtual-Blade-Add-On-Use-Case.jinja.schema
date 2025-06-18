@@ -1,9 +1,9 @@
 ---
 info:
-  title: BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja.schema
+  title: GCP-1-Virtual-Blade-Add-On-Use-Case.jinja.schema
 
 imports:
-- path: BPS-on-GCP-1-vBlade-Add-On-Use-Case-DM-Template.jinja
+- path: GCP-1-Virtual-Blade-Add-On-Use-Case.jinja
 
 properties:    
   GCP_REGION_NAME:
@@ -57,7 +57,7 @@ properties:
     type: array
     default:
     - bps-vcontroller
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_MGMT_FIREWALL_RULE_SOURCE_IP_RANGES:
     type: array
@@ -85,7 +85,7 @@ properties:
     type: array
     default:
     - bps-vcontroller
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_CONSOLE_FIREWALL_RULE_SOURCE_IP_RANGES:
     type: array
@@ -112,13 +112,13 @@ properties:
     type: array
     default:
     - bps-vcontroller
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_CONTROL_FIREWALL_RULE_TARGET_TAGS:
     type: array
     default:
     - bps-vcontroller
-    - bps-vblade
+    - bps-Virtual-Blade
     
   GCP_TEST1_VPC_NETWORK_NAME:
     type: string
@@ -153,12 +153,12 @@ properties:
   GCP_TEST1_FIREWALL_RULE_SOURCE_TAGS:
     type: array
     default:
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_TEST1_FIREWALL_RULE_TARGET_TAGS:
     type: array
     default:
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_TEST2_VPC_NETWORK_NAME:
     type: string
@@ -189,12 +189,12 @@ properties:
   GCP_TEST2_FIREWALL_RULE_SOURCE_TAGS:
     type: array
     default:
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_TEST2_FIREWALL_RULE_TARGET_TAGS:
     type: array
     default:
-    - bps-vblade
+    - bps-Virtual-Blade
 
   GCP_TEST2_SUBNET_NAME:
     type: string
@@ -227,7 +227,7 @@ properties:
 
   GCP_VBLADE_INSTANCE_NAME:
     type: string
-    default: bps-vblade-01-addon
+    default: bps-Virtual-Blade-01-addon
     
   GCP_VBLADE_SERIAL_PORT_ENABLE:
     type: string
@@ -251,7 +251,7 @@ properties:
 
   GCP_VBLADE_IFACE_ETH0_PUBLIC_IP_ADDRESS_NAME:
     type: string
-    default: bps-vblade-01-eth0-ip-addr-addon
+    default: bps-Virtual-Blade-01-eth0-ip-addr-addon
 
   GCP_VBLADE_IFACE_ETH1_PRIVATE_IP_ADDRESS:
     type: string
@@ -272,5 +272,5 @@ properties:
   GCP_VBLADE_NETWORK_TARGET_TAGS:
     type: array
     default:
-    - bps-vblade
+    - bps-Virtual-Blade
 #eof

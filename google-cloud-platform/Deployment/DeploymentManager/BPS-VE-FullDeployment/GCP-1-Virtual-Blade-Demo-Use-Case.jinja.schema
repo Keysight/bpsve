@@ -1,9 +1,9 @@
 ---
 info:
-  title: BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja.schema
+  title: GCP-1-Virtual-Blade-Demo-Use-Case.jinja.schema
 
 imports:
-- path: BPS-on-GCP-1-vBlade-Demo-Use-Case-DM-Template.jinja
+- path: GCP-1-Virtual-Blade-Demo-Use-Case.jinja
 
 properties:
   GCP_REGION_NAME:

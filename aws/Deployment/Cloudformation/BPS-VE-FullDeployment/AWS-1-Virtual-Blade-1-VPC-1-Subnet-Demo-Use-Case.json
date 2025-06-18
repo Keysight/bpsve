@@ -97,7 +97,7 @@
 		"VariableMap" : {
 			"local" : {
 				"OPTIONSxTAG" : "MANUAL",
-				"PROJECTxTAG" : "OPEN_IXIA",
+				"PROJECTxTAG" : "bpsve",
 				"VPCxCIDRxBLOCK" : "10.0.0.0/16",
 				"VPCxINSTANCExTENANCY" : "default",
 				"VPCxENABLExDNSxSUPPORT" : true,
@@ -1171,7 +1171,7 @@
 	"SSHKey": {
 		"Description": "Name of an existing EC2 KeyPair to enable SSH access",
 		"Type": "AWS::EC2::KeyPair::KeyName",
-		"Default": "bps-ssh-key"
+		"Default": "your-own-ssh-key"
 	},
 	"BPSSCInstanceType" : {
         "Description" : "Instance type of BPS-VE Virtual Controller VM",
@@ -1196,7 +1196,7 @@
         "InboundIPv4CidrBlock" : {
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
         "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "IP Address /32 or IP CIDR range connecting inbound to Ixia Client",
+        "Description" : "IP Address /32 or IP CIDR range connecting inbound to BPS-VE VMs",
         "MaxLength": "18",
         "MinLength": "9",
 		"Type" : "String"
