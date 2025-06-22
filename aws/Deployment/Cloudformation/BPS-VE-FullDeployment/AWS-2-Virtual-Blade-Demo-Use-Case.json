@@ -1513,7 +1513,7 @@
 			"Description" : "Login ID tag of user creating the stack",
 			"MinLength": "4",
 			"Type" : "String",
-			"Default" : "ks"
+			"Default" : "ixia"
 		},
 		"SSHKey": {
 			"Description": "Name of an existing EC2 KeyPair to enable SSH access",
