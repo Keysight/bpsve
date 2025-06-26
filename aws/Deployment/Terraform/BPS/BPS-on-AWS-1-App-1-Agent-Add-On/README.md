@@ -12,9 +12,10 @@ Otherwise, Terraform will prompt the user to supply input arguents via cli.
 
 ## Optional Variables
 ```
+terraform.aws.auto.tfvars
 terraform.optional.auto.tfvars
 ```
-You **MAY** uncomment one or more lines as needed in this file and replace values to match your particular environment.
+You **MAY** uncomment one or more lines as needed in these files and replace values to match your particular environment.
 
 ## Required Usage
 ```

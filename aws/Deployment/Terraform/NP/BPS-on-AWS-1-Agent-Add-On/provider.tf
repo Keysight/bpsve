@@ -1,6 +1,6 @@
 provider "aws" {
-	access_key = var.AwsAccessCredentialsAccessKey
-	secret_key = var.AwsAccessCredentialsSecretKey
+	access_key = local.AwsAccessCredentialsAccessKey
+	secret_key = local.AwsAccessCredentialsSecretKey
 	region = var.Region
-	max_retries = var.ApiMaxRetries
+	max_retries = local.ApiMaxRetries
 }
