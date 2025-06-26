@@ -12,3 +12,10 @@ output "Agent1Eth0PublicIpAddress" {
 		"address_type" : module.Agent1.Eth0PublicIpAddress.address_type
 	}
 }
+
+output "SshKey" {
+	sensitive = true
+	value = {
+		"private_key_pem" : tls_private_key.SshKey.private_key_pem
+	}
+}
