@@ -1107,7 +1107,6 @@
                     },
                     "Parameters": [
                         "VpcCidrBlock",
-						"MgmtSubnetCidrBlock",
 						"CtrlSubnetCidrBlock",
 						"Test1SubnetCidrBlock",
 						"Test2SubnetCidrBlock"
@@ -1152,9 +1151,6 @@
 				"VpcCidrBlock": {
 					"default": "VPC CIDR Block"
 				},
-				"MgmtSubnetCidrBlock": {
-					"default": "Management Subnet CIDR Block"
-				},
 				"CtrlSubnetCidrBlock": {
 					"default": "Control Subnet CIDR Block"
 				},
@@ -1192,108 +1188,104 @@
         }
     },
     "Parameters" : {
-        "UserEmailTag" : {
-        "Description" : "Email address tag of user creating the stack",
-        "MinLength": "14",
-        "Type" : "String"
-      },
-        "UserLoginTag" : {
-        "Description" : "Login ID tag of user creating the stack",
-        "MinLength": "4",
-        "Type" : "String"
-      },
+		"UserEmailTag" : {
+			"Description" : "Email address tag of user creating the stack",
+			"MinLength": "14",
+			"Type" : "String",
+			"Default" : "test@keysight.com"
+		},
+		"UserLoginTag" : {
+			"Description" : "Login ID tag of user creating the stack",
+			"MinLength": "4",
+			"Type" : "String",
+			"Default" : "ixia"
+		},
 		"SSHKey": {
 			"Description": "Name of an existing EC2 KeyPair to enable SSH access",
 			"Type": "AWS::EC2::KeyPair::KeyName",
 			"Default": "your-own-ssh-key"
 		},	  
-	    "VpcCidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "Virtual Private Cloud IP CIDR range",
-        "Type" : "String",
-		"Default": "10.0.0.0/16"
-      },
-	    "MgmtSubnetCidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "Management Subnet IP CIDR range",
-        "Type" : "String",
-		"Default": "10.0.10.0/24"
-      },
-	    "CtrlSubnetCidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "Control Subnet IP CIDR range",
-        "Type" : "String",
-		"Default": "10.0.1.0/24"
-      },
-	    "Test1SubnetCidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "Test1 Subnet IP CIDR range",
-        "Type" : "String",
-		"Default": "10.0.2.0/24"
-      },
-	    "Test2SubnetCidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "Test2 Subnet IP CIDR range",
-        "Type" : "String",
-		"Default": "10.0.3.0/24"
-      },
-        "BPSSCInstanceType" : {
-        "Description" : "Instance type of BPS-VE Virtual Controller VM",
-        "Type" : "String",
-        "AllowedValues": [
-			"c6in.4xlarge",
-			"c5n.4xlarge",
-			"c5.4xlarge"
-        ],
-        "Default" : "c5.4xlarge"
-      },
-        "BPSSCCtrl0PrivateIpAddress" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
-        "ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
-        "Description" : "Virtual Controller Ctrl0 Control Subnet IP Address",
-        "Type" : "String",
-        "Default" : "10.0.1.10"
-      },
-        "BPSvBladeInstanceType" : {
-        "Description" : "Instance type of BPS-VE Virtual Blade VM",
-        "Type" : "String",
-        "AllowedValues": [
-			"c6in.4xlarge",
-			"c5n.4xlarge",
-			"c5.4xlarge"
-        ],
-        "Default" : "c5.4xlarge"
-      },
-        "BPSvBlade1Eth0PrivateIpAddress" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
-        "ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
-        "Description" : "Virtual Blade 1 Eth0 Control Subnet IP Address",
-        "Type" : "String",
-        "Default" : "10.0.1.11"
-      },
-        "BPSvBlade1Eth1PrivateIpAddresses" : {
-        "Description" : "Virtual Blade 1 Eth1 Test1 Subnet IP Address CSV list",
-        "Type" : "CommaDelimitedList",
-        "Default" : "10.0.2.12,10.0.2.13,10.0.2.14,10.0.2.15,10.0.2.16,10.0.2.17,10.0.2.18,10.0.2.19,10.0.2.20,10.0.2.21"
-      },
-        "BPSvBlade1Eth2PrivateIpAddresses" : {
-        "Description" : "Virtual Blade 1 Eth2 Test2 Subnet IP Address CSV list",
-        "Type" : "CommaDelimitedList",
-        "Default" : "10.0.3.12,10.0.3.13,10.0.3.14,10.0.3.15,10.0.3.16,10.0.3.17,10.0.3.18,10.0.3.19,10.0.3.20,10.0.3.21"
-      },
-        "InboundIPv4CidrBlock" : {
-        "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
-        "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
-        "Description" : "IP Address /32 or IP CIDR range connecting inbound to BPS-VE VMs",
-        "MaxLength": "18",
-        "MinLength": "9",
-		"Type" : "String"
-      }
+		"VpcCidrBlock" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+			"ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+			"Description" : "Virtual Private Cloud IP CIDR range",
+			"Type" : "String",
+			"Default": "10.0.0.0/16"
+		},
+		"CtrlSubnetCidrBlock" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+			"ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+			"Description" : "Control Subnet IP CIDR range",
+			"Type" : "String",
+			"Default": "10.0.1.0/24"
+		},
+		"Test1SubnetCidrBlock" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+			"ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+			"Description" : "Test1 Subnet IP CIDR range",
+			"Type" : "String",
+			"Default": "10.0.2.0/24"
+		},
+		"Test2SubnetCidrBlock" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+			"ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+			"Description" : "Test2 Subnet IP CIDR range",
+			"Type" : "String",
+			"Default": "10.0.3.0/24"
+		},
+		"BPSSCInstanceType" : {
+			"Description" : "Instance type of BPS-VE Virtual Controller VM",
+			"Type" : "String",
+			"AllowedValues": [
+				"c6in.4xlarge",
+				"c5n.4xlarge",
+				"c5.4xlarge"
+			],
+			"Default" : "c5.4xlarge"
+		},
+		"BPSSCCtrl0PrivateIpAddress" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
+			"ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
+			"Description" : "Virtual Controller Ctrl0 Control Subnet IP Address",
+			"Type" : "String",
+			"Default" : "10.0.1.10"
+		},
+		"BPSvBladeInstanceType" : {
+			"Description" : "Instance type of BPS-VE Virtual Blade VM",
+			"Type" : "String",
+			"AllowedValues": [
+				"c6in.4xlarge",
+				"c5n.4xlarge",
+				"c5.4xlarge"
+			],
+			"Default" : "c5.4xlarge"
+		},
+		"BPSvBlade1Eth0PrivateIpAddress" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})",
+			"ConstraintDescription": "must be a valid IP Address of the form x.x.x.x",
+			"Description" : "Virtual Blade 1 Eth0 Control Subnet IP Address",
+			"Type" : "String",
+			"Default" : "10.0.1.11"
+		},
+		"BPSvBlade1Eth1PrivateIpAddresses" : {
+			"Description" : "Virtual Blade 1 Eth1 Test1 Subnet IP Address CSV list",
+			"Type" : "CommaDelimitedList",
+			"Default" : "10.0.2.12,10.0.2.13,10.0.2.14,10.0.2.15,10.0.2.16,10.0.2.17,10.0.2.18,10.0.2.19,10.0.2.20,10.0.2.21"
+		},
+		"BPSvBlade1Eth2PrivateIpAddresses" : {
+			"Description" : "Virtual Blade 1 Eth2 Test2 Subnet IP Address CSV list",
+			"Type" : "CommaDelimitedList",
+			"Default" : "10.0.3.12,10.0.3.13,10.0.3.14,10.0.3.15,10.0.3.16,10.0.3.17,10.0.3.18,10.0.3.19,10.0.3.20,10.0.3.21"
+		},
+		"InboundIPv4CidrBlock" : {
+			"AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
+			"ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x.",
+			"Description" : "IP Address /32 or IP CIDR range connecting inbound to BPS-VE VMs",
+			"MaxLength": "18",
+			"MinLength": "9",
+			"Type" : "String",
+			"Default" : "213.249.122.234/32"
+		}
     },
 	"Outputs": {
 		"BpsVirtualBlade1": {
