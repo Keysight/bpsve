@@ -1,6 +1,5 @@
 module "Agent1" {
-	source = "armdupre/module-bps-agent/google"
-	version = "10.0.1"
+	source = "git::https://github.com/armdupre/terraform-google-module-bps-agent.git?ref=11.0.0"
 	Eth0SubnetName = module.Vpc.PublicSubnet.name
 	Eth0VpcNetworkName = module.Vpc.PublicVpcNetwork.name
 	Eth1SubnetName = module.Vpc.Private1Subnet.name
@@ -14,6 +13,7 @@ module "Agent1" {
 	UserLoginTag = local.UserLoginTag
 	UserProjectTag = local.UserProjectTag
 	ZoneName = data.google_client_config.current.zone
+	init_cli = data.cloudinit_config.init_cli.rendered
 	depends_on = [
 		module.Vpc.PublicSubnet,
 		module.Vpc.PublicVpcNetwork
