@@ -27,3 +27,10 @@ output "AppImage" {
 		"project" : module.App.Image.project
 	}
 }
+
+output "SshKey" {
+	sensitive = true
+	value = {
+		"private_key_pem" : tls_private_key.SshKey.private_key_pem
+	}
+}
