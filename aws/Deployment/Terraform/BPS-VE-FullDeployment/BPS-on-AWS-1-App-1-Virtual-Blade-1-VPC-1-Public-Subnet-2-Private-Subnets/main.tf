@@ -1,5 +1,5 @@
 module "App" {
-	source = "git::https://github.com/armdupre/terraform-aws-module-bps-app.git?ref=11.0.0"
+	source = "git::https://github.com/armdupre/terraform-aws-module-bps-app.git?ref=11.20.0"
 	Eth0SecurityGroupId = module.Vpc.PublicSecurityGroup.id
 	Eth0SubnetId = module.Vpc.PublicSubnet.id
 	InstanceType = local.AppInstanceType
@@ -13,7 +13,7 @@ module "App" {
 }
 
 module "Agent1" {
-	source = "git::https://github.com/armdupre/terraform-aws-module-bps-agent.git?ref=11.0.0"
+	source = "git::https://github.com/armdupre/terraform-aws-module-bps-agent.git?ref=11.20.0"
 	Eth0SecurityGroupId = module.Vpc.PublicSecurityGroup.id
 	Eth0SubnetId = module.Vpc.PublicSubnet.id
 	Eth1SecurityGroupId = module.Vpc.PrivateSecurityGroup.id
