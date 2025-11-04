@@ -10,6 +10,8 @@ locals {
 	File1Name = "id_rsa"
 	File2Content = tls_private_key.SshKey.public_key_openssh
 	File2Name = "authorized_keys"
+	File3Content = tls_private_key.SshKey.public_key_openssh
+	File3Name = "id_rsa.pub"
 	Preamble = "${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}"
 	Private1SubnetAvailabilityZone = var.Private1SubnetAvailabilityZone
 	Private2SubnetAvailabilityZone = var.Private2SubnetAvailabilityZone
