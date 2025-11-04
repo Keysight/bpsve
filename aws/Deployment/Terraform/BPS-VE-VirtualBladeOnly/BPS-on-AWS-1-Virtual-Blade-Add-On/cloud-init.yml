@@ -12,6 +12,12 @@ write_files:
     owner: '${UserName}:${UserName}'
     permissions: '0644'
     defer: true
+  - path: /home/${UserName}/.ssh/${File3Name}
+    encoding: base64
+    content: ${base64encode(File3Content)}
+    owner: '${UserName}:${UserName}'
+    permissions: '0644'
+    defer: true
 runcmd:
   - chmod 755 /home/${UserName}/.ssh
   - chown ${UserName}:${UserName} /home/${UserName}/.ssh
