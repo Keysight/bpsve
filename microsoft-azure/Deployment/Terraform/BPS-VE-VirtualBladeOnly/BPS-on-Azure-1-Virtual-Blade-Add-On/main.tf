@@ -1,5 +1,5 @@
 module "Agent1" {
-	source = "git::https://github.com/armdupre/terraform-azurerm-module-bps-agent.git?ref=11.20.0"
+	source = "git::https://github.com/armdupre/terraform-azurerm-module-bps-agent.git?ref=11.20.1"
 	Eth0SubnetId = data.azurerm_subnet.PublicSubnet.id
 	Eth1SubnetId = data.azurerm_subnet.Private1Subnet.id
 	Eth2SubnetId = data.azurerm_subnet.Private2Subnet.id
