@@ -1,0 +1,5 @@
+# Private1SubnetName = "terraform-azure-demo-vnet-private1-subnet"
+# Private2SubnetName = "terraform-azure-demo-vnet-private2-subnet"
+# PublicSubnetName = "terraform-azure-demo-vnet-public-subnet"
+# ResourceGroupName = "azure-bps-1-app-1-agent"
+# VnetName = "terraform-azure-demo-vnet-vnet"
