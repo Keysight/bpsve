@@ -1,14 +1,7 @@
-# BPS-on-Azure-1-App-1-Agent-1-Vnet-1-Public-Subnet-1-Private-Subnet
+# BPS-on-Azure-1-App-1-Virtual-Blade-1-Vnet-1-Public-Subnet-1-Private-Subnet
 
 ## Description
 This deployment creates a topology with a single virtual network having a single public facing subnet and a single private subnet.
-
-## Required Variables
-```
-terraform.required.auto.tfvars
-```
-You **MUST** uncomment all lines in this file and replace values to match your particular environment.  
-Otherwise, Terraform will prompt the user to supply input arguents via cli.
 
 ## Optional Variables
 ```
