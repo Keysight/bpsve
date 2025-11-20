@@ -1,4 +1,4 @@
-# AgentVmSize = "Standard_F8s_v2"
+# AgentVmSize = "Standard_E8_v5"
 # AppVmSize = "Standard_F4s_v2"
 # PublicSecurityRuleSourceIpPrefixes = [ "1.1.1.1/32" ]
 # ResourceGroupLocation = "East US"

@@ -17,8 +17,7 @@ variable "AppVmSize" {
 	description = "Category, series and instance specifications associated with the App VM"
 	type = string
 	validation {
-		condition = contains([	"Standard_F4s_v2",	"Standard_F8s_v2"
-							], var.AppVmSize)
+		condition = contains([ "Standard_F4s_v2", "Standard_F8s_v2" ], var.AppVmSize)
 		error_message = <<EOF
 AppVmSize must be one of the following sizes:
 	Standard_F4s_v2, Standard_F8s_v2

@@ -1,4 +1,4 @@
-# AgentVmSize = "Standard_F8s_v2"
+# AgentVmSize = "Standard_E8_v5"
 # ResourceGroupLocation = "East US"
 # UserEmailTag = "terraform@example.com"
 # UserLoginTag = "terraform"
