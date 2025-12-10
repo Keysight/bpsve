@@ -107,7 +107,7 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "BPS",
-				"APPxVERSION" : "11.00",
+				"APPxVERSION" : "11.20",
 				"SYSCTRLxIMGxSIZE" : "30",
 				"VBLADExIMGxSIZE" : "10"													
 			}
