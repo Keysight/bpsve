@@ -3,5 +3,5 @@ parameters:
     Management_Network:                     BPS Management Network
 
     Virtual_Controller_Name:                Virtual_Controller
-    Virtual_Controller_Image_Name:          BPS Virtual Controller 11.00
+    Virtual_Controller_Image_Name:          BPS Virtual Controller 11.20
     Virtual_Controller_Flavor:              m1.xlarge

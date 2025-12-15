@@ -130,7 +130,7 @@ resources:
       boot: true
       type: PERSISTENT      
       initializeParams:
-        sourceImage: projects/mpi-keysight-public/global/images/ixia-breakingpoint-virtual-controller-11-0-124
+        sourceImage: projects/mpi-keysight-public/global/images/ixia-breakingpoint-virtual-controller-11-20-19
     networkInterfaces:
     - name: nic0
       network: networks/{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}
@@ -255,7 +255,7 @@ resources:
       boot: true
       type: PERSISTENT
       initializeParams:
-        sourceImage: projects/mpi-keysight-public/global/images/ixia-breakingpoint-virtual-blade-11-0-124
+        sourceImage: projects/mpi-keysight-public/global/images/ixia-breakingpoint-virtual-blade-11-20-20-19
     networkInterfaces:
     - name: nic0
       network: networks/{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}
