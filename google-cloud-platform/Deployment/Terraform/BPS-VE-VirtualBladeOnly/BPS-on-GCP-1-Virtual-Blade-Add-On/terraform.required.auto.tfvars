@@ -1,11 +1,7 @@
-# Credentials = "~/gcp/credentials.json"
 # Private1SubnetName = "terraform-example-test-01-subnet"
 # Private1VpcNetworkName = "terraform-example-test-01-vpc-network"
 # Private2SubnetName = "terraform-example-test-02-subnet"
 # Private2VpcNetworkName = "terraform-example-test-02-vpc-network"
 # ProjectId = "example"
-# PublicFirewallRuleSourceIpRanges = [ "1.1.1.1/32" ]
 # PublicSubnetName = "terraform-example-management-subnet"
 # PublicVpcNetworkName = "terraform-example-management-vpc-network"
-# UserEmailTag = "terraform@example.com"
-# UserLoginTag = "terraform"

@@ -1,5 +1,5 @@
 module "App" {
-	source = "git::https://github.com/armdupre/terraform-google-module-bps-app.git?ref=11.0.0"
+	source = "git::https://github.com/armdupre/terraform-google-module-bps-app.git?ref=11.20.1"
 	Eth0SubnetName = data.google_compute_subnetwork.PublicSubnet.name
 	Eth0VpcNetworkName = data.google_compute_network.PublicVpcNetwork.name
 	MachineType = local.AppMachineType
@@ -12,7 +12,7 @@ module "App" {
 }
 
 module "Agent1" {
-	source = "git::https://github.com/armdupre/terraform-google-module-bps-agent.git?ref=11.0.0"
+	source = "git::https://github.com/armdupre/terraform-google-module-bps-agent.git?ref=11.20.1"
 	Eth0SubnetName = data.google_compute_subnetwork.PublicSubnet.name
 	Eth0VpcNetworkName = data.google_compute_network.PublicVpcNetwork.name
 	Eth1SubnetName = data.google_compute_subnetwork.Private1Subnet.name
@@ -27,4 +27,8 @@ module "Agent1" {
 	UserProjectTag = local.UserProjectTag
 	ZoneName = data.google_client_config.current.zone
 	init_cli = data.cloudinit_config.init_cli.rendered
+}
+
+resource "random_id" "RandomId" {
+	byte_length = 4
 }
