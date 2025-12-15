@@ -1,30 +1,45 @@
-output "AgentImage" {
+output "Agent1" {
 	value = {
-		"family" : module.Agent1.Image.family
-		"name" : module.Agent1.Image.name
-		"project" : module.Agent1.Image.project
+		"public_address" : module.Agent1.Eth0PublicIpAddress.address
+		"public_address_type" : module.Agent1.Eth0PublicIpAddress.address_type
+		"image_name" : module.Agent1.Image.name
+		"image_project" : module.Agent1.Image.project
+		"machine_type" : module.Agent1.Instance.machine_type
+		"name" : module.Agent1.Instance.name
+		"network_ip" : module.Agent1.Instance.network_ip
 	}
 }
 
-output "Agent1Eth0PublicIpAddress" {
+output "App" {
 	value = {
-		"address" : module.Agent1.Eth0PublicIpAddress.address
-		"address_type" : module.Agent1.Eth0PublicIpAddress.address_type
+		"public_address" : module.App.Eth0PublicIpAddress.address
+		"public_address_type" : module.App.Eth0PublicIpAddress.address_type
+		"image_name" : module.App.Image.name
+		"image_project" : module.App.Image.project
+		"machine_type" : module.App.Instance.machine_type
+		"name" : module.App.Instance.name
+		"network_ip" : module.App.Instance.network_ip
 	}
 }
 
-output "AppEth0PublicIpAddress" {
+output "Private1VpcNetwork" {
 	value = {
-		"address" : module.App.Eth0PublicIpAddress.address
-		"address_type" : module.App.Eth0PublicIpAddress.address_type
+		"mtu" : module.Vpc.Private1VpcNetwork.mtu
+		"name" : module.Vpc.Private1VpcNetwork.name
 	}
 }
 
-output "AppImage" {
+output "Private2VpcNetwork" {
 	value = {
-		"family" : module.App.Image.family
-		"name" : module.App.Image.name
-		"project" : module.App.Image.project
+		"mtu" : module.Vpc.Private2VpcNetwork.mtu
+		"name" : module.Vpc.Private2VpcNetwork.name
+	}
+}
+
+output "PublicVpcNetwork" {
+	value = {
+		"mtu" : module.Vpc.PublicVpcNetwork.mtu
+		"name" : module.Vpc.PublicVpcNetwork.name
 	}
 }
 

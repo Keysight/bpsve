@@ -8,6 +8,8 @@ data "cloudinit_config" "init_cli" {
 			File1Name : local.File1Name
 			File2Content : local.File2Content
 			File2Name : local.File2Name
+			File3Content : local.File3Content
+			File3Name : local.File3Name
 			UserName: local.AppUserName
 		})
 	}
@@ -37,4 +39,8 @@ data "google_compute_subnetwork" "PublicSubnet" {
 
 data "google_compute_network" "PublicVpcNetwork" {
 	name = local.PublicVpcNetworkName
+}
+
+data "http" "ip" {
+	url = "https://ifconfig.me/ip"
 }
