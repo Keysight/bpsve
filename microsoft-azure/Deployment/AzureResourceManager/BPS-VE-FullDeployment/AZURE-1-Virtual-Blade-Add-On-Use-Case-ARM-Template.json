@@ -35,19 +35,19 @@
             "type": "string"
         },
         "BpsVirtualBladeImageSku": {
-            "defaultValue": "keysight-breakingpoint-ve-virtual-blade-11-20",
+            "defaultValue": "keysight-breakingpoint-ve-virtual-blade-26-0-0",
             "type": "string"
         },
         "BpsVirtualBladeImageVersion": {
-            "defaultValue": "11.20.18",
+            "defaultValue": "26.0.1",
             "type": "string"
         },
         "BpsVirtualControllerImageSku": {
-            "defaultValue": "keysight-breakingpoint-ve-virtual-controller-11-20",
+            "defaultValue": "keysight-breakingpoint-ve-virtual-controller-26-00",
             "type": "string"
         },
         "BpsVirtualControllerImageVersion": {
-            "defaultValue": "11.20.18",
+            "defaultValue": "26.0.1",
             "type": "string"
         },
         "BpsSystemControllerVmSize": {
@@ -99,21 +99,7 @@
             "metadata": {
                 "description": "Administrator password for the VM"
             }
-        },
-        "SshPublicKey": {
-                "type": "string",
-                "defaultValue": "ssh-rsa 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 user@user",
-                "metadata": {
-                    "description": "SSH public key for authorized_keys"
-                }
-        },
-        "SshPrivateKey": {
-                "type": "securestring",
-                "defaultValue": "-----BEGIN OPENSSH PRIVATE KEY-----\n00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000\n-----END OPENSSH PRIVATE KEY-----",
-                "metadata": {
-                    "description": "SSH private key for id_rsa"
-                }
-        }  
+        }
 	},
     "variables": {
         "apiVersion": "2018-06-01",
@@ -163,9 +149,7 @@
         "MgmtPublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_MGMT_PUBLIC_IP')]",
         "BpsVirtualBlade1Eth0PublicIpAddressName": "[concat(variables('OptionalVMPrefix'), '_', 'BPS_AZURE_BPS_VIRTUAL_BLADE1_ETH0_PUBLIC_IP')]",
 		"CreateOption": "FromImage",		
-		"AdminUserName": "bpcloud",
-        "cloudInitSystemController": "[base64(concat('#cloud-config\n', 'write_files:\n', '  - path: /home/ixia/.ssh/id_rsa\n', '    permissions: ''0400''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', replace(parameters('SshPrivateKey'), '\n', '\n      '), '\n', '  - path: /home/ixia/.ssh/id_rsa.pub\n', '    permissions: ''0600''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', parameters('SshPublicKey'), '\n', '  - path: /home/ixia/.ssh/authorized_keys\n', '    permissions: ''0644''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', parameters('SshPublicKey'), '\n', 'runcmd:\n', '  - [ \"chmod\", \"755\", \"/home/ixia/.ssh\" ]\n', '  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh\" ]\n', '  - [ \"sh\", \"-c\", \"fold -w 70 /home/ixia/.ssh/id_rsa > /home/ixia/.ssh/id_rsa.tmp && mv /home/ixia/.ssh/id_rsa.tmp /home/ixia/.ssh/id_rsa\" ]\n', '  - [ \"chmod\", \"400\", \"/home/ixia/.ssh/id_rsa\" ]\n', '  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh/id_rsa\" ]\n'))]",
-        "cloudInitVirtualBlade": "[base64(concat('#cloud-config\n', 'write_files:\n', '  - path: /home/ixia/.ssh/id_rsa\n', '    permissions: ''0400''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', replace(parameters('SshPrivateKey'), '\n', '\n      '), '\n', '  - path: /home/ixia/.ssh/id_rsa.pub\n', '    permissions: ''0600''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', parameters('SshPublicKey'), '\n', '  - path: /home/ixia/.ssh/authorized_keys\n', '    permissions: ''0644''\n', '    owner: ixia:ixia\n', '    content: |\n', '      ', parameters('SshPublicKey'), '\n', 'runcmd:\n', '  - [ \"chmod\", \"755\", \"/home/ixia/.ssh\" ]\n', '  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh\" ]\n', '  - [ \"sh\", \"-c\", \"fold -w 70 /home/ixia/.ssh/id_rsa > /home/ixia/.ssh/id_rsa.tmp && mv /home/ixia/.ssh/id_rsa.tmp /home/ixia/.ssh/id_rsa\" ]\n', '  - [ \"chmod\", \"400\", \"/home/ixia/.ssh/id_rsa\" ]\n', '  - [ \"chown\", \"ixia:ixia\", \"/home/ixia/.ssh/id_rsa\" ]\n'))]"        
+		"AdminUserName": "bpcloud"
     },
     "resources": [
         {
@@ -797,7 +781,6 @@
 					"computerName": "[variables('BpsSystemControllerName')]",
 					"adminUsername": "[variables('AdminUserName')]",
 					"adminPassword": "[parameters('AdminPassword')]",
-					"customData": "[variables('cloudInitSystemController')]",
 					"linuxConfiguration": {
 						"disablePasswordAuthentication": "[variables('BpsSystemControllerDisablePasswordAuthentication')]",
 						"provisionVMAgent": "[variables('BpsSystemControllerProvisionVMAgent')]"
@@ -856,7 +839,6 @@
 					"computerName": "[variables('BpsVirtualBlade1Name')]",
 					"adminUsername": "[variables('AdminUserName')]",
 					"adminPassword": "[parameters('AdminPassword')]",
-					"customData": "[variables('cloudInitVirtualBlade')]",
 					"linuxConfiguration": {
 						"disablePasswordAuthentication": "[variables('BpsVirtualBladeDisablePasswordAuthentication')]",
 						"provisionVMAgent": "[variables('BpsVirtualBladeProvisionVMAgent')]"

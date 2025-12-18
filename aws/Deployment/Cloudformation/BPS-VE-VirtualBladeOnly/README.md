@@ -11,9 +11,6 @@ Before deploying, please ensure the following:
 - **Understand CloudFormation Templates (CFT):**  
   Familiarize yourself with AWS CloudFormation and how it works. Refer to the AWS CloudFormation Documentation for guidance.
 
-- **Configure SSH Keys:**  
-  Set up your private and public SSH keys in the templates as described in this [guide](https://github.com/Keysight/bpsve/tree/main/aws/Deployment/CloudFormation#-case-study-why-do-we-need-ssh-public-and-private-keys-in-the-breakingpoint-ve-vms-)
-
 ## 🔧 Post-Deployment Steps
 
 After deployment, complete the following steps:
