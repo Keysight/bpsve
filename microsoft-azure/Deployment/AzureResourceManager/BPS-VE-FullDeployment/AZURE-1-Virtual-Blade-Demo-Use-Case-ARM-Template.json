@@ -35,19 +35,19 @@
             "type": "string"
         },
         "BpsSystemControllerVmSize": {
-			"defaultValue": "Standard_E8_v4",
+			"defaultValue": "Standard_E8s_v5",
             "type": "string",
 			"allowedValues": [
-				"Standard_E8_v4",
-				"Standard_E16_v4"
+				"Standard_E8s_v5",
+				"Standard_E16s_v5"
 			]
 		},
 		"BpsVirtualBladeVmSize": {
-			"defaultValue": "Standard_E8_v4",
+			"defaultValue": "Standard_E8s_v5",
             "type": "string",
 			"allowedValues": [
-				"Standard_E8_v4",
-				"Standard_E16_v4"
+				"Standard_E8s_v5",
+				"Standard_E16s_v5"
 			]
 		},
         "OptionalVMPrefix": {

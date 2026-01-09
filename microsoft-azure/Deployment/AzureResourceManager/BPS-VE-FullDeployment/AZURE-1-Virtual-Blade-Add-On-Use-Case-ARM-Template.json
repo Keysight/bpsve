@@ -51,11 +51,11 @@
             "type": "string"
         },
         "BpsSystemControllerVmSize": {
-			"defaultValue": "Standard_E8_v4",
+			"defaultValue": "Standard_E8s_v5",
             "type": "string",
 			"allowedValues": [
-				"Standard_E8_v4",
-				"Standard_E16_v4"
+				"Standard_E8s_v5",
+				"Standard_E16s_v5"
 			]
 		},
 		"BpsVirtualBlade1Eth0IpAddress": { 
@@ -71,11 +71,11 @@
 			"type": "array"
 		},
 		"BpsVirtualBladeVmSize": {
-			"defaultValue": "Standard_E8_v4",
+			"defaultValue": "Standard_E8s_v5",
             "type": "string",
 			"allowedValues": [
-				"Standard_E8_v4",
-				"Standard_E16_v4"
+				"Standard_E8s_v5",
+				"Standard_E16s_v5"
 			]
 		},
         "OptionalVMPrefix": {
