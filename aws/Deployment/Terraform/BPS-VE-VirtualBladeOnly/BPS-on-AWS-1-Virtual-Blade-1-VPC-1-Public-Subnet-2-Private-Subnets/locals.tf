@@ -1,22 +1,25 @@
 locals {
 	AgentInstanceType = var.AgentInstanceType
+	Agent1InstanceId = "agent1"
 	ApiMaxRetries = var.ApiMaxRetries
 	AppTag = "bps"
 	AppUserName = "ixia"
 	AwsAccessCredentialsAccessKey = var.AwsAccessCredentialsAccessKey
 	AwsAccessCredentialsSecretKey = var.AwsAccessCredentialsSecretKey
-	InboundIPv4CidrBlocks = var.InboundIPv4CidrBlocks
+	InboundIPv4CidrBlocks = var.InboundIPv4CidrBlocks == null ? [ "${data.http.ip.response_body}/32" ] : var.InboundIPv4CidrBlocks
 	File1Content = tls_private_key.SshKey.private_key_pem
 	File1Name = "id_rsa"
 	File2Content = tls_private_key.SshKey.public_key_openssh
 	File2Name = "authorized_keys"
 	File3Content = tls_private_key.SshKey.public_key_openssh
 	File3Name = "id_rsa.pub"
+	PlacementGroupName = "${local.Preamble}-placement-group-${local.Region}"
+	PlacementGroupStrategy = "cluster"
 	Preamble = "${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}"
 	Private1SubnetAvailabilityZone = var.Private1SubnetAvailabilityZone
 	Private2SubnetAvailabilityZone = var.Private2SubnetAvailabilityZone
 	PublicSubnetAvailabilityZone = var.PublicSubnetAvailabilityZone
-	Region = data.aws_region.current.name
+	Region = data.aws_region.current.id
 	SshKeyAlgorithm = "RSA"
 	SshKeyName = "${local.Preamble}-ssh-key"
 	SshKeyRsaBits = "4096"
