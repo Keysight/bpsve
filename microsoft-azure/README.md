@@ -27,14 +27,6 @@ Only the following instance sizes are supported for both BreakingPoint VE Virtua
   
 Following is an explanation of the configuration templates that we provide: 
 
-## Configurations
-
-This folder contains several BPS-VE .bpt configurations that can be used on their respective instance sizes. 
-We have 4 different folders: 
-- Standard_F4s / Standard_F4s_v2
-- Standard_F8s / Standard_F8s_v2
-- Standard_F16s / Standard_F16s_v2
-
 ## Deployment
 ### Azure CLI
 Since BPS-VE is not posted in the Microsoft Azure Marketplace we rely on sharing the Virtual Controller and Virtual Blade with you using Public Blobs.
@@ -78,14 +70,6 @@ Before deploying BreakingPoint Virtual Edition, ensure that you have subscribed 
 
 ---
 
-### 🔧 Configurations
-
-This folder contains several BPS-VE `.bpt` configurations that can be used on their respective instance sizes. 
-We have configurations for the following instance types:
-- Standard_F4s
-- Standard_F8s
-- Standard_F16s
-
 ### 🚀 Deployment
 
 Starting with version **11.00**, BreakingPoint Virtual Edition Virtual Controller and Virtual Blade will be available under the BreakingPoint Virtual Edition product in the Azure Marketplace.
@@ -100,54 +84,5 @@ Before you begin, ensure you have the following:
 - **Azure Account**: An active Azure account with appropriate permissions.
 - **Azure CLI**: Installed and configured with your credentials.
 - **BreakingPoint VE License**: Ensure you have a valid license for BreakingPoint Virtual Edition.
-- **SSH Public and Private Pregenerated Keys**: These SSH keys will be used by the Virtual Controller and Virtual Blade VMs to communicate between each other.
 
 ---
-
-#### 🔒 Why do we need SSH Public and Private Keys in the BreakingPoint Virtual Edition VMs?
-
-The Virtual Controller acts as a Virtual Blade manager and needs to communicate with one or more Virtual Blades to be able to attach the Virtual Blades to the Virtual Controller and run your tests.
-
-Instead of using static SSH keys residing on the Virtual Controller and Virtual Blade, we rely on the end user to add those SSH keys at deployment time.
-
-#### 🔑 How do we generate SSH Keys to use in Microsoft Azure?
-
-##### ❓ What are SSH Keys?
-
-SSH keys are a pair of cryptographic keys used for secure authentication:
-- **Private Key**: Kept secret on your local machine
-- **Public Key**: Shared with servers you want to access
-
-To generate SSH keys, you can use the following command on your local machine:
-
-```bash
-ssh-keygen -t rsa -b 2048 -f azure_ssh_key
-```
-
-This will create two files:
-- `azure_ssh_key` (Private Key)
-- `azure_ssh_key.pub` (Public Key)
-
-Use the public key during the deployment process in Azure.
-
----
-
-### 🗝️ Setting SSH Keys in ARM Templates
-
-When deploying BreakingPoint VE using the Azure ARM template, you must provide your SSH public and private keys:
-
-- **SshPublicKey**: Paste the contents of your public key (e.g., from `azure_ssh_key.pub`, `id_rsa.pub`, or PuTTYgen) into this parameter. This key will be injected into `/home/ixia/.ssh/authorized_keys` and `/home/ixia/.ssh/id_rsa.pub` on the VM.
-- **SshPrivateKey**: Paste the contents of your private key (e.g., from `azure_ssh_key`, `id_rsa`, or converted PuTTY `.ppk` to OpenSSH format) into this parameter. This key will be injected into `/home/ixia/.ssh/id_rsa` on the VM.
-
-Both keys are required for secure communication between the Virtual Controller and Virtual Blade. Do not use placeholder values—replace them with your actual keys before deployment. The template will automatically configure file permissions and ownership using cloud-init.
-
-**Example (Azure CLI):**
-```powershell
-az deployment group create \
-  --resource-group <your-resource-group> \
-  --template-file Azure-1-Virtual-Blade-Demo-Use-Case-ARM-Template.json \
-  --parameters SshPublicKey="$(cat ~/.ssh/azure_ssh_key.pub)" SshPrivateKey="$(cat ~/.ssh/azure_ssh_key)"
-```
-
-**Note:** If using the Azure Portal, paste the full contents of each key into the corresponding parameter field when prompted.
-
