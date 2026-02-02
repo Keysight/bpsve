@@ -1,4 +1,4 @@
-# BPS-on-AWS-1-App-1-Agent-1-VPC-1-Public-Subnet-2-Private-Subnets
+# BPS-on-AWS-1-App-1-Virtual-Blade-1-VPC-1-Public-Subnet-2-Private-Subnets
 
 ## Description
 This deployment creates a topology with a single virtual private cloud having a single public facing subnet and two private subnets.
