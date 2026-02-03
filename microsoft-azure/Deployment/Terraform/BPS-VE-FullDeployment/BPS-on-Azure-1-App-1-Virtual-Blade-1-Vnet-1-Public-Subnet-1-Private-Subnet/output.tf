@@ -1,14 +1,22 @@
-output "Agent1Eth0PublicIpAddress" {
+output "Agent1" {
 	value = {
+		"admin_username" : module.Agent1.Instance.admin_username
 		"fqdn" : module.Agent1.Eth0PublicIpAddress.fqdn
-		"ip_address" : module.Agent1.Eth0PublicIpAddress.ip_address
+		"name" : module.Agent1.Instance.name
+		"private_ip_address" : module.Agent1.Instance.private_ip_address
+		"public_ip_address" : module.Agent1.Eth0PublicIpAddress.ip_address
+		"size" : module.Agent1.Instance.size
 	}
 }
 
-output "AppEth0PublicIpAddress" {
+output "App" {
 	value = {
+		"admin_username" : module.App.Instance.admin_username
 		"fqdn" : module.App.Eth0PublicIpAddress.fqdn
-		"ip_address" : module.App.Eth0PublicIpAddress.ip_address
+		"name" : module.App.Instance.name
+		"private_ip_address" : module.App.Instance.private_ip_address
+		"public_ip_address" : module.App.Eth0PublicIpAddress.ip_address
+		"size" : module.App.Instance.size
 	}
 }
 
