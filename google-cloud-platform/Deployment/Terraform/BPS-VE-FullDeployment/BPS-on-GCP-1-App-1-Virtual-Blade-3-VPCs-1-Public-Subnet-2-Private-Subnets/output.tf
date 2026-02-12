@@ -11,7 +11,6 @@ output "Agent1" {
 		"machine_guest_cpus" : data.google_compute_machine_types.Agent.machine_types.0.guest_cpus
 		"machine_is_shared_cpus" : data.google_compute_machine_types.Agent.machine_types.0.is_shared_cpus
 		"machine_memory_mb" : data.google_compute_machine_types.Agent.machine_types.0.memory_mb
-		"machine_type" : module.App.Instance.machine_type
 		"machine_type" : module.Agent1.Instance.machine_type
 		"name" : module.Agent1.Instance.name
 		"network_ip" : module.Agent1.Instance.network_ip
