@@ -9,7 +9,7 @@ output "Agent1" {
 				address = module.Agent1.Eth0PublicIpAddress.address
 				address_type = module.Agent1.Eth0PublicIpAddress.address_type
 			}
-		}	
+		}
 		image = {
 			name = module.Agent1.Image.name
 			project = module.Agent1.Image.project
@@ -32,7 +32,7 @@ output "Agent1" {
 
 output "Private1VpcNetwork" {
 	value = {
-		name =  data.google_compute_network.Private1VpcNetwork.name
+		name = data.google_compute_network.Private1VpcNetwork.name
 	}
 }
 

@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 all: init apply ssh
 
 clean: state destroy
