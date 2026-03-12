@@ -11,6 +11,32 @@ AgentMachineType must be one of the following types:
 	}
 }
 
+variable "Private1VpcNetworkMtu" {
+	default = 1460
+	description = "Maxium Transmission Unit associated with the first private vpc network"
+	type = number
+	validation {
+		condition = contains([1460, 1500, 8896], var.Private1VpcNetworkMtu)
+		error_message = <<EOF
+Private1VpcNetworkMtu must be one of the following values:
+	1460, 1500, 8896
+		EOF
+	}
+}
+
+variable "Private2VpcNetworkMtu" {
+	default = 1460
+	description = "Maxium Transmission Unit associated with the second private vpc network"
+	type = number
+	validation {
+		condition = contains([1460, 1500, 8896], var.Private2VpcNetworkMtu)
+		error_message = <<EOF
+Private2VpcNetworkMtu must be one of the following values:
+	1460, 1500, 8896
+		EOF
+	}
+}
+
 variable "ProjectId" {
 	description = "Globally unique identifier for working project"
 	type = string

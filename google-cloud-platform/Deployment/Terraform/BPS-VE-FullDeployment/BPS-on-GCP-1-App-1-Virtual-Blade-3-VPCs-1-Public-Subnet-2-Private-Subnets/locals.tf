@@ -11,7 +11,9 @@ locals {
 	File3Content = tls_private_key.SshKey.public_key_openssh
 	File3Name = "id_rsa.pub"
 	Preamble = replace("${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}", "_", "-")
+	Private1VpcNetworkMtu = var.Private1VpcNetworkMtu
 	Private1VpcNetworkPeerName = "${local.Preamble}-test1-vpc-peer"
+	Private2VpcNetworkMtu = var.Private2VpcNetworkMtu
 	Private2VpcNetworkPeerName = "${local.Preamble}-test2-vpc-peer"
 	PublicFirewallRuleSourceIpRanges = var.PublicFirewallRuleSourceIpRanges == null ? [ "${data.http.ip.response_body}/32" ] : var.PublicFirewallRuleSourceIpRanges
 	SshKeyAlgorithm = "RSA"

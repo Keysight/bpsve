@@ -1,5 +1,5 @@
 module "Agent1" {
-	source = "git::https://github.com/armdupre/terraform-google-module-bps-agent.git?ref=11.20.4"
+	source = "git::https://github.com/Keysight/terraform-google-module-bps-agent.git?ref=26.0.0"
 	Eth0SubnetName = data.google_compute_subnetwork.PublicSubnet.name
 	Eth0VpcNetworkName = data.google_compute_network.PublicVpcNetwork.name
 	Eth1SubnetName = data.google_compute_subnetwork.Private1Subnet.name

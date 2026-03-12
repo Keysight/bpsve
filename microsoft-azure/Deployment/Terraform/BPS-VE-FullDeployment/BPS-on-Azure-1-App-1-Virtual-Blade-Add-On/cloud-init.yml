@@ -21,5 +21,21 @@ write_files:
 runcmd:
   - chmod 755 /home/${UserName}/.ssh
   - chown ${UserName}:${UserName} /home/${UserName}/.ssh
+  - |
+    # Redirect all output (stdout + stderr) to custom log file
+    exec > >(tee -a /var/log/terraform-cloud-init-output.log) 2>&1
+    set -e
+    echo "=== Starting Mellanox NIC check ==="
+    if ! lspci | grep -qi mellanox; then
+      echo "ERROR: Mellanox NIC not detected. Accelerated Networking may not be active."
+      exit 1
+    fi
+    if ! lsmod | grep -q mlx; then
+      echo "ERROR: Mellanox driver not loaded (mlx4/mlx5 missing)."
+      exit 1
+    fi
+    echo "SUCCESS: Mellanox NIC detected and driver loaded."
+    ethtool -i eth0
+    echo "=== NIC check completed successfully ==="
 output:
   all: "| tee -a /var/log/terraform-cloud-init-output.log"
