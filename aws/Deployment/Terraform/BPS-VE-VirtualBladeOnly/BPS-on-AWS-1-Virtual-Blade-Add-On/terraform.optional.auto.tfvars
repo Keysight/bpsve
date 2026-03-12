@@ -1,4 +1,4 @@
-# AgentInstanceType = "c5n.xlarge"
+# AgentInstanceType = "c6in.xlarge"
 # ApiMaxRetries = 1
 # Region = "us-east-1"
 # UserEmailTag = "terraform@example.com"

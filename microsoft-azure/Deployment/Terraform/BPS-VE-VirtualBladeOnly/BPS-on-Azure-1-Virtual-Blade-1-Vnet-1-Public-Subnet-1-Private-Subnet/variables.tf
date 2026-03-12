@@ -6,7 +6,7 @@ variable "AgentVmSize" {
 		condition = contains([ "Standard_E8_v5", "Standard_E16_v5" ], var.AgentVmSize)
 		error_message = <<EOF
 AgentVmSize must be one of the following sizes:
-	Standard_F4s_v2, Standard_E8_v5, Standard_E16_v5
+	Standard_E8_v5, Standard_E16_v5
 		EOF
 	}
 }
