@@ -130,7 +130,7 @@ resources:
       boot: true
       type: PERSISTENT      
       initializeParams:
-        sourceImage: projects/mpi-keysight-public/global/images/keysight-bps-virtual-controller-26
+        sourceImage: projects/mpi-keysight-public/global/images/keysight-breakingpoint-virtual-controller-26-1-10-52
     networkInterfaces:
     - name: nic0
       network: networks/{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}
@@ -182,7 +182,7 @@ resources:
       boot: true
       type: PERSISTENT
       initializeParams:
-        sourceImage: projects/mpi-keysight-public/global/images/keysight-bps-virtual-blade-26
+        sourceImage: projects/mpi-keysight-public/global/images/keysight-breakingpoint-virtual-blade-26-1-10-52
     networkInterfaces:
     - name: nic0
       network: networks/{{ properties["GCP_MGMT_VPC_NETWORK_NAME"] }}
