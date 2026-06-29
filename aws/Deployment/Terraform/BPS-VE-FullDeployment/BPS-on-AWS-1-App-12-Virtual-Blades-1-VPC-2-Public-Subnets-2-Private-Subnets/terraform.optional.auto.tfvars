@@ -1,0 +1,14 @@
+# AgentInstanceType = "c5n.xlarge"
+# ApiMaxRetries = 1
+# AppInstanceType = "c5.xlarge"
+# InboundIPv4CidrBlocks = [ "0.0.0.0/0" ]
+# Private1SubnetAvailabilityZone = "us-east-1a"
+# Private2SubnetAvailabilityZone = "us-east-1a"
+# Public1SubnetCidrBlock = "10.0.10.0/24"
+# Public1SubnetAvailabilityZone = "us-east-1a"
+# Public2SubnetCidrBlock = "10.0.11.0/24"
+# Public2SubnetAvailabilityZone = "us-east-1a"
+# Region = "us-east-1"
+# UserEmailTag = "terraform@example.com"
+# UserLoginTag = "terraform"
+# UserProjectTag = "cloud-ist"
