@@ -21,7 +21,7 @@ locals {
 	PrivateSubnetName = var.PrivateSubnetName
 	PublicSecurityGroupName = var.PublicSecurityGroupName
 	PublicSubnetName = var.PublicSubnetName
-	Region = data.aws_region.current.id
+	Region = data.aws_region.current.region
 	SshKeyAlgorithm = "RSA"
 	SshKeyName = "${local.Preamble}-ssh-key"
 	SshKeyRsaBits = "4096"
