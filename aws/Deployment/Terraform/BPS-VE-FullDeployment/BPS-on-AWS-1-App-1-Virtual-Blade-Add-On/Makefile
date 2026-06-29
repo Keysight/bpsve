@@ -1,4 +1,6 @@
 SHELL := /bin/bash
+TF_DATA_DIR := /tmp/tfdata-$(notdir $(CURDIR))
+export TF_DATA_DIR
 
 aws: install all
 
