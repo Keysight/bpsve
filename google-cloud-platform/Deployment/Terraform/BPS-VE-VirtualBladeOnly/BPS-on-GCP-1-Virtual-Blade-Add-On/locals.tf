@@ -1,5 +1,8 @@
 locals {
 	AgentMachineType = var.AgentMachineType
+	Agent1Eth0PrivateIpAddress = "10.0.10.12"
+	Agent1Eth1PrivateIpAddress = "10.0.2.115"
+	Agent1Eth2PrivateIpAddress = "10.0.3.115"
 	Agent1InstanceId = "agent1"
 	AppTag = "bps"
 	AppUserName = "ixia"
