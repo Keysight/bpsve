@@ -1,35 +1,63 @@
 SHELL := /bin/bash
+.SHELLFLAGS := -euo pipefail -c
+
+TF_DATA_DIR := /tmp/tfdata-$(notdir $(CURDIR))
+export TF_DATA_DIR
+
+TF := time terraform
+TF_FLAGS := -auto-approve
+
+azure: all
 
 all: init apply ssh
 
 clean: state destroy
 
 version:
-	time terraform version
+	@echo "=== $(TF) version ==="
+	$(TF) version
 
 init:
-	time terraform init
+	@echo "=== $(TF) init ==="
+	$(TF) init
 
 validate:
-	time terraform validate
-	
+	@echo "=== $(TF) validate ==="
+	$(TF) validate
+
 update:
-	time terraform get -update
+	@echo "=== $(TF) update ==="
+	$(TF) get -update
 
 plan:
-	time terraform plan
+	@echo "=== $(TF) plan ==="
+	$(TF) plan
 
 apply:
-	time terraform apply -auto-approve
+	@echo "=== $(TF) apply ==="
+	$(TF) apply $(TF_FLAGS)
 
 destroy:
-	time terraform destroy -auto-approve
+	@echo "=== $(TF) destroy ==="
+	$(TF) destroy $(TF_FLAGS)
 
 output:
-	time terraform output
+	@echo "=== $(TF) output ==="
+	$(TF) output
 
 ssh:
-	time terraform output SshKey | tail -n +3 | head -n-3 | sed "s/^[ \t]*//" > .sshkey.pem
+	@echo "=== $(TF) ssh ==="
+	$(TF) output SshKey | tail -n +3 | head -n-3 | sed "s/^[ \t]*//" > .sshkey.pem
+	chmod 400 .sshkey.pem
 
 state:
-	time terraform state list
+	@echo "=== $(TF) state ==="
+	$(TF) state list
+
+connect: connect-app
+
+connect-app:
+	ssh -o StrictHostKeyChecking=no -i .sshkey.pem ixia@$$(terraform output -json App | jq -r .public_ip_address)
+
+connect-agent1:
+	ssh -o StrictHostKeyChecking=no -i .sshkey.pem ixia@$$(terraform output -json Agent1 | jq -r .public_ip_address)
