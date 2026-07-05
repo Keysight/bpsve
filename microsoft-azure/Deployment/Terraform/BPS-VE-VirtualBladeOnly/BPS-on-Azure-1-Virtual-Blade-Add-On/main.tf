@@ -1,7 +1,10 @@
 module "Agent1" {
-	source = "git::https://github.com/Keysight/terraform-azurerm-module-bps-agent.git?ref=26.0.0"
+	source = "git::https://github.com/Keysight/terraform-azurerm-module-bps-agent.git?ref=26.1.0"
+	Eth0IpAddress = local.Agent1Eth0IpAddress
 	Eth0SubnetId = data.azurerm_subnet.PublicSubnet.id
+	Eth1IpAddresses = local.Agent1Eth1IpAddresses
 	Eth1SubnetId = data.azurerm_subnet.Private1Subnet.id
+	Eth2IpAddresses = local.Agent1Eth2IpAddresses
 	Eth2SubnetId = data.azurerm_subnet.Private2Subnet.id
 	InstanceId = local.Agent1InstanceId
 	ResourceGroupLocation = data.azurerm_resource_group.ResourceGroup.location
