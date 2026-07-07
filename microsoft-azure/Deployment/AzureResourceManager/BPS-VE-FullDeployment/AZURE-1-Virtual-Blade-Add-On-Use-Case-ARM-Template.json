@@ -35,19 +35,19 @@
             "type": "string"
         },
         "BpsVirtualBladeImageSku": {
-            "defaultValue": "keysight-breakingpoint-ve-virtual-blade-26-0-0",
+            "defaultValue": "keysight-breakingpoint-ve-virtual-blade-26-1-0",
             "type": "string"
         },
         "BpsVirtualBladeImageVersion": {
-            "defaultValue": "26.0.1",
+            "defaultValue": "26.1.1",
             "type": "string"
         },
         "BpsVirtualControllerImageSku": {
-            "defaultValue": "keysight-breakingpoint-ve-virtual-controller-26-00",
+            "defaultValue": "keysight-breakingpoint-ve-virtual-controller-26-10",
             "type": "string"
         },
         "BpsVirtualControllerImageVersion": {
-            "defaultValue": "26.0.1",
+            "defaultValue": "26.1.1",
             "type": "string"
         },
         "BpsSystemControllerVmSize": {

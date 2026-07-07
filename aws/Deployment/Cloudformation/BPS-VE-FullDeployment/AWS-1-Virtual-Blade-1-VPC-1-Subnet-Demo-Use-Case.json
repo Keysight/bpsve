@@ -74,7 +74,7 @@
 				"INSTANCExEBSxDELETExONxTERMINATION" : true,
 				"INSTANCExEBSxVOLUMExTYPE" : "gp2",
 				"APPxTAG" : "BPS",
-				"APPxVERSION" : "26.0.0",
+				"APPxVERSION" : "26.1.0",
 				"SYSCTRLxCTRL0xPRIVATExIPxADDRESS" : "10.0.1.10",
 				"SYSCTRLxIMGxSIZE" : "30",
 				"VBLADExIMGxSIZE" : "10",
@@ -735,7 +735,7 @@
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExDISABLExAPIxTERMINATION"] },
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
-                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/26.0.0",
+                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-cl7jzjvfgu32i/26.1.0",
 				"InstanceType": { "Ref" : "BPSvBladeInstanceType" },
 				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
@@ -798,7 +798,7 @@
 			"Properties": {
 				"DisableApiTermination": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExDISABLExAPIxTERMINATION"] },
 				"InstanceInitiatedShutdownBehavior": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExINSTANCExINITIATEDxSHUTDOWNxBEHAVIOR"] },
-                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-etszhwtguwj7m/26.0.0",
+                "ImageId": "resolve:ssm:/aws/service/marketplace/prod-etszhwtguwj7m/26.1.0",
 				"InstanceType": { "Ref" : "BPSSCInstanceType" },
 				"KeyName": {"Ref": "SSHKey"},
 				"Monitoring": { "Fn::FindInMap" : [ "VariableMap", "local", "INSTANCExMONITORING"] },
