@@ -22,12 +22,12 @@
         "ecs.sn1ne.3xlarge",
         "ecs.sn1ne.4xlarge"
       ]
-    },    
+    },
     "vpc": {
       "Type": "String",
       "Description": "The name of the VPC that is already configured for management purposes",
       "Default": "Management_VPC"
-    },    
+    },
     "vswitch": {
       "Type": "String",
       "Description": "The name of the vSwitch that is already configured for management purposes",
