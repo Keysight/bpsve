@@ -21,3 +21,5 @@ write_files:
 runcmd:
   - chmod 755 /home/${UserName}/.ssh
   - chown ${UserName}:${UserName} /home/${UserName}/.ssh
+output:
+  all: "| tee -a /var/log/terraform-cloud-init-output.log"

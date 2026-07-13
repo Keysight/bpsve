@@ -1,9 +1,12 @@
 module "Agent1" {
-	source = "git::https://github.com/Keysight/terraform-google-module-bps-agent.git?ref=26.0.0"
+	source = "git::https://github.com/Keysight/terraform-google-module-bps-agent.git?ref=26.1.0"
+	Eth0PrivateIpAddress = local.Agent1Eth0PrivateIpAddress
 	Eth0SubnetName = data.google_compute_subnetwork.PublicSubnet.name
 	Eth0VpcNetworkName = data.google_compute_network.PublicVpcNetwork.name
+	Eth1PrivateIpAddress = local.Agent1Eth1PrivateIpAddress
 	Eth1SubnetName = data.google_compute_subnetwork.Private1Subnet.name
 	Eth1VpcNetworkName = data.google_compute_network.Private1VpcNetwork.name
+	Eth2PrivateIpAddress = local.Agent1Eth2PrivateIpAddress
 	Eth2SubnetName = data.google_compute_subnetwork.Private2Subnet.name
 	Eth2VpcNetworkName = data.google_compute_network.Private2VpcNetwork.name
 	InstanceId = local.Agent1InstanceId

@@ -1,4 +1,4 @@
-# AgentInstanceType = "c6in.xlarge"
+# AgentInstanceType = "c5n.xlarge"
 # ApiMaxRetries = 1
 # AppInstanceType = "c5.xlarge"
 # Region = "us-east-1"

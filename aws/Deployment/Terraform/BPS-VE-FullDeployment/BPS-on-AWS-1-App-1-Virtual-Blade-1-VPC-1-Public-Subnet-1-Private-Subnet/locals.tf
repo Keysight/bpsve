@@ -20,7 +20,7 @@ locals {
 	Preamble = "${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}"
 	PrivateSubnetAvailabilityZone = var.PrivateSubnetAvailabilityZone
 	PublicSubnetAvailabilityZone = var.PublicSubnetAvailabilityZone
-	Region = data.aws_region.current.id
+	Region = data.aws_region.current.region
 	SshKeyAlgorithm = "RSA"
 	SshKeyName = "${local.Preamble}-ssh-key"
 	SshKeyRsaBits = "4096"
