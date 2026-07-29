@@ -9,7 +9,7 @@ TF_FLAGS := -auto-approve
 
 aws: install all
 
-all: init apply ssh output
+all: apply ssh output
 
 clean: state destroy
 
@@ -62,12 +62,6 @@ ssh:
 state:
 	@echo "=== $(TF) state ==="
 	$(TF) state list
-
-connect: connect-app
-
-connect-app:
-	chmod +x ./CloudShell/connect.sh
-	./CloudShell/connect.sh -i $$(terraform output -json App | jq -r .eth0.eip.public_ip)
 
 connect-agent1:
 	chmod +x ./CloudShell/connect.sh
