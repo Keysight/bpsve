@@ -8,13 +8,13 @@ module "App" {
 	UserProjectTag = local.UserProjectTag
 	init_cli = data.cloudinit_config.init_cli.rendered
 	depends_on = [
-		module.AgentPrivateSubnet1,
-		module.AgentPrivateSubnet2,
+		module.Agents1,
+		module.Agents2,
 		module.Vpc
 	]
 }
 
-module "AgentPrivateSubnet1" {
+module "Agents1" {
 	source = "git::https://github.com/Keysight/terraform-aws-module-bps-agent.git?ref=26.1.0"
 	for_each = local.agents_first_half
 	Eth0PrivateIpAddress = each.value.Eth0PrivateIpAddress
@@ -39,7 +39,7 @@ module "AgentPrivateSubnet1" {
 	]
 }
 
-module "AgentPrivateSubnet2" {
+module "Agents2" {
 	source = "git::https://github.com/Keysight/terraform-aws-module-bps-agent.git?ref=26.1.0"
 	for_each = local.agents_second_half
 	Eth0PrivateIpAddress = each.value.Eth0PrivateIpAddress

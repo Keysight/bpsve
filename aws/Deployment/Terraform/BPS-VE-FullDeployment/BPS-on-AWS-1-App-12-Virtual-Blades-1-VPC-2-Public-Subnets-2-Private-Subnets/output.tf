@@ -1,6 +1,6 @@
-output "AgentsPrivateSubnet1" {
+output "Agents1" {
 	value = {
-		for name, module in module.AgentPrivateSubnet1 :
+		for name, module in module.Agents1 :
 		name => {
 			ami = {
 				image_id = module.Ami.image_id
@@ -43,9 +43,9 @@ output "AgentsPrivateSubnet1" {
 	}
 }
 
-output "AgentsPrivateSubnet2" {
+output "Agents2" {
 	value = {
-		for name, module in module.AgentPrivateSubnet2 :
+		for name, module in module.Agents2 :
 		name => {
 			ami = {
 				image_id = module.Ami.image_id

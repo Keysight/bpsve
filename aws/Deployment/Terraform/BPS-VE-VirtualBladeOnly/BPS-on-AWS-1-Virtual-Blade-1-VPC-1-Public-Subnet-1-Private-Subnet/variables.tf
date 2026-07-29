@@ -31,6 +31,7 @@ variable "PrivateSubnetAvailabilityZone" {
 
 variable "PublicSubnetAvailabilityZone" {
 	default = "us-east-1a"
+	description = "AZ id associated with the public subnet"
 	type = string
 }
 
