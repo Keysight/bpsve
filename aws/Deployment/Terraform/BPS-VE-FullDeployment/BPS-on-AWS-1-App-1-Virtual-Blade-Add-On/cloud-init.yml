@@ -18,8 +18,17 @@ write_files:
     owner: '${UserName}:${UserName}'
     permissions: '0644'
     defer: true
+  - path: /home/${UserName}/${File4Name}
+    encoding: base64
+    content: ${base64encode(File4Content)}
+    owner: '${UserName}:${UserName}'
+    permissions: '0700'
+    defer: true
 runcmd:
   - chmod 755 /home/${UserName}/.ssh
   - chown ${UserName}:${UserName} /home/${UserName}/.ssh
+  - sleep 5m
+  - AppEth0PrivateIpAddress=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent1Eth0PrivateIpAddress} 1 ${AppAdminUserName} ${AppAdminUserName}
 output:
   all: "| tee -a /var/log/terraform-cloud-init-output.log"
