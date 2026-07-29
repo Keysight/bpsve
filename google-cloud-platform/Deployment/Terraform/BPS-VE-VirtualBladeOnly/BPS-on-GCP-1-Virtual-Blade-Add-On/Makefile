@@ -9,7 +9,7 @@ TF_FLAGS := -auto-approve
 
 gcp: all
 
-all: init apply ssh
+all: apply ssh output
 
 clean: state destroy
 
