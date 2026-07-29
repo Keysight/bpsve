@@ -43,7 +43,7 @@ variable "ProjectId" {
 }
 
 variable "PublicFirewallRuleSourceIpRanges" {
-	default = null
+	default = [ "0.0.0.0/0" ]
 	description = "List of IP Addresses /32 or IP CIDR ranges connecting inbound to App"
 	type = list(string)
 }
