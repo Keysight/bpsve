@@ -1,5 +1,7 @@
 # AgentMachineType = "c2-standard-8"
 # AppMachineType = "n1-standard-4"
+# Private1VpcNetworkMtu = 1460
+# Private2VpcNetworkMtu = 1460
 # PublicFirewallRuleSourceIpRanges = [ "0.0.0.0/0" ]
 # RegionName = "us-central1"
 # UserEmailTag = "terraform@example.com"

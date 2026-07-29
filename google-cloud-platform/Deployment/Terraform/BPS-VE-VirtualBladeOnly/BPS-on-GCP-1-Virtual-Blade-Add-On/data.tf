@@ -45,7 +45,3 @@ data "google_compute_subnetwork" "PublicSubnet" {
 data "google_compute_network" "PublicVpcNetwork" {
 	name = local.PublicVpcNetworkName
 }
-
-data "http" "ip" {
-	url = "https://ifconfig.me/ip"
-}
