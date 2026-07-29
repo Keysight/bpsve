@@ -23,4 +23,5 @@ terraform validate
 terraform plan
 terraform state list
 terraform output
+terraform output SshKey | tail -n +3 | head -n-3 | sed "s/^[ \t]*//" > .sshkey.pem
 ```

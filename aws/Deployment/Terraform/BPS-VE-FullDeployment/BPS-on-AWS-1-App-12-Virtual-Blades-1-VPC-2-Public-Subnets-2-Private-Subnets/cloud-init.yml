@@ -18,8 +18,28 @@ write_files:
     owner: '${UserName}:${UserName}'
     permissions: '0644'
     defer: true
+  - path: /home/${UserName}/${File4Name}
+    encoding: base64
+    content: ${base64encode(File4Content)}
+    owner: '${UserName}:${UserName}'
+    permissions: '0700'
+    defer: true
 runcmd:
   - chmod 755 /home/${UserName}/.ssh
   - chown ${UserName}:${UserName} /home/${UserName}/.ssh
+  - sleep 5m
+  - AppEth0PrivateIpAddress=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent1Eth0PrivateIpAddress} 1 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent2Eth0PrivateIpAddress} 2 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent3Eth0PrivateIpAddress} 3 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent4Eth0PrivateIpAddress} 4 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent5Eth0PrivateIpAddress} 5 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent6Eth0PrivateIpAddress} 6 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent7Eth0PrivateIpAddress} 7 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent8Eth0PrivateIpAddress} 8 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent9Eth0PrivateIpAddress} 9 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent10Eth0PrivateIpAddress} 10 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent11Eth0PrivateIpAddress} 11 ${AppAdminUserName} ${AppAdminUserName}
+  - /home/${UserName}/${File4Name} $${AppEth0PrivateIpAddress} ${Agent12Eth0PrivateIpAddress} 12 ${AppAdminUserName} ${AppAdminUserName}
 output:
   all: "| tee -a /var/log/terraform-cloud-init-output.log"
