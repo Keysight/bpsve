@@ -7,7 +7,7 @@ export TF_DATA_DIR
 TF := time terraform
 TF_FLAGS := -auto-approve
 
-azure: all
+gcp: all
 
 all: init apply ssh
 

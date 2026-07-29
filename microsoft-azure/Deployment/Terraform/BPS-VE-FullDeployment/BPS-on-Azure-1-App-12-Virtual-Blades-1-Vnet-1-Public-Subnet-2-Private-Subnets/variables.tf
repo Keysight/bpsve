@@ -25,7 +25,7 @@ AppVmSize must be one of the following sizes:
 }
 
 variable "PublicSecurityRuleSourceIpPrefixes" {
-	default = null
+	default = [ "0.0.0.0/0" ]
 	description = "List of IP Addresses /32 or IP CIDR ranges connecting inbound to App"
 	type = list(string)
 }
