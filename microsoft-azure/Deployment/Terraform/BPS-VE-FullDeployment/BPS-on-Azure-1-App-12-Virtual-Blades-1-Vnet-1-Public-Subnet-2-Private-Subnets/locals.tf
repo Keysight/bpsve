@@ -1,6 +1,7 @@
 locals {
 	AgentVmSize = var.AgentVmSize
 	Agent1InstanceId = "agent1"
+	AppAdminUserName = "admin"
 	AppTag = "bps"
 	AppUserName = "ixia"
 	AppVmSize = var.AppVmSize
@@ -10,6 +11,8 @@ locals {
 	File2Name = "authorized_keys"
 	File3Content = tls_private_key.SshKey.public_key_openssh
 	File3Name = "id_rsa.pub"
+	File4Content = file("./write_files/${local.File4Name}")
+	File4Name = "attach_vblade.sh"
 	Preamble = "${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}"
 	PublicSecurityRuleSourceIpPrefixes = var.PublicSecurityRuleSourceIpPrefixes == null ? [ "${data.http.ip.response_body}/32" ] : var.PublicSecurityRuleSourceIpPrefixes
 	ResourceGroupLocation = var.ResourceGroupLocation
