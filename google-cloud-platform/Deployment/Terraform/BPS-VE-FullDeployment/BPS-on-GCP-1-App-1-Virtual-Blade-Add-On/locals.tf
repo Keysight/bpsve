@@ -15,7 +15,6 @@ locals {
 	Private1VpcNetworkName = var.Private1VpcNetworkName
 	Private2SubnetName = var.Private2SubnetName
 	Private2VpcNetworkName = var.Private2VpcNetworkName
-	PublicFirewallRuleSourceIpRanges = var.PublicFirewallRuleSourceIpRanges == null ? [ "${data.http.ip.response_body}/32" ] : var.PublicFirewallRuleSourceIpRanges
 	PublicSubnetName = var.PublicSubnetName
 	PublicVpcNetworkName = var.PublicVpcNetworkName
 	SshKeyAlgorithm = "RSA"

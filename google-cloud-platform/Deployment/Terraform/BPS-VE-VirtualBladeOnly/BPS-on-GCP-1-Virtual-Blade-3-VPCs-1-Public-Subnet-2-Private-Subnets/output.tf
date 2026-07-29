@@ -47,7 +47,7 @@ output "Private2VpcNetwork" {
 output "PublicVpcNetwork" {
 	value = {
 		mtu = module.Vpc.PublicVpcNetwork.mtu
-		name = module.Vpc.PublicVpcNetwork.name                                                                                                                                                                                              
+		name = module.Vpc.PublicVpcNetwork.name
 	}
 }
 

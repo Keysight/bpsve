@@ -49,12 +49,6 @@ variable "ProjectId" {
 	type = string
 }
 
-variable "PublicFirewallRuleSourceIpRanges" {
-	default = [ "0.0.0.0/0" ]
-	description = "List of IP Addresses /32 or IP CIDR ranges connecting inbound to App"
-	type = list(string)
-}
-
 variable "PublicSubnetName" {
 	description = "Id associated with the public subnet"
 	type = string
