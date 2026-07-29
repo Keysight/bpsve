@@ -1,7 +1,9 @@
 locals {
 	AgentInstanceType = var.AgentInstanceType
+	Agent1Eth0PrivateIpAddress = "10.0.10.11"
 	Agent1InstanceId = "agent1"
 	ApiMaxRetries = var.ApiMaxRetries
+	AppAdminUserName = "admin"
 	AppInstanceType = var.AppInstanceType
 	AppTag = "bps"
 	AppUserName = "ixia"
@@ -14,6 +16,8 @@ locals {
 	File2Name = "authorized_keys"
 	File3Content = tls_private_key.SshKey.public_key_openssh
 	File3Name = "id_rsa.pub"
+	File4Content = file("./write_files/${local.File4Name}")
+	File4Name = "attach_vblade.sh"
 	PlacementGroupName = "${local.Preamble}-placement-group-${local.Region}"
 	PlacementGroupStrategy = "cluster"
 	Preamble = "${local.UserLoginTag}-${local.UserProjectTag}-${local.AppTag}"
