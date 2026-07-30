@@ -9,7 +9,7 @@ TF_FLAGS := -auto-approve
 
 azure: all
 
-all: apply ssh output
+all: init apply ssh output
 
 clean: state destroy
 
