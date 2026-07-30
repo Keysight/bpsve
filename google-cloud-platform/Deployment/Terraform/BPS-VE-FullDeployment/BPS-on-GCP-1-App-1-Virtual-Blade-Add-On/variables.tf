@@ -25,22 +25,22 @@ AppMachineType must be one of the following types:
 }
 
 variable "Private1SubnetName" {
-	description = "Id associated with the first private subnet"
+	description = "Name tag associated with the first private subnet"
 	type = string
 }
 
 variable "Private1VpcNetworkName" {
-	description = "Id associated with the first private vpc network"
+	description = "Name tag associated with the first private vpc network"
 	type = string
 }
 
 variable "Private2SubnetName" {
-	description = "Id associated with the second private subnet"
+	description = "Name tag associated with the second private subnet"
 	type = string
 }
 
 variable "Private2VpcNetworkName" {
-	description = "Id associated with the second private vpc network"
+	description = "Name tag associated with the second private vpc network"
 	type = string
 }
 
@@ -50,12 +50,12 @@ variable "ProjectId" {
 }
 
 variable "PublicSubnetName" {
-	description = "Id associated with the public subnet"
+	description = "Name tag associated with the public subnet"
 	type = string
 }
 
 variable "PublicVpcNetworkName" {
-	description = "Id associated with the public vpc network"
+	description = "Name tag associated with the public vpc network"
 	type = string
 }
 
